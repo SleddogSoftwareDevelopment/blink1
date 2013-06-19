@@ -111,7 +111,7 @@ namespace Sleddog.Blink1
 		{
 			var charValue = inputValue & 0x0F;
 
-			return (charValue < 9) ? (charValue + '0') : (charValue - 10 + 'A');
+			return (charValue <= 9) ? (charValue + '0') : (charValue - 10 + 'A');
 		}
 
 		public bool SetColor(Color color)
