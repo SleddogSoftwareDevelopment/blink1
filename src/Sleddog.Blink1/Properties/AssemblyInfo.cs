@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Sleddog.Blink")]
+[assembly: AssemblyTitle("Sleddog.Blink1")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Atea A/S")]
-[assembly: AssemblyProduct("Sleddog.Blink")]
-[assembly: AssemblyCopyright("Copyright © Atea A/S 2013")]
+[assembly: AssemblyCompany("Stefan Daugaard Poulsen")]
+[assembly: AssemblyProduct("Sleddog.Blink1")]
+[assembly: AssemblyCopyright("Copyright © Stefan Daugaard Poulsen 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
