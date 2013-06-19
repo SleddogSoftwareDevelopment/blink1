@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{87076250-788F-4E71-8910-DD6125A85761}</ProjectGuid>
+    <ProjectGuid>{2BB93595-4256-483F-9A1E-03E57A06DE3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sleddog.Blink1</RootNamespace>
-    <AssemblyName>Sleddog.Blink1</AssemblyName>
+    <RootNamespace>Sleddog.Blink1.Tests</RootNamespace>
+    <AssemblyName>Sleddog.Blink1.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -32,8 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HidLibrary">
-      <HintPath>..\..\..\src\packages\hidlibrary.3.2.23.0\lib\HidLibrary.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\packages\AutoFixture.3.2.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.Xunit">
+      <HintPath>..\packages\AutoFixture.Xunit.3.2.1\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,25 +46,27 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.9.1\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blink1.cs" />
-    <Compile Include="Blink1Connector.cs" />
-    <Compile Include="Blink1Identifier.cs" />
-    <Compile Include="Colors\HSL.cs" />
-    <Compile Include="Commands\Blink1Commands.cs" />
-    <Compile Include="Commands\FadeToColorCommand.cs" />
-    <Compile Include="Commands\IBlink1Command.cs" />
-    <Compile Include="Commands\IBlink1Query.cs" />
-    <Compile Include="Commands\SetColorCommand.cs" />
-    <Compile Include="Commands\VersionQuery.cs" />
+    <Compile Include="Colors\HSLTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Sleddog.Blink1.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Sleddog.Blink1\Sleddog.Blink1.csproj">
+      <Project>{87076250-788F-4E71-8910-DD6125A85761}</Project>
+      <Name>Sleddog.Blink1</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
