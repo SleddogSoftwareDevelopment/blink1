@@ -9,5 +9,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package for connecting to a blink1 device</description>
     <tags>Blink1</tags>
+    <dependencies>
+      <dependency id="hidlibrary" />
+    </dependencies>
   </metadata>
 </package>
