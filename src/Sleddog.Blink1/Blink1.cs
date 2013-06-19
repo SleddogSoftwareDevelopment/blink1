@@ -5,9 +5,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using HidLibrary;
-using Sleddog.Blink.Commands;
+using Sleddog.Blink1.Commands;
 
-namespace Sleddog.Blink
+namespace Sleddog.Blink1
 {
 	public class Blink1 : IDisposable
 	{

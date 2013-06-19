@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 
-namespace Sleddog.Blink.Commands
+namespace Sleddog.Blink1.Commands
 {
 	internal class FadeToColorCommand : IBlink1Command
 	{

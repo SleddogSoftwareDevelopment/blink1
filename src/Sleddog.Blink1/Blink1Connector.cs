@@ -2,7 +2,7 @@
 using System.Linq;
 using HidLibrary;
 
-namespace Sleddog.Blink
+namespace Sleddog.Blink1
 {
 	public class Blink1Connector
 	{

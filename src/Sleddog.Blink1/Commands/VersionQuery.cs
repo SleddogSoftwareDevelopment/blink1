@@ -1,6 +1,6 @@
 using System;
 
-namespace Sleddog.Blink.Commands
+namespace Sleddog.Blink1.Commands
 {
 	internal class VersionQuery : IBlink1Query<Version>
 	{
