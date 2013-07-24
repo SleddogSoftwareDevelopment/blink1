@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sleddog.Blink1.Tests", "Sle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sleddog.Blink1.ExplicitTests", "Sleddog.Blink1.ExplicitTests\Sleddog.Blink1.ExplicitTests.csproj", "{CE262CAE-D218-44B8-A11F-F0F4AC42F5E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sleddog.Blink1.Console", "Sleddog.Blink1.Console\Sleddog.Blink1.Console.csproj", "{DD68C31C-0AF2-448B-AA17-4FBA6ECD59F9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{CE262CAE-D218-44B8-A11F-F0F4AC42F5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE262CAE-D218-44B8-A11F-F0F4AC42F5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE262CAE-D218-44B8-A11F-F0F4AC42F5E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD68C31C-0AF2-448B-AA17-4FBA6ECD59F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD68C31C-0AF2-448B-AA17-4FBA6ECD59F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD68C31C-0AF2-448B-AA17-4FBA6ECD59F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD68C31C-0AF2-448B-AA17-4FBA6ECD59F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
