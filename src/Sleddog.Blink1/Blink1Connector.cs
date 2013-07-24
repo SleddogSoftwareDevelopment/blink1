@@ -19,7 +19,7 @@ namespace Sleddog.Blink1
 			var devices = hidDevices as HidDevice[] ?? hidDevices.ToArray();
 
 			if (devices.Any())
-				return devices.Select(device => new Blink1(device));
+				return devices.Select(device => new Blink1(new Blink1CommandBus(device)));
 
 			return Enumerable.Empty<Blink1>();
 		}
