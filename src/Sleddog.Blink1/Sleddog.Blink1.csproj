@@ -48,6 +48,7 @@
     <Compile Include="Blink1.cs" />
     <Compile Include="Blink1Connector.cs" />
     <Compile Include="Blink1Identifier.cs" />
+    <Compile Include="Colors\ColorGenerator.cs" />
     <Compile Include="Colors\HSL.cs" />
     <Compile Include="Commands\Blink1Commands.cs" />
     <Compile Include="Commands\FadeToColorCommand.cs" />
