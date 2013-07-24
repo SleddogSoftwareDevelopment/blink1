@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
+using System.Reactive.Linq;
 using HidLibrary;
 using Sleddog.Blink1.Commands;
 
@@ -46,26 +46,22 @@ namespace Sleddog.Blink1
 
 			Debug.WriteLine("OnTime: {0}; OffTime: {1}", onTime.TotalMilliseconds, offTime.TotalMilliseconds);
 
-			var blackoutCommand = new SetColorCommand(Color.Black);
-			var flashCommand = new SetColorCommand(color);
+			var x = Observable.Timer(TimeSpan.Zero, interval).TakeWhile(count => count < times).Select(_ => color);
+			var y = Observable.Timer(onTime, interval).TakeWhile(count => count < times).Select(_ => Color.Black);
 
-			var count = 0;
-
-			while (count < times)
-			{
-				SendCommand(flashCommand);
-
-				Thread.Sleep(onTime);
-
-				SendCommand(blackoutCommand);
-
-				if (count < times - 1)
-					Thread.Sleep(offTime);
-
-				count++;
-			}
+			x.Merge(y).Subscribe(c => SendCommand(new SetColorCommand(c)));
 
 			return true;
+		}
+
+		private static IObservable<long> TimerMaxTick(int numberOfTicks, TimeSpan interval)
+		{
+			return Observable.Generate(
+				0L,
+				i => i <= numberOfTicks,
+				i => i + 1,
+				i => i,
+				i => i == 0 ? TimeSpan.Zero : interval);
 		}
 
 		public string ReadSerial()
@@ -126,11 +122,13 @@ namespace Sleddog.Blink1
 
 		public bool ShowColor(Color color, TimeSpan visibleTime)
 		{
-			SendCommand(new SetColorCommand(color));
+			var timer = TimerMaxTick(1, visibleTime);
 
-			Thread.Sleep(visibleTime);
+			var colors = new[] {color, Color.Black}.ToObservable();
 
-			return SendCommand(new SetColorCommand(Color.Black));
+			colors.Zip(timer, (c, t) => c).Subscribe(c => SendCommand(new SetColorCommand(c)));
+
+			return true;
 		}
 
 		internal bool SendCommand(IBlink1Command command)

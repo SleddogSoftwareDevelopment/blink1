@@ -40,9 +40,7 @@ namespace Sleddog.Blink1
 			Parallel.ForEach(blink1Identifiers, bi => {
 				                                    var blink1 = bi.Blink1;
 
-				                                    blink1.SetColor(bi.Color);
-
-				                                    blink1.FadeToColor(Color.Black, identifyTime);
+				                                    blink1.ShowColor(bi.Color, identifyTime);
 			                                    });
 
 			return blink1Identifiers;
