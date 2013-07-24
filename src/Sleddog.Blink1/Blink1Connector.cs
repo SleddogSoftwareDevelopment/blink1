@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using HidLibrary;
+using Sleddog.Blink1.Colors;
 
 namespace Sleddog.Blink1
 {
@@ -25,14 +27,25 @@ namespace Sleddog.Blink1
 
 		public IEnumerable<Blink1Identifier> Identify(TimeSpan identifyTime)
 		{
-			var blinks = Scan();
+			var colorGenerator = new ColorGenerator();
 
-			return Enumerable.Empty<Blink1Identifier>();
-		}
+			var blinks = Scan().ToList();
 
-		private IEnumerable<Color> GenerateColors(int numberOfColors)
-		{
-			return null;
+			var colors = colorGenerator.GenerateColors(blinks.Count());
+
+			var blink1Identifiers = (from b in blinks
+			                         from c in colors
+			                         select new Blink1Identifier(b, c)).ToList();
+
+			Parallel.ForEach(blink1Identifiers, bi => {
+				                                    var blink1 = bi.Blink1;
+
+				                                    blink1.SetColor(bi.Color);
+
+				                                    blink1.FadeToColor(Color.Black, identifyTime);
+			                                    });
+
+			return blink1Identifiers;
 		}
 	}
 }
