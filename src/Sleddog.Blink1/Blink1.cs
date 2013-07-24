@@ -126,7 +126,9 @@ namespace Sleddog.Blink1
 
 			var colors = new[] {color, Color.Black}.ToObservable();
 
-			colors.Zip(timer, (c, t) => c).Subscribe(c => SendCommand(new SetColorCommand(c)));
+			colors.Zip(timer, (c, t) => new {Color = c, Count = t})
+				.TakeWhile(x => x.Count <= 1)
+				.Subscribe(item => SendCommand(new SetColorCommand(item.Color)), () => Debug.WriteLine("Completed ShowColor"));
 
 			return true;
 		}
