@@ -124,6 +124,15 @@ namespace Sleddog.Blink1
 			return SendCommand(new FadeToColorCommand(color, fadeTime));
 		}
 
+		public bool ShowColor(Color color, TimeSpan visibleTime)
+		{
+			SendCommand(new SetColorCommand(color));
+
+			Thread.Sleep(visibleTime);
+
+			return SendCommand(new SetColorCommand(Color.Black));
+		}
+
 		internal bool SendCommand(IBlink1Command command)
 		{
 			if (!IsConnected)
