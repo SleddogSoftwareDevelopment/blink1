@@ -16,9 +16,6 @@ namespace Sleddog.Blink1
 		public Blink1(HidDevice hidDevice)
 		{
 			this.hidDevice = hidDevice;
-
-			Debug.WriteLine(this.hidDevice.DevicePath);
-			Debug.WriteLine(ReadSerial());
 		}
 
 		public bool IsConnected
@@ -29,6 +26,11 @@ namespace Sleddog.Blink1
 		public Version Version
 		{
 			get { return SendQuery(new VersionQuery()); }
+		}
+
+		public string SerialNumber
+		{
+			get { return SendQuery(new ReadSerialQuery()); }
 		}
 
 		public void Dispose()
@@ -42,9 +44,6 @@ namespace Sleddog.Blink1
 			var timeOnInMilliseconds = Math.Min(interval.TotalMilliseconds/4, 250);
 
 			var onTime = TimeSpan.FromMilliseconds(timeOnInMilliseconds);
-			var offTime = interval.Subtract(onTime);
-
-			Debug.WriteLine("OnTime: {0}; OffTime: {1}", onTime.TotalMilliseconds, offTime.TotalMilliseconds);
 
 			var x = Observable.Timer(TimeSpan.Zero, interval).TakeWhile(count => count < times).Select(_ => color);
 			var y = Observable.Timer(onTime, interval).TakeWhile(count => count < times).Select(_ => Color.Black);
@@ -52,62 +51,6 @@ namespace Sleddog.Blink1
 			x.Merge(y).Subscribe(c => SendCommand(new SetColorCommand(c)));
 
 			return true;
-		}
-
-		private static IObservable<long> TimerMaxTick(int numberOfTicks, TimeSpan interval)
-		{
-			return Observable.Generate(
-				0L,
-				i => i <= numberOfTicks,
-				i => i + 1,
-				i => i,
-				i => i == 0 ? TimeSpan.Zero : interval);
-		}
-
-		public string ReadSerial()
-		{
-			byte eepromSerialAddress = 2;
-
-			var command = new[] {Convert.ToByte(1), (byte) Blink1Commands.EEPROMRead};
-
-			var serialBytes = new byte[4];
-
-			for (var i = 0; i < 4; i++)
-			{
-				var serialPartCommand = command.Concat(new[] {eepromSerialAddress++}).ToArray();
-
-				var written = hidDevice.WriteFeatureData(serialPartCommand);
-
-				if (written)
-				{
-					byte[] outputData;
-
-					var read = hidDevice.ReadFeatureData(out outputData, Convert.ToByte(1));
-
-					if (read)
-						serialBytes[i] = outputData[3];
-				}
-			}
-
-			var serialChars = new List<char>();
-
-			foreach (var b in serialBytes)
-			{
-				var firstChar = b >> 4;
-				var secondChar = b;
-
-				serialChars.Add((char) ToHex(firstChar));
-				serialChars.Add((char) ToHex(secondChar));
-			}
-
-			return string.Format("0x{0}", string.Join(string.Empty, serialChars));
-		}
-
-		private int ToHex(int inputValue)
-		{
-			var charValue = inputValue & 0x0F;
-
-			return (charValue <= 9) ? (charValue + '0') : (charValue - 10 + 'A');
 		}
 
 		public bool SetColor(Color color)
@@ -122,15 +65,56 @@ namespace Sleddog.Blink1
 
 		public bool ShowColor(Color color, TimeSpan visibleTime)
 		{
-			var timer = TimerMaxTick(1, visibleTime);
+			var timer = ObservableExt.TimerMaxTick(1, TimeSpan.Zero, visibleTime);
 
 			var colors = new[] {color, Color.Black}.ToObservable();
 
 			colors.Zip(timer, (c, t) => new {Color = c, Count = t})
-				.TakeWhile(x => x.Count <= 1)
+				//		.TakeWhile(x => x.Count <= 1)
 				.Subscribe(item => SendCommand(new SetColorCommand(item.Color)), () => Debug.WriteLine("Completed ShowColor"));
 
 			return true;
+		}
+
+		internal bool SendCommand(IBlink1MultiCommand multiCommand)
+		{
+			if (!IsConnected)
+				Connect();
+
+			var commandResults = (from hc in multiCommand.ToHidCommands()
+			                      select hidDevice.WriteFeatureData(hc)).ToList();
+
+			return commandResults.Any(cr => cr == false);
+		}
+
+		internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
+		{
+			if (!IsConnected)
+				Connect();
+
+			var responseSegments = new List<byte[]>();
+
+			var hidCommands = query.ToHidCommands().ToList();
+
+			foreach (var hidCommand in hidCommands)
+			{
+				var commandSend = hidDevice.WriteFeatureData(hidCommand);
+
+				if (commandSend)
+				{
+					byte[] responseData;
+
+					var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
+
+					if (readData)
+						responseSegments.Add(responseData);
+				}
+			}
+
+			if (responseSegments.Count == hidCommands.Count())
+				return query.ToResponseType(responseSegments);
+
+			return default(T);
 		}
 
 		internal bool SendCommand(IBlink1Command command)
@@ -138,7 +122,7 @@ namespace Sleddog.Blink1
 			if (!IsConnected)
 				Connect();
 
-			var commandSend = hidDevice.WriteFeatureData(command.ToByteArray());
+			var commandSend = hidDevice.WriteFeatureData(command.ToHidCommand());
 
 			return commandSend;
 		}
@@ -148,7 +132,7 @@ namespace Sleddog.Blink1
 			if (!IsConnected)
 				Connect();
 
-			var commandSend = hidDevice.WriteFeatureData(query.ToByteArray());
+			var commandSend = hidDevice.WriteFeatureData(query.ToHidCommand());
 
 			if (commandSend)
 			{

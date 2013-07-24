@@ -14,7 +14,7 @@ namespace Sleddog.Blink1.Commands
 			this.fadeTime = fadeTime;
 		}
 
-		public byte[] ToByteArray()
+		public byte[] ToHidCommand()
 		{
 			var timeInMilliSeconds = Convert.ToInt32(fadeTime.TotalMilliseconds);
 

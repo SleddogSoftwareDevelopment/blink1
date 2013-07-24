@@ -12,7 +12,7 @@ namespace Sleddog.Blink1.Commands
 			this.color = color;
 		}
 
-		public byte[] ToByteArray()
+		public byte[] ToHidCommand()
 		{
 			return new[] {Convert.ToByte(1), (byte) Blink1Commands.SetColor, color.R, color.G, color.B};
 		}

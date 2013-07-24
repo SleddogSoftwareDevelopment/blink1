@@ -12,7 +12,7 @@ namespace Sleddog.Blink1.Commands
 			return new Version(major, minor);
 		}
 
-		public byte[] ToByteArray()
+		public byte[] ToHidCommand()
 		{
 			return this;
 		}

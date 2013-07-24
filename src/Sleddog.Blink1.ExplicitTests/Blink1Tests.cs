@@ -15,7 +15,7 @@ namespace Sleddog.Blink1.ExplicitTests
 
 			var blink1 = connector.Scan().First();
 
-			var actual = blink1.ReadSerial();
+			var actual = blink1.SerialNumber;
 
 			Assert.InRange(actual, LowestSerialNumber, HighestSerialNumber);
 		}
