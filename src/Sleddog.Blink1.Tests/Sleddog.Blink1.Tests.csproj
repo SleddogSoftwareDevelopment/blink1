@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colors\ColorGeneratorTests.cs" />
     <Compile Include="Colors\HSLTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
