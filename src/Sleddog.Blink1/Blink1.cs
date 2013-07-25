@@ -60,6 +60,14 @@ namespace Sleddog.Blink1
 			return true;
 		}
 
+		public bool PlaybackPresets(int startPosition = 0) {
+			return commandBus.SendCommand(new PresetControlCommand(true, startPosition));
+		}
+
+		public bool PausePresets() {
+			return commandBus.SendCommand(new PresetControlCommand(false));
+		}
+
 		public void Dispose()
 		{
 			if (commandBus != null)

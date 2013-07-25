@@ -70,6 +70,7 @@
     <Compile Include="Commands\IBlink1MultiCommand.cs" />
     <Compile Include="Commands\IBlink1MultiQuery.cs" />
     <Compile Include="Commands\IBlink1Query.cs" />
+    <Compile Include="Commands\PresetControlCommand.cs" />
     <Compile Include="Commands\ReadSerialQuery.cs" />
     <Compile Include="Commands\SetColorCommand.cs" />
     <Compile Include="Commands\VersionQuery.cs" />
