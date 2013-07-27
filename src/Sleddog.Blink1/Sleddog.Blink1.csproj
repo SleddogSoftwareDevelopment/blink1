@@ -60,6 +60,7 @@
     <Compile Include="Blink1.cs" />
     <Compile Include="Blink1CommandBus.cs" />
     <Compile Include="Blink1Connector.cs" />
+    <Compile Include="Blink1Duration.cs" />
     <Compile Include="Blink1Identifier.cs" />
     <Compile Include="Colors\ColorGenerator.cs" />
     <Compile Include="Colors\HSL.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="ObservableExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeSpanExt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
