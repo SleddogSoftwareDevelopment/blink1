@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Sleddog.Blink1.Commands
 {
@@ -8,6 +9,10 @@ namespace Sleddog.Blink1.Commands
 		private readonly byte position;
 
 		public SetPresetCommand(Blink1Preset preset, int position) {
+			if (!Enumerable.Range(0, Blink1.NumberOfPresets).Contains(position)) {
+				throw new ArgumentOutOfRangeException("position");
+			}
+
 			this.preset = preset;
 			this.position = Convert.ToByte(position);
 		}

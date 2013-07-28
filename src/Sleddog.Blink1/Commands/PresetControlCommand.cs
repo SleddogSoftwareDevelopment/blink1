@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sleddog.Blink1.Commands
 {
@@ -11,7 +9,7 @@ namespace Sleddog.Blink1.Commands
 		private readonly byte startPosition;
 
 		public PresetControlCommand(bool enabled, int startPosition = 0) {
-			if (startPosition < 0 || startPosition > 11) {
+			if (!Enumerable.Range(0, Blink1.NumberOfPresets).Contains(startPosition)) {
 				throw new ArgumentOutOfRangeException("startPosition");
 			}
 
