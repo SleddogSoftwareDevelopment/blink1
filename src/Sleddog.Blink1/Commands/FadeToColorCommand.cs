@@ -14,14 +14,10 @@ namespace Sleddog.Blink1.Commands
 			this.fadeTime = fadeTime;
 		}
 
-		public byte[] ToHidCommand()
-		{
-			var timeInMilliSeconds = Convert.ToInt32(fadeTime.TotalMilliseconds);
+		public byte[] ToHidCommand() {
+			Blink1Duration duration = fadeTime.ToBlink1Duration();
 
-			var fadeTimePart0 = Convert.ToByte((timeInMilliSeconds/10) >> 8);
-			var fadeTimePart1 = Convert.ToByte((timeInMilliSeconds/10) & 0xFF);
-
-			return new[] {Convert.ToByte(1), (byte) Blink1Commands.FadeToColor, color.R, color.G, color.B, fadeTimePart0, fadeTimePart1};
+			return new[] {Convert.ToByte(1), (byte) Blink1Commands.FadeToColor, color.R, color.G, color.B, duration.High, duration.Low};
 		}
 	}
 }
