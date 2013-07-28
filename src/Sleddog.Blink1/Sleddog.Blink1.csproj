@@ -75,6 +75,7 @@
     <Compile Include="Commands\ReadPresetQuery.cs" />
     <Compile Include="Commands\ReadSerialQuery.cs" />
     <Compile Include="Commands\SetColorCommand.cs" />
+    <Compile Include="Commands\SetPresetCommand.cs" />
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="ObservableExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
