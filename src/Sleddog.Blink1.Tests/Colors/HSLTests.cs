@@ -54,14 +54,14 @@ namespace Sleddog.Blink1.Tests.Colors
 			{
 				return new[]
 				       {
-					       new object[] {(ushort)0, 0, 1, Color.FromArgb(255, 255, 255)},
-					       new object[] {(ushort)0, 0, 0.502f, Color.FromArgb(128, 128, 128)},
-					       new object[] {(ushort)0, 0, 0, Color.FromArgb(0, 0, 0)},
-					       new object[] {(ushort)0, 1, 0.5f, Color.FromArgb(255, 0, 0)},
-					       new object[] {(ushort)120, 1, 0.5f, Color.FromArgb(0, 255, 0)},
-					       new object[] {(ushort)240, 1, 0.5f, Color.FromArgb(0, 0, 255)},
-					       new object[] {(ushort)284, 0.807f, 0.224f, Color.FromArgb(78, 11, 103)},
-					       new object[] {(ushort)210, 0.50f, 0.165f, Color.FromArgb(21,42,63)},
+					       new object[] {(ushort) 0, 0, 1, Color.FromArgb(255, 255, 255)},
+					       new object[] {(ushort) 0, 0, 0.502f, Color.FromArgb(128, 128, 128)},
+					       new object[] {(ushort) 0, 0, 0, Color.FromArgb(0, 0, 0)},
+					       new object[] {(ushort) 0, 1, 0.5f, Color.FromArgb(255, 0, 0)},
+					       new object[] {(ushort) 120, 1, 0.5f, Color.FromArgb(0, 255, 0)},
+					       new object[] {(ushort) 240, 1, 0.5f, Color.FromArgb(0, 0, 255)},
+					       new object[] {(ushort) 284, 0.807f, 0.224f, Color.FromArgb(78, 11, 103)},
+					       new object[] {(ushort) 210, 0.50f, 0.165f, Color.FromArgb(21, 42, 63)}
 				       };
 			}
 		}

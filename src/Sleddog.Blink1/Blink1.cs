@@ -5,8 +5,9 @@ using Sleddog.Blink1.Commands;
 
 namespace Sleddog.Blink1
 {
-	public class Blink1 : IDisposable {
-	    public const int NumberOfPresets = 12;
+	public class Blink1 : IDisposable
+	{
+		public const int NumberOfPresets = 12;
 
 		private readonly Blink1CommandBus commandBus;
 
@@ -61,23 +62,28 @@ namespace Sleddog.Blink1
 			return true;
 		}
 
-		public bool PlaybackPresets(int startPosition = 0) {
+		public bool PlaybackPresets(int startPosition = 0)
+		{
 			return commandBus.SendCommand(new PresetControlCommand(true, startPosition));
 		}
 
-		public bool PausePresets() {
+		public bool PausePresets()
+		{
 			return commandBus.SendCommand(new PresetControlCommand(false));
 		}
 
-		public bool FadeToPreset(Blink1Preset preset) {
+		public bool FadeToPreset(Blink1Preset preset)
+		{
 			return FadeToColor(preset.Color, preset.Duration);
 		}
 
-		public Blink1Preset ReadPreset(int position) {
+		public Blink1Preset ReadPreset(int position)
+		{
 			return commandBus.SendQuery(new ReadPresetQuery(position));
 		}
 
-		public bool SavePreset(Blink1Preset preset, int position) {
+		public bool SavePreset(Blink1Preset preset, int position)
+		{
 			return commandBus.SendCommand(new SetPresetCommand(preset, position));
 		}
 

@@ -38,5 +38,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly :InternalsVisibleTo("Sleddog.Blink1.Tests")]
+[assembly: InternalsVisibleTo("Sleddog.Blink1.Tests")]

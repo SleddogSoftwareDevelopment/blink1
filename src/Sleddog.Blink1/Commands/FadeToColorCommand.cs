@@ -14,8 +14,9 @@ namespace Sleddog.Blink1.Commands
 			this.fadeTime = fadeTime;
 		}
 
-		public byte[] ToHidCommand() {
-			Blink1Duration duration = fadeTime.ToBlink1Duration();
+		public byte[] ToHidCommand()
+		{
+			var duration = fadeTime.ToBlink1Duration();
 
 			return new[] {Convert.ToByte(1), (byte) Blink1Commands.FadeToColor, color.R, color.G, color.B, duration.High, duration.Low};
 		}
