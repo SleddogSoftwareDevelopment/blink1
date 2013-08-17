@@ -45,8 +45,10 @@ namespace Sleddog.Blink1
 			return commandBus.SendCommand(new SetColorCommand(color));
 		}
 
-		public bool FadeToColor(Color color, TimeSpan fadeTime)
+		public bool FadeToColor(Color color, TimeSpan fadeDuration)
 		{
+			var fadeTime = new Blink1Duration(fadeDuration);
+
 			return commandBus.SendCommand(new FadeToColorCommand(color, fadeTime));
 		}
 

@@ -23,10 +23,8 @@ namespace Sleddog.Blink1.ExplicitTests
 		public void ReadPresetReturnsValidPreset()
 		{
 			var actual = blink1.ReadPreset(0);
-			//var result = blink1.FadeToPreset(actual);
 
 			Assert.NotNull(actual);
-			//Assert.True(result);
 		}
 
 		[RequireBlink1Hardware]

@@ -20,7 +20,7 @@ namespace Sleddog.Blink1.Commands
 		public byte[] ToHidCommand()
 		{
 			//- Set color pattern line  format: {0x01, 'P', r,g,b,     th,tl, p }
-			var duration = preset.Duration.ToBlink1Duration();
+			var duration = preset.Duration;
 
 			return new[]
 			       {
