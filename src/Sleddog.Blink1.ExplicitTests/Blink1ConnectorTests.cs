@@ -9,9 +9,7 @@ namespace Sleddog.Blink1.ExplicitTests
 		[RequireBlink1Hardware]
 		public void CanIdentify()
 		{
-			var sut = new Blink1Connector();
-
-			Assert.DoesNotThrow(() => sut.Identify(TimeSpan.FromSeconds(1)));
+			Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
 
 			Thread.Sleep(TimeSpan.FromSeconds(1));
 		}

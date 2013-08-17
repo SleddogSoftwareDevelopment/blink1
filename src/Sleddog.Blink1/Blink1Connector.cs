@@ -7,12 +7,12 @@ using Sleddog.Blink1.Colors;
 
 namespace Sleddog.Blink1
 {
-	public class Blink1Connector
+	public static class Blink1Connector
 	{
 		private const int VendorId = 0x27B8;
 		private const int ProductId = 0x01ED;
 
-		public IEnumerable<Blink1> Scan()
+		public static IEnumerable<Blink1> Scan()
 		{
 			var hidDevices = HidDevices.Enumerate(VendorId, ProductId);
 
@@ -24,7 +24,7 @@ namespace Sleddog.Blink1
 			return Enumerable.Empty<Blink1>();
 		}
 
-		public IEnumerable<Blink1Identifier> Identify(TimeSpan identifyTime)
+		public static IEnumerable<Blink1Identifier> Identify(TimeSpan identifyTime)
 		{
 			var colorGenerator = new ColorGenerator();
 
