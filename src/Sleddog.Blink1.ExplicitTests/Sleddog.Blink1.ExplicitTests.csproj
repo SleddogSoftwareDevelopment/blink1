@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blink1ConnectorTests.cs" />
+    <Compile Include="Blink1Fixture.cs" />
     <Compile Include="Blink1Tests.cs" />
     <Compile Include="ExplicitFactAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
