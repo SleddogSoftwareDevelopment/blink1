@@ -64,24 +64,41 @@ namespace Sleddog.Blink1
 			return true;
 		}
 
+		public bool SavePreset(Blink1Preset preset, ushort position)
+		{
+			if (position < NumberOfPresets)
+				return commandBus.SendCommand(new SetPresetCommand(preset, position));
+
+			var message = string.Format("Unable to save a preset outside the upper count ({0}) of preset slots", NumberOfPresets);
+
+			throw new ArgumentOutOfRangeException("position", message);
+		}
+
+		public Blink1Preset ReadPreset(ushort position)
+		{
+			if (position < NumberOfPresets)
+				return commandBus.SendQuery(new ReadPresetQuery(position));
+
+			var message = string.Format("Unable to read a preset from position {0} since there is only {1} preset slots", position,
+				NumberOfPresets);
+
+			throw new ArgumentOutOfRangeException("position", message);
+		}
+
 		public bool PlaybackPresets(ushort startPosition)
 		{
-			return commandBus.SendCommand(new PresetControlCommand(true, startPosition));
+			if (startPosition < NumberOfPresets)
+				return commandBus.SendCommand(new PresetControlCommand(true, startPosition));
+
+			var message = string.Format("Unable to play from position {0} since there is only {1} preset slots", startPosition,
+				NumberOfPresets);
+
+			throw new ArgumentOutOfRangeException("startPosition", message);
 		}
 
 		public bool PausePresets()
 		{
 			return commandBus.SendCommand(new PresetControlCommand(false));
-		}
-
-		public Blink1Preset ReadPreset(ushort position)
-		{
-			return commandBus.SendQuery(new ReadPresetQuery(position));
-		}
-
-		public bool SavePreset(Blink1Preset preset, ushort position)
-		{
-			return commandBus.SendCommand(new SetPresetCommand(preset, position));
 		}
 
 		public void Dispose()
