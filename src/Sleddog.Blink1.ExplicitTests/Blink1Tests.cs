@@ -36,8 +36,6 @@ namespace Sleddog.Blink1.ExplicitTests
 
 			var actual = blink1.ReadPreset(0);
 
-			blink1.FadeToPreset(actual);
-
 			Assert.Equal(expected, actual);
 		}
 
