@@ -38,6 +38,8 @@ namespace Sleddog.Blink1.Tests
 		{
 			get
 			{
+				yield return new object[] {0, new byte()};
+
 				foreach (var val in GenerateSampleData())
 				{
 					var expected = Convert.ToByte((val/10) >> 8);
@@ -51,6 +53,8 @@ namespace Sleddog.Blink1.Tests
 		{
 			get
 			{
+				yield return new object[] { 0, new byte() };
+
 				foreach (var val in GenerateSampleData())
 				{
 					var expected = Convert.ToByte((val/10) & 0xFF);
