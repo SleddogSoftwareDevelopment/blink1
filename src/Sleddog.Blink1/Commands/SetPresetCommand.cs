@@ -8,7 +8,7 @@ namespace Sleddog.Blink1.Commands
 		private readonly Blink1Preset preset;
 		private readonly byte position;
 
-		public SetPresetCommand(Blink1Preset preset, int position)
+		public SetPresetCommand(Blink1Preset preset, ushort position)
 		{
 			if (!Enumerable.Range(0, Blink1.NumberOfPresets).Contains(position))
 				throw new ArgumentOutOfRangeException("position");
@@ -19,18 +19,18 @@ namespace Sleddog.Blink1.Commands
 
 		public byte[] ToHidCommand()
 		{
-			//- Set color pattern line  format: {0x01, 'P', r,g,b,     th,tl, p }
-			var duration = preset.Duration;
+			var presetDuration = preset.Duration;
+			var presetColor = preset.Color;
 
 			return new[]
 			       {
 				       Convert.ToByte(1),
 				       (byte) Blink1Commands.SavePreset,
-				       preset.Color.R,
-				       preset.Color.G,
-				       preset.Color.B,
-				       duration.High,
-				       duration.Low,
+				       presetColor.R,
+				       presetColor.G,
+				       presetColor.B,
+				       presetDuration.High,
+				       presetDuration.Low,
 				       position
 			       };
 		}

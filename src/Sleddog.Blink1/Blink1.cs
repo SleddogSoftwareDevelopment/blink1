@@ -84,7 +84,7 @@ namespace Sleddog.Blink1
 			return commandBus.SendQuery(new ReadPresetQuery(position));
 		}
 
-		public bool SavePreset(Blink1Preset preset, int position)
+		public bool SavePreset(Blink1Preset preset, ushort position)
 		{
 			return commandBus.SendCommand(new SetPresetCommand(preset, position));
 		}
