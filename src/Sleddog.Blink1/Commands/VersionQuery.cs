@@ -20,7 +20,11 @@ namespace Sleddog.Blink1.Commands
 
 		public static implicit operator byte[](VersionQuery query)
 		{
-			return new[] {Convert.ToByte(1), (byte) Blink1Commands.GetVersion};
+			return new[]
+			       {
+				       Convert.ToByte(1),
+				       (byte) Blink1Commands.GetVersion
+			       };
 		}
 	}
 }
