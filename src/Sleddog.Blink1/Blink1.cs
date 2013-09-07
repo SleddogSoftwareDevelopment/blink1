@@ -74,11 +74,6 @@ namespace Sleddog.Blink1
 			return commandBus.SendCommand(new PresetControlCommand(false));
 		}
 
-		//public bool FadeToPreset(Blink1Preset preset)
-		//{
-		//	return FadeToColor(preset.Color, preset.Duration);
-		//}
-
 		public Blink1Preset ReadPreset(ushort position)
 		{
 			return commandBus.SendQuery(new ReadPresetQuery(position));

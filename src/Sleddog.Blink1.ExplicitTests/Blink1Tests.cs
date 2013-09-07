@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using Xunit;
 
 namespace Sleddog.Blink1.ExplicitTests
@@ -39,15 +40,37 @@ namespace Sleddog.Blink1.ExplicitTests
 			Assert.Equal(expected, actual);
 		}
 
-		//[RequireBlink1Hardware]
-		//public void FadeToPreset()
-		//{
-		//	var preset = new Blink1Preset(Color.Green, TimeSpan.FromSeconds(2));
+		[RequireBlink1Hardware]
+		public void SetColor()
+		{
+			var actual = blink1.SetColor(Color.Blue);
 
-		//	var result = blink1.FadeToPreset(preset);
+			Assert.True(actual);
+		}
 
-		//	Assert.True(result);
-		//}
+		[RequireBlink1Hardware]
+		public void ShowColor()
+		{
+			var showColorTime = TimeSpan.FromSeconds(2);
+
+			var actual = blink1.ShowColor(Color.Chartreuse, showColorTime);
+
+			Thread.Sleep(showColorTime);
+
+			Assert.True(actual);
+		}
+
+		[RequireBlink1Hardware]
+		public void FadeToColor()
+		{
+			var fadeDuration = TimeSpan.FromSeconds(2);
+
+			var actual = blink1.FadeToColor(Color.Red, fadeDuration);
+
+			Thread.Sleep(fadeDuration);
+
+			Assert.True(actual);
+		}
 
 		public void SetFixture(Blink1Fixture data)
 		{
