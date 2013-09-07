@@ -64,7 +64,7 @@ namespace Sleddog.Blink1
 			return true;
 		}
 
-		public bool PlaybackPresets(int startPosition = 0)
+		public bool PlaybackPresets(ushort startPosition)
 		{
 			return commandBus.SendCommand(new PresetControlCommand(true, startPosition));
 		}
@@ -79,7 +79,7 @@ namespace Sleddog.Blink1
 			return FadeToColor(preset.Color, preset.Duration);
 		}
 
-		public Blink1Preset ReadPreset(int position)
+		public Blink1Preset ReadPreset(ushort position)
 		{
 			return commandBus.SendQuery(new ReadPresetQuery(position));
 		}

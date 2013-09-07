@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
 
 namespace Sleddog.Blink1.Commands
 {
@@ -8,11 +7,8 @@ namespace Sleddog.Blink1.Commands
 	{
 		private readonly byte position;
 
-		public ReadPresetQuery(int position)
+		public ReadPresetQuery(ushort position)
 		{
-			if (!Enumerable.Range(0, Blink1.NumberOfPresets).Contains(position))
-				throw new ArgumentOutOfRangeException("position");
-
 			this.position = Convert.ToByte(position);
 		}
 
