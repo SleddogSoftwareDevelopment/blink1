@@ -11,11 +11,6 @@ namespace Sleddog.Blink1
 
 		private readonly Blink1CommandBus commandBus;
 
-		public Blink1(Blink1CommandBus commandBus)
-		{
-			this.commandBus = commandBus;
-		}
-
 		public Version Version
 		{
 			get { return commandBus.SendQuery(new VersionQuery()); }
@@ -24,6 +19,11 @@ namespace Sleddog.Blink1
 		public string SerialNumber
 		{
 			get { return commandBus.SendQuery(new ReadSerialQuery()); }
+		}
+
+		public Blink1(Blink1CommandBus commandBus)
+		{
+			this.commandBus = commandBus;
 		}
 
 		public bool Blink(Color color, TimeSpan interval, ushort times)
