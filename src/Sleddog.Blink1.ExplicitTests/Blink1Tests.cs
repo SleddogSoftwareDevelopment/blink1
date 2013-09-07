@@ -39,15 +39,15 @@ namespace Sleddog.Blink1.ExplicitTests
 			Assert.Equal(expected, actual);
 		}
 
-		[RequireBlink1Hardware]
-		public void FadeToPreset()
-		{
-			var preset = new Blink1Preset(Color.Green, TimeSpan.FromSeconds(1));
+		//[RequireBlink1Hardware]
+		//public void FadeToPreset()
+		//{
+		//	var preset = new Blink1Preset(Color.Green, TimeSpan.FromSeconds(2));
 
-			var result = blink1.FadeToPreset(preset);
+		//	var result = blink1.FadeToPreset(preset);
 
-			Assert.True(result);
-		}
+		//	Assert.True(result);
+		//}
 
 		public void SetFixture(Blink1Fixture data)
 		{
