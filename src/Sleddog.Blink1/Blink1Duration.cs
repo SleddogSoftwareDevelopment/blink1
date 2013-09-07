@@ -14,7 +14,7 @@ namespace Sleddog.Blink1
 
 		public byte High { get; private set; }
 		public byte Low { get; private set; }
-	
+
 		protected bool Equals(Blink1Duration other)
 		{
 			return High == other.High && Low == other.Low;
@@ -26,16 +26,16 @@ namespace Sleddog.Blink1
 				return false;
 			if (ReferenceEquals(this, obj))
 				return true;
-			if (obj.GetType() != this.GetType())
+			if (obj.GetType() != GetType())
 				return false;
-			return Equals((Blink1Duration)obj);
+			return Equals((Blink1Duration) obj);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				return (High.GetHashCode() * 397) ^ Low.GetHashCode();
+				return (High.GetHashCode()*397) ^ Low.GetHashCode();
 			}
 		}
 
@@ -47,6 +47,11 @@ namespace Sleddog.Blink1
 		public static bool operator !=(Blink1Duration left, Blink1Duration right)
 		{
 			return !Equals(left, right);
+		}
+
+		public static implicit operator TimeSpan(Blink1Duration duration)
+		{
+			return TimeSpan.Zero;
 		}
 	}
 }
