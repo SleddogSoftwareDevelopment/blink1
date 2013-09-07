@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blink1DurationTests.cs" />
     <Compile Include="Colors\ColorGeneratorTests.cs" />
     <Compile Include="Colors\HSLTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

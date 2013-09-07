@@ -4,16 +4,18 @@ namespace Sleddog.Blink1
 {
 	public class Blink1Duration
 	{
+		public byte High { get; private set; }
+		public byte Low { get; private set; }
+
 		public Blink1Duration(TimeSpan duration)
 		{
 			var durationInMilliseconds = Convert.ToInt32(duration.TotalMilliseconds);
 
-			High = Convert.ToByte((durationInMilliseconds/10) >> 8);
-			Low = Convert.ToByte((durationInMilliseconds/10) & 0xFF);
-		}
+			var blinkTime = (durationInMilliseconds/10);
 
-		public byte High { get; private set; }
-		public byte Low { get; private set; }
+			High = Convert.ToByte(blinkTime >> 8);
+			Low = Convert.ToByte(blinkTime & 0xFF);
+		}
 
 		protected bool Equals(Blink1Duration other)
 		{
@@ -51,7 +53,12 @@ namespace Sleddog.Blink1
 
 		public static implicit operator TimeSpan(Blink1Duration duration)
 		{
-			return TimeSpan.Zero;
+			var low = duration.Low;
+			var high = duration.High;
+
+			var blinkTime = Convert.ToInt32(high | low << 8);
+
+			return TimeSpan.FromMilliseconds(blinkTime*10);
 		}
 	}
 }
