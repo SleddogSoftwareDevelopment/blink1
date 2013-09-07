@@ -72,6 +72,38 @@ namespace Sleddog.Blink1.ExplicitTests
 			Assert.True(actual);
 		}
 
+		[RequireBlink1Hardware]
+		public void SetPreset0AndPlayIt()
+		{
+			var presetDuration = TimeSpan.FromSeconds(2);
+
+			var preset = new Blink1Preset(Color.DarkGoldenrod, presetDuration);
+
+			blink1.SavePreset(preset, 0);
+
+			blink1.PlaybackPresets(0);
+
+			Thread.Sleep(presetDuration);
+
+			blink1.PausePresets();
+		}
+
+		[RequireBlink1Hardware]
+		public void PlayPreset()
+		{
+			blink1.PlaybackPresets(0);
+
+			Thread.Sleep(TimeSpan.FromSeconds(5));
+
+			blink1.PausePresets();
+		}
+
+		[RequireBlink1Hardware]
+		public void TurnOff()
+		{
+			blink1.SetColor(Color.Black);
+		}
+
 		public void SetFixture(Blink1Fixture data)
 		{
 			blink1 = data.Device;

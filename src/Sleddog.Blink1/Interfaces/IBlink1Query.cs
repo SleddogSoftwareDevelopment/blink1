@@ -1,4 +1,4 @@
-namespace Sleddog.Blink1.Commands
+namespace Sleddog.Blink1.Interfaces
 {
 	internal interface IBlink1Query : IBlink1Command
 	{

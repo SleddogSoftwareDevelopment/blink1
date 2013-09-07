@@ -1,4 +1,4 @@
-namespace Sleddog.Blink1.Commands
+namespace Sleddog.Blink1
 {
 	internal enum Blink1Commands : byte
 	{
