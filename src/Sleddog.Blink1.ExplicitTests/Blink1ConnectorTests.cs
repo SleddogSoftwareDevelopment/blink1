@@ -1,5 +1,5 @@
 ﻿using System;
-using FluentAssertions;
+using Xunit;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
@@ -8,9 +8,7 @@ namespace Sleddog.Blink1.ExplicitTests
 		[RequireBlink1Hardware]
 		public void CanIdentify()
 		{
-			Action act = () => Blink1Connector.Identify(TimeSpan.FromSeconds(1));
-
-			act.ShouldNotThrow();
+			Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
 		}
 
 		[RequireBlink1Hardware]
@@ -18,7 +16,7 @@ namespace Sleddog.Blink1.ExplicitTests
 		{
 			var devices = Blink1Connector.Scan();
 
-			devices.Should().HaveCount(1);
+			Assert.Single(devices);
 		}
 
 		[RequireNoBlink1Hardware]
@@ -26,7 +24,7 @@ namespace Sleddog.Blink1.ExplicitTests
 		{
 			var devices = Blink1Connector.Scan();
 
-			devices.Should().BeEmpty();
+			Assert.Empty(devices);
 		}
 	}
 }

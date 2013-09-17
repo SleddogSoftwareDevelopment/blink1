@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using FluentAssertions;
+using Ploeh.AutoFixture.Xunit;
 using Sleddog.Blink1.Colors;
+using Xunit;
 using Xunit.Extensions;
 
 namespace Sleddog.Blink1.Tests.Colors
@@ -17,7 +18,7 @@ namespace Sleddog.Blink1.Tests.Colors
 			var expected = numberOfColors;
 			var actual = colors.Count;
 
-			actual.Should().Be(expected);
+			Assert.Equal(expected, actual);
 		}
 
 		[Theory, AutoData]
@@ -29,7 +30,7 @@ namespace Sleddog.Blink1.Tests.Colors
 
 			var actual = expected.Distinct();
 
-			actual.Should().Be(expected);
+			Assert.Equal(expected, actual);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions;
 using Xunit;
 using Xunit.Extensions;
 
@@ -20,7 +19,7 @@ namespace Sleddog.Blink1.Tests
 
 			var actual = sut.High;
 
-			actual.Should().Be(expected);
+			Assert.Equal(expected, actual);
 		}
 
 		[Theory, PropertyData("LowTestData")]
@@ -32,7 +31,7 @@ namespace Sleddog.Blink1.Tests
 
 			var actual = sut.Low;
 
-			actual.Should().Be(expected);
+			Assert.Equal(expected, actual);
 		}
 
 		public static IEnumerable<object[]> HighTestData
@@ -54,7 +53,7 @@ namespace Sleddog.Blink1.Tests
 		{
 			get
 			{
-				yield return new object[] { 0, new byte() };
+				yield return new object[] {0, new byte()};
 
 				foreach (var val in GenerateSampleData())
 				{
