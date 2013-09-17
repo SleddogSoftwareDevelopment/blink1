@@ -88,7 +88,7 @@ namespace Sleddog.Blink1
 		public bool PlaybackPresets(ushort startPosition)
 		{
 			if (startPosition < NumberOfPresets)
-				return commandBus.SendCommand(new PresetControlCommand(true, startPosition));
+				return commandBus.SendCommand(new PlayPresetCommand(startPosition));
 
 			var message = string.Format("Unable to play from position {0} since there is only {1} preset slots", startPosition,
 				NumberOfPresets);
@@ -98,7 +98,7 @@ namespace Sleddog.Blink1
 
 		public bool PausePresets()
 		{
-			return commandBus.SendCommand(new PresetControlCommand(false));
+			return commandBus.SendCommand(new StopPresetCommand());
 		}
 
 		public void Dispose()

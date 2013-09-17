@@ -4,7 +4,7 @@ using Sleddog.Blink1.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	public class ReadPresetQuery : IBlink1Query<Blink1Preset>
+	internal class ReadPresetQuery : IBlink1Query<Blink1Preset>
 	{
 		private readonly byte position;
 

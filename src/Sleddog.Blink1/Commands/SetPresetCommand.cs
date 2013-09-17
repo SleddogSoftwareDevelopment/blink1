@@ -4,7 +4,7 @@ using Sleddog.Blink1.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	public class SetPresetCommand : IBlink1Command
+	internal class SetPresetCommand : IBlink1Command
 	{
 		private readonly Blink1Preset preset;
 		private readonly byte position;

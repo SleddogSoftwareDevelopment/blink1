@@ -66,12 +66,15 @@
     <Compile Include="Blink1Preset.cs" />
     <Compile Include="Colors\ColorGenerator.cs" />
     <Compile Include="Colors\HSL.cs" />
+    <Compile Include="Commands\DisableInactivityModeCommand.cs" />
     <Compile Include="Commands\FadeToColorCommand.cs" />
-    <Compile Include="Commands\PresetControlCommand.cs" />
+    <Compile Include="Commands\EnableInactivityModeCommand.cs" />
+    <Compile Include="Commands\PlayPresetCommand.cs" />
     <Compile Include="Commands\ReadPresetQuery.cs" />
     <Compile Include="Commands\ReadSerialQuery.cs" />
     <Compile Include="Commands\SetColorCommand.cs" />
     <Compile Include="Commands\SetPresetCommand.cs" />
+    <Compile Include="Commands\StopPresetCommand.cs" />
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="Interfaces\IBlink1Command.cs" />
     <Compile Include="Interfaces\IBlink1MultiCommand.cs" />
