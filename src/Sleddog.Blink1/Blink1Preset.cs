@@ -5,21 +5,32 @@ namespace Sleddog.Blink1
 {
 	public class Blink1Preset
 	{
+		private readonly Blink1Duration duration;
+
 		public Blink1Preset(Color color, TimeSpan duration)
 		{
 			Color = color;
-			Duration = new Blink1Duration(duration);
+			this.duration = new Blink1Duration(duration);
 		}
 
 		public Color Color { get; private set; }
-		public Blink1Duration Duration { get; private set; }
+
+		public TimeSpan Duration
+		{
+			get { return duration; }
+		}
+
+		internal Blink1Duration PresetDuration
+		{
+			get { return duration; }
+		}
 
 		protected bool Equals(Blink1Preset other)
 		{
 			var equal = Color.R.Equals(other.Color.R) &&
 			            Color.G.Equals(other.Color.G) &&
 			            Color.B.Equals(other.Color.B) &&
-			            Duration.Equals(other.Duration);
+			            PresetDuration.Equals(other.PresetDuration);
 
 			return equal;
 		}
@@ -39,7 +50,7 @@ namespace Sleddog.Blink1
 		{
 			unchecked
 			{
-				return (Color.GetHashCode()*397) ^ (Duration != null ? Duration.GetHashCode() : 0);
+				return (Color.GetHashCode()*397) ^ (PresetDuration != null ? PresetDuration.GetHashCode() : 0);
 			}
 		}
 

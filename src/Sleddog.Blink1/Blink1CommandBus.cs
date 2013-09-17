@@ -6,7 +6,7 @@ using Sleddog.Blink1.Interfaces;
 
 namespace Sleddog.Blink1
 {
-	public class Blink1CommandBus : IDisposable
+	internal class Blink1CommandBus : IDisposable
 	{
 		private readonly HidDevice hidDevice;
 

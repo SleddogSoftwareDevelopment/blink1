@@ -2,7 +2,7 @@
 
 namespace Sleddog.Blink1
 {
-	public class Blink1Duration
+	internal class Blink1Duration
 	{
 		private const int Blink1UpdateFrequency = 10;
 

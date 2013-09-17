@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Sleddog.Blink1.Colors
 {
-	public class ColorGenerator
+	internal class ColorGenerator
 	{
 		private static readonly Random Random = new Random();
 

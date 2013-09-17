@@ -104,6 +104,16 @@ namespace Sleddog.Blink1.ExplicitTests
 			blink1.SetColor(Color.Black);
 		}
 
+		[RequireBlink1Hardware]
+		public void EnableInactivityMode()
+		{
+			blink1.EnableInactivityMode(TimeSpan.FromMilliseconds(50));
+
+			Thread.Sleep(TimeSpan.FromMilliseconds(150));
+
+			blink1.DisableInactivityMode();
+		}
+
 		public void SetFixture(Blink1Fixture data)
 		{
 			blink1 = data.Device;

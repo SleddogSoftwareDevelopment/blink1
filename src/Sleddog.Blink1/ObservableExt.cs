@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 
 namespace Sleddog.Blink1
 {
-	public static class ObservableExt
+	internal static class ObservableExt
 	{
 		public static IObservable<long> TimerMaxTick(int numberOfTicks, TimeSpan dueTime, TimeSpan interval)
 		{

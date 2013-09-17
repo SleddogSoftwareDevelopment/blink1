@@ -7,7 +7,7 @@ namespace Sleddog.Blink1
 {
 	public class Blink1 : IDisposable
 	{
-		public const int NumberOfPresets = 12;
+		private const ushort NumberOfPresets = 12;
 
 		private readonly Blink1CommandBus commandBus;
 
@@ -21,7 +21,7 @@ namespace Sleddog.Blink1
 			get { return commandBus.SendQuery(new ReadSerialQuery()); }
 		}
 
-		public Blink1(Blink1CommandBus commandBus)
+		internal Blink1(Blink1CommandBus commandBus)
 		{
 			this.commandBus = commandBus;
 		}
@@ -99,6 +99,18 @@ namespace Sleddog.Blink1
 		public bool PausePresets()
 		{
 			return commandBus.SendCommand(new StopPresetCommand());
+		}
+
+		public bool EnableInactivityMode(TimeSpan waitDuration)
+		{
+			var waitTime = new Blink1Duration(waitDuration);
+
+			return commandBus.SendCommand(new EnableInactivityModeCommand(waitTime));
+		}
+
+		public bool DisableInactivityMode()
+		{
+			return commandBus.SendCommand(new DisableInactivityModeCommand());
 		}
 
 		public void Dispose()
