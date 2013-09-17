@@ -34,7 +34,7 @@ namespace Sleddog.Blink1.Colors
 			if (luminance.Equals(0))
 				return Color.FromArgb(0, 0, 0);
 
-			if (luminance.Equals(100))
+			if (luminance.Equals(1))
 				return Color.FromArgb(255, 255, 255);
 
 			var chroma = (1 - Math.Abs(2*luminance - 1))*saturation;

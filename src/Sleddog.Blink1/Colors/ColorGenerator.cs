@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace Sleddog.Blink1.Colors
@@ -11,8 +10,6 @@ namespace Sleddog.Blink1.Colors
 
 		public List<Color> GenerateColors(int colorCount)
 		{
-			Debug.Listeners.Add(new DefaultTraceListener());
-
 			var colors = new List<Color>();
 
 			var cellRange = 1f/colorCount;
