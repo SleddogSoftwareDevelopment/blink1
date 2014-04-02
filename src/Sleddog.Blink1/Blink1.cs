@@ -9,7 +9,7 @@ namespace Sleddog.Blink1
     {
 		private const ushort NumberOfPresets = 12;
 
-		private readonly Blink1CommandBus commandBus;
+		internal readonly Blink1CommandBus commandBus;
 
 		public Version Version
 		{

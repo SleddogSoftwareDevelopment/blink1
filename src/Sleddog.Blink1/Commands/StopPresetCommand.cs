@@ -12,6 +12,10 @@ namespace Sleddog.Blink1.Commands
 				       Convert.ToByte(1),
 				       (byte) Blink1Commands.PresetControl,
 				       Convert.ToByte(false),
+				       Convert.ToByte(0),
+				       Convert.ToByte(0),
+				       Convert.ToByte(0),
+				       Convert.ToByte(0),
 				       Convert.ToByte(0)
 			       };
 		}
