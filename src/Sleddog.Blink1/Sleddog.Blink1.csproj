@@ -63,6 +63,7 @@
     <Compile Include="Blink1Connector.cs" />
     <Compile Include="Blink1Duration.cs" />
     <Compile Include="Blink1Identifier.cs" />
+    <Compile Include="Blink1Mk2.cs" />
     <Compile Include="Blink1Model.cs" />
     <Compile Include="Blink1Preset.cs" />
     <Compile Include="Colors\ColorGenerator.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Commands\SetColorCommand.cs" />
     <Compile Include="Commands\SetPresetCommand.cs" />
     <Compile Include="Commands\StopPresetCommand.cs" />
+    <Compile Include="Commands\TestCommand.cs" />
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="IBlink1.cs" />
     <Compile Include="IBlink1Mk2.cs" />
