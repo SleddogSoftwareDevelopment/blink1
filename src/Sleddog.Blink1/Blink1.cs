@@ -122,6 +122,11 @@ namespace Sleddog.Blink1
             return commandBus.SendCommand(new DisableInactivityModeCommand());
         }
 
+	    public void TurnOff()
+	    {
+	        SetColor(Color.Black);
+	    }
+
         public void Dispose()
         {
             if (commandBus != null)
