@@ -12,6 +12,8 @@ namespace Sleddog.Blink1
 		private const int VendorId = 0x27B8;
 		private const int ProductId = 0x01ED;
 
+	    private const int mk2Cutoff = 0x20000000;
+
 		public static IEnumerable<Blink1> Scan()
 		{
 			var hidDevices = HidDevices.Enumerate(VendorId, ProductId);
