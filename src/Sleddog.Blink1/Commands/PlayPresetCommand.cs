@@ -30,9 +30,7 @@ namespace Sleddog.Blink1.Commands
 				       Convert.ToByte(true),
 				       startPosition,
                        endPosition,
-                       count,
-                       Convert.ToByte(0),
-                       Convert.ToByte(0)
+                       count
 			       };
 		}
 	}
