@@ -20,6 +20,7 @@ namespace Sleddog.Blink1
             this.hidDevice = hidDevice;
         }
 
+
         internal bool SendCommand(IBlink1MultiCommand multiCommand)
         {
             if (!IsConnected)
@@ -27,8 +28,9 @@ namespace Sleddog.Blink1
                 Connect();
             }
 
-            var commandResults = (from hc in multiCommand.ToHidCommands()
-                                  select hidDevice.WriteFeatureData(hc)).ToList();
+		    var commandResults = (from hc in multiCommand.ToHidCommands()
+		                            select WriteData(hc))
+		                            .ToList();
 
             return commandResults.Any(cr => cr == false);
         }
@@ -46,7 +48,7 @@ namespace Sleddog.Blink1
 
             foreach (var hidCommand in hidCommands)
             {
-                var commandSend = hidDevice.WriteFeatureData(hidCommand);
+				var commandSend = WriteData(hidCommand);
 
                 if (commandSend)
                 {
@@ -76,7 +78,7 @@ namespace Sleddog.Blink1
                 Connect();
             }
 
-            var commandSend = hidDevice.WriteFeatureData(command.ToHidCommand());
+			var commandSend = WriteData(command.ToHidCommand());
 
             return commandSend;
         }
@@ -88,7 +90,7 @@ namespace Sleddog.Blink1
                 Connect();
             }
 
-            var commandSend = hidDevice.WriteFeatureData(query.ToHidCommand());
+			var commandSend = WriteData(query.ToHidCommand());
 
             if (commandSend)
             {
@@ -105,7 +107,14 @@ namespace Sleddog.Blink1
             return default(T);
         }
 
-        public void Connect()
+	    private bool WriteData(byte[] data)
+	    {
+	        Array.Resize(ref data, 8);
+
+	        return hidDevice.WriteFeatureData(data);
+	    }
+
+	    public void Connect()
         {
             hidDevice.OpenDevice();
         }
