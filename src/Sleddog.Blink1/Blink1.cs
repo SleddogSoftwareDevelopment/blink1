@@ -5,7 +5,7 @@ using Sleddog.Blink1.Commands;
 
 namespace Sleddog.Blink1
 {
-    public class Blink1 : IDisposable
+    public class Blink1 : IDisposable, IBlink1
     {
         private const ushort NumberOfPresets = 12;
 
