@@ -77,7 +77,6 @@
     <Compile Include="Commands\SetColorCommand.cs" />
     <Compile Include="Commands\SetPresetCommand.cs" />
     <Compile Include="Commands\StopPresetCommand.cs" />
-    <Compile Include="Commands\TestCommand.cs" />
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="IBlink1.cs" />
     <Compile Include="IBlink1Mk2.cs" />

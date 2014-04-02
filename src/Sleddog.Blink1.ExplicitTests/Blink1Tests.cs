@@ -12,7 +12,7 @@ namespace Sleddog.Blink1.ExplicitTests
 
 		private Blink1 blink1;
 
-		[RequireBlink1Hardware]
+	    [RequireBlink1Hardware]
 		public void ReadSerialReadsValidSerialNumber()
 		{
 			var actual = blink1.SerialNumber;

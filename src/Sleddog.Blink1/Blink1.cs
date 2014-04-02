@@ -118,7 +118,7 @@ namespace Sleddog.Blink1
 	        SetColor(Color.Black);
 	    }
 
-		public void Dispose()
+        public void Dispose()
 		{
 			if (commandBus != null)
 				commandBus.Dispose();
