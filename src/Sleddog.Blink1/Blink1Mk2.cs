@@ -5,7 +5,10 @@ namespace Sleddog.Blink1
 {
     public class Blink1Mk2 : Blink1, IBlink1Mk2, IDisposable
     {
-        internal Blink1Mk2(Blink1CommandBus commandBus) : base(commandBus)
+        private const ushort NumberOfPresets = 32;
+
+        internal Blink1Mk2(Blink1CommandBus commandBus)
+            : base(commandBus)
         {
         }
 
