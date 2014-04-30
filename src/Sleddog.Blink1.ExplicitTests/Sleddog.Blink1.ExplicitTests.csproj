@@ -32,9 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HidLibrary, Version=3.2.23.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="HidLibrary, Version=3.2.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\hidlibrary.3.2.23.0\lib\HidLibrary.dll</HintPath>
+      <HintPath>..\packages\hidlibrary.3.2.25.0\lib\HidLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
