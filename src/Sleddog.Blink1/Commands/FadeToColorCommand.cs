@@ -8,11 +8,17 @@ namespace Sleddog.Blink1.Commands
     {
         private readonly Color color;
         private readonly Blink1Duration duration;
+        private readonly LEDPosition ledPosition;
 
-        public FadeToColorCommand(Color color, Blink1Duration duration)
+        public FadeToColorCommand(Color color, Blink1Duration duration) : this(color, duration, LEDPosition.Both)
+        {
+        }
+
+        public FadeToColorCommand(Color color, Blink1Duration duration, LEDPosition ledPosition)
         {
             this.color = color;
             this.duration = duration;
+            this.ledPosition = ledPosition;
         }
 
         public byte[] ToHidCommand()
@@ -25,7 +31,8 @@ namespace Sleddog.Blink1.Commands
                 color.G,
                 color.B,
                 duration.High,
-                duration.Low
+                duration.Low,
+                Convert.ToByte(ledPosition)
             };
         }
     }

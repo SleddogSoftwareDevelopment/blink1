@@ -6,7 +6,7 @@ namespace Sleddog.Blink1
     public enum LEDPosition
     {
         Both = 0,
-        Front = 1,
-        Back = 2
+        Top = 1,
+        Bottom = 2
     }
 }
