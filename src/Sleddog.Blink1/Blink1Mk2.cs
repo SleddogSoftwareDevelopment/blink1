@@ -28,7 +28,9 @@ namespace Sleddog.Blink1
 
         public bool PlaybackPresets(ushort startPosition, ushort endPosition, ushort count)
         {
-            throw new NotImplementedException();
+            var command = new PlayPresetCommand(startPosition, endPosition, count);
+
+            return commandBus.SendCommand(command);
         }
 
         public PlaybackStatus ReadPlaybackStatus()
