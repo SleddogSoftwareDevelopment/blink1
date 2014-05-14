@@ -47,9 +47,7 @@ namespace Sleddog.Blink1
 
 		public bool FadeToColor(Color color, TimeSpan fadeDuration)
 		{
-			var fadeTime = new Blink1Duration(fadeDuration);
-
-			return commandBus.SendCommand(new FadeToColorCommand(color, fadeTime));
+            return commandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
 		}
 
 		public bool ShowColor(Color color, TimeSpan visibleTime)
@@ -103,9 +101,7 @@ namespace Sleddog.Blink1
 
 		public bool EnableInactivityMode(TimeSpan waitDuration)
 		{
-			var waitTime = new Blink1Duration(waitDuration);
-
-			return commandBus.SendCommand(new EnableInactivityModeCommand(waitTime));
+            return commandBus.SendCommand(new EnableInactivityModeCommand(waitDuration));
 		}
 
 		public bool DisableInactivityMode()
@@ -123,5 +119,5 @@ namespace Sleddog.Blink1
 			if (commandBus != null)
 				commandBus.Dispose();
 		}
-	}
+    }
 }

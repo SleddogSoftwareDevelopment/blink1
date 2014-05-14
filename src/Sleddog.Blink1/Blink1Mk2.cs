@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using Sleddog.Blink1.Commands;
 
 namespace Sleddog.Blink1
 {
@@ -15,6 +16,14 @@ namespace Sleddog.Blink1
         public bool SetColor(Color color, LEDPosition ledPosition)
         {
             throw new NotImplementedException();
+        }
+
+        public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
+            ushort endPosition)
+        {
+            var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
+
+            return commandBus.SendCommand(command);
         }
 
         public bool PlaybackPresets(ushort startPosition, ushort endPosition, ushort count)

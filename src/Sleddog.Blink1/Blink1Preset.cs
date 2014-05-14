@@ -10,7 +10,7 @@ namespace Sleddog.Blink1
 		public Blink1Preset(Color color, TimeSpan duration)
 		{
 			Color = color;
-			this.duration = new Blink1Duration(duration);
+			this.duration = duration;
 		}
 
 		public Color Color { get; private set; }
