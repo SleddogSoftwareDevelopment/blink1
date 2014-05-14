@@ -16,14 +16,9 @@ namespace Sleddog.Blink1.Commands
         public Blink1Preset ToResponseType(byte[] responseData)
         {
             var color = Color.FromArgb(responseData[2], responseData[3], responseData[4]);
-            var duration = TimeSpan.FromMilliseconds(ConvertToMilliseconds(responseData[5], responseData[6]));
+            var duration = new Blink1Duration(responseData[5], responseData[6]);
 
             return new Blink1Preset(color, duration);
-        }
-
-        private int ConvertToMilliseconds(byte high, byte low)
-        {
-            return (high + low)*10;
         }
 
         public byte[] ToHidCommand()
