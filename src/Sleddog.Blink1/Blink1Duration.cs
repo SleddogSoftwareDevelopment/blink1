@@ -67,5 +67,10 @@ namespace Sleddog.Blink1
 
             return TimeSpan.FromMilliseconds(blinkTime*10);
         }
+
+	    public static implicit operator Blink1Duration(TimeSpan duration)
+	    {
+	        return new Blink1Duration(duration);
+	    }
     }
 }
