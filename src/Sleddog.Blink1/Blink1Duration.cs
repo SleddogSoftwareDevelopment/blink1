@@ -15,6 +15,12 @@ namespace Sleddog.Blink1
             Low = Convert.ToByte(blinkTime & 0xFF);
         }
 
+	    internal Blink1Duration(byte high, byte low)
+	    {
+	        High = high;
+	        Low = low;
+	    }
+
         protected bool Equals(Blink1Duration other)
         {
             return High == other.High && Low == other.Low;
