@@ -13,9 +13,9 @@ namespace Sleddog.Blink1
         private const int VendorId = 0x27B8;
         private const int ProductId = 0x01ED;
 
-	    private const int mk2Cutoff = 0x20000000;
+        private const int mk2Cutoff = 0x20000000;
 
-        public static IEnumerable<Blink1> Scan()
+        public static IEnumerable<IBlink1> Scan()
         {
             var hidDevices = HidDevices.Enumerate(VendorId, ProductId);
 
@@ -26,7 +26,7 @@ namespace Sleddog.Blink1
                 return devices.Select(device => new Blink1(new Blink1CommandBus(device)));
             }
 
-            return Enumerable.Empty<Blink1>();
+            return Enumerable.Empty<IBlink1>();
         }
 
         public static IEnumerable<Blink1Identifier> Identify(TimeSpan identifyTime)

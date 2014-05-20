@@ -10,7 +10,7 @@ namespace Sleddog.Blink1.ExplicitTests
         private const string LowestSerialNumber = "0x1A001000";
         private const string HighestSerialNumber = "0x1A002FFF";
 
-        private Blink1 blink1;
+		private IBlink1 blink1;
 
         [RequireBlink1Hardware]
 	    public void SetAllPatterns()

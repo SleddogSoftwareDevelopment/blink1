@@ -5,14 +5,14 @@ namespace Sleddog.Blink1.ExplicitTests
 {
     public class Blink1Fixture : IDisposable
     {
-        private readonly Blink1 blink1;
+		private readonly IBlink1 blink1;
 
         public Blink1Fixture()
         {
             blink1 = Blink1Connector.Scan().FirstOrDefault();
         }
 
-        public Blink1 Device
+		public IBlink1 Device
         {
             get { return blink1; }
         }
