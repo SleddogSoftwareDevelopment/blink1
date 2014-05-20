@@ -68,6 +68,7 @@
     <Compile Include="Blink1Mk2.cs" />
     <Compile Include="Blink1Preset.cs" />
     <Compile Include="Colors\ColorGenerator.cs" />
+    <Compile Include="Colors\GammaCorrector.cs" />
     <Compile Include="Colors\HSL.cs" />
     <Compile Include="Commands\DisableInactivityModeCommand.cs" />
     <Compile Include="Commands\FadeToColorCommand.cs" />

@@ -14,14 +14,6 @@ namespace Sleddog.Blink1
         {
         }
 
-        public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
-            ushort endPosition)
-        {
-            var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
-
-            return commandBus.SendCommand(command);
-        }
-
         public bool Fade(Color color, TimeSpan fadeDuration, LEDPosition ledPosition)
         {
             var command = new FadeToColorCommand(color, fadeDuration, ledPosition);
@@ -39,6 +31,14 @@ namespace Sleddog.Blink1
         public bool SavePresets()
         {
             var command = new SavePresetsCommand();
+
+            return commandBus.SendCommand(command);
+        }
+
+        public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
+            ushort endPosition)
+        {
+            var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
 
             return commandBus.SendCommand(command);
         }
