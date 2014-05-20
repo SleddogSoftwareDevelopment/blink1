@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using Sleddog.Blink1.Interfaces;
 using Sleddog.Blink1.Internal;
+using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
