@@ -16,11 +16,6 @@ namespace Sleddog.Blink1.Commands
 
         public byte[] ToHidCommand()
         {
-            return this;
-        }
-
-        public static implicit operator byte[](VersionQuery query)
-        {
             return new[]
             {
                 Convert.ToByte(1),
