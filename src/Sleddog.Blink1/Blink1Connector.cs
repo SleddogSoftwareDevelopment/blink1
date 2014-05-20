@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HidLibrary;
 using Sleddog.Blink1.Colors;
+using Sleddog.Blink1.Internal;
 
 namespace Sleddog.Blink1
 {

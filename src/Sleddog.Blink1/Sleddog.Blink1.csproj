@@ -63,10 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blink1.cs" />
-    <Compile Include="Blink1CommandBus.cs" />
-    <Compile Include="Blink1Commands.cs" />
     <Compile Include="Blink1Connector.cs" />
-    <Compile Include="Blink1Duration.cs" />
     <Compile Include="Blink1Identifier.cs" />
     <Compile Include="Blink1Mk2.cs" />
     <Compile Include="Blink1Preset.cs" />
@@ -89,8 +86,11 @@
     <Compile Include="Interfaces\IBlink1MultiCommand.cs" />
     <Compile Include="Interfaces\IBlink1MultiQuery.cs" />
     <Compile Include="Interfaces\IBlink1Query.cs" />
+    <Compile Include="Internal\Blink1CommandBus.cs" />
+    <Compile Include="Internal\Blink1Commands.cs" />
+    <Compile Include="Internal\Blink1Duration.cs" />
+    <Compile Include="Internal\ObservableExt.cs" />
     <Compile Include="LEDPosition.cs" />
-    <Compile Include="ObservableExt.cs" />
     <Compile Include="PlaybackStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,9 +99,7 @@
     <None Include="packages.config" />
     <None Include="Sleddog.Blink1.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Internal\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
