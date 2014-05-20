@@ -21,7 +21,7 @@ namespace Sleddog.Blink1
             return commandBus.SendCommand(command);
         }
 
-        public bool PlaybackPresets(ushort startPosition, ushort endPosition, ushort count)
+        public bool Play(ushort startPosition, ushort endPosition, ushort count)
         {
             var command = new PlayPresetCommand(startPosition, endPosition, count);
 

@@ -41,17 +41,17 @@ namespace Sleddog.Blink1
             return true;
         }
 
-        public bool SetColor(Color color)
+		public bool Set(Color color)
         {
             return commandBus.SendCommand(new SetColorCommand(color));
         }
 
-        public bool FadeToColor(Color color, TimeSpan fadeDuration)
+		public bool Fade(Color color, TimeSpan fadeDuration)
         {
             return commandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
         }
 
-        public bool ShowColor(Color color, TimeSpan visibleTime)
+		public bool Show(Color color, TimeSpan visibleTime)
         {
             var timer = ObservableExt.TimerMaxTick(1, TimeSpan.Zero, visibleTime);
 
@@ -63,7 +63,7 @@ namespace Sleddog.Blink1
             return true;
         }
 
-        public bool SavePreset(Blink1Preset preset, ushort position)
+		public bool Save(Blink1Preset preset, ushort position)
         {
             if (position < NumberOfPresets)
             {
@@ -90,7 +90,7 @@ namespace Sleddog.Blink1
             throw new ArgumentOutOfRangeException("position", message);
         }
 
-        public bool PlaybackPresets(ushort startPosition)
+		public bool Play(ushort startPosition)
         {
             if (startPosition < NumberOfPresets)
             {
@@ -104,7 +104,7 @@ namespace Sleddog.Blink1
             throw new ArgumentOutOfRangeException("startPosition", message);
         }
 
-        public bool PausePresets()
+		public bool Pause()
         {
             return commandBus.SendCommand(new StopPresetCommand());
         }
@@ -121,7 +121,7 @@ namespace Sleddog.Blink1
 
 	    public void TurnOff()
 	    {
-	        SetColor(Color.Black);
+	        Set(Color.Black);
 	    }
 
         public void Dispose()

@@ -8,13 +8,13 @@ namespace Sleddog.Blink1
         Version Version { get; }
         string SerialNumber { get; }
         bool Blink(Color color, TimeSpan interval, ushort times);
-        bool SetColor(Color color);
-        bool FadeToColor(Color color, TimeSpan fadeDuration);
-        bool ShowColor(Color color, TimeSpan visibleTime);
-        bool SavePreset(Blink1Preset preset, ushort position);
+        bool Set(Color color);
+        bool Fade(Color color, TimeSpan fadeDuration);
+        bool Show(Color color, TimeSpan visibleTime);
+        bool Save(Blink1Preset preset, ushort position);
         Blink1Preset ReadPreset(ushort position);
-        bool PlaybackPresets(ushort startPosition);
-        bool PausePresets();
+        bool Play(ushort startPosition);
+        bool Pause();
         bool EnableInactivityMode(TimeSpan waitDuration);
         bool DisableInactivityMode();
         void TurnOff();
