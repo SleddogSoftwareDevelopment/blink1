@@ -7,6 +7,7 @@ namespace Sleddog.Blink1
     {
         Version Version { get; }
         string SerialNumber { get; }
+        bool EnableGamma { get; set; }
         bool Blink(Color color, TimeSpan interval, ushort times);
         bool Set(Color color);
         bool Fade(Color color, TimeSpan fadeDuration);
