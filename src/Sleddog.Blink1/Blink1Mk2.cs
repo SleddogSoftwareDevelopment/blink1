@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using Sleddog.Blink1.Commands;
 using Sleddog.Blink1.Internal;
 
@@ -17,6 +18,13 @@ namespace Sleddog.Blink1
             ushort endPosition)
         {
             var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
+
+            return commandBus.SendCommand(command);
+        }
+
+        public bool Fade(Color color, TimeSpan fadeDuration, LEDPosition ledPosition)
+        {
+            var command = new FadeToColorCommand(color, fadeDuration, ledPosition);
 
             return commandBus.SendCommand(command);
         }
