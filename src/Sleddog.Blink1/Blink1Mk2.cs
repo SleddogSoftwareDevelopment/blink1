@@ -45,7 +45,9 @@ namespace Sleddog.Blink1
 
         public PlaybackStatus ReadPlaybackStatus()
         {
-            throw new NotImplementedException();
+            var query = new ReadPlaybackStateQuery();
+
+            return commandBus.SendQuery(query);
         }
     }
 }

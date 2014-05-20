@@ -11,6 +11,7 @@ namespace Sleddog.Blink1.Internal
         ReadPreset = (byte) 'R',
         SavePreset = (byte) 'P',
         SavePresetMk2 = (byte) 'W',
+        ReadPlaybackState = (byte) 'S',
         EEPROMRead = (byte) 'e',
         EEPROMWrite = (byte) 'E'
     }
