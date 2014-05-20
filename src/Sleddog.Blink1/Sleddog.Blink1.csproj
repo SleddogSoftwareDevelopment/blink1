@@ -82,13 +82,13 @@
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="IBlink1.cs" />
     <Compile Include="IBlink1Mk2.cs" />
-    <Compile Include="Interfaces\IBlink1Command.cs" />
-    <Compile Include="Interfaces\IBlink1MultiCommand.cs" />
-    <Compile Include="Interfaces\IBlink1MultiQuery.cs" />
-    <Compile Include="Interfaces\IBlink1Query.cs" />
     <Compile Include="Internal\Blink1CommandBus.cs" />
     <Compile Include="Internal\Blink1Commands.cs" />
     <Compile Include="Internal\Blink1Duration.cs" />
+    <Compile Include="Internal\Interfaces\IBlink1Command.cs" />
+    <Compile Include="Internal\Interfaces\IBlink1MultiCommand.cs" />
+    <Compile Include="Internal\Interfaces\IBlink1MultiQuery.cs" />
+    <Compile Include="Internal\Interfaces\IBlink1Query.cs" />
     <Compile Include="Internal\ObservableExt.cs" />
     <Compile Include="LEDPosition.cs" />
     <Compile Include="PlaybackStatus.cs" />

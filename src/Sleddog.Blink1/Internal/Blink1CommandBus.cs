@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HidLibrary;
-using Sleddog.Blink1.Interfaces;
+using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Internal
 {
