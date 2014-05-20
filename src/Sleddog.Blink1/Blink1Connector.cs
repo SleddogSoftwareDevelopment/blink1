@@ -45,7 +45,7 @@ namespace Sleddog.Blink1
             {
                 var blink1 = bi.Blink1;
 
-                blink1.ShowColor(bi.Color, identifyTime);
+                blink1.Show(bi.Color, identifyTime);
             });
 
             return blink1Identifiers;
