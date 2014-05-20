@@ -73,6 +73,7 @@
     <Compile Include="Commands\FadeToColorCommand.cs" />
     <Compile Include="Commands\EnableInactivityModeCommand.cs" />
     <Compile Include="Commands\PlayPresetCommand.cs" />
+    <Compile Include="Commands\ReadPlaybackStateQuery.cs" />
     <Compile Include="Commands\ReadPresetQuery.cs" />
     <Compile Include="Commands\ReadSerialQuery.cs" />
     <Compile Include="Commands\SavePresetsCommand.cs" />
