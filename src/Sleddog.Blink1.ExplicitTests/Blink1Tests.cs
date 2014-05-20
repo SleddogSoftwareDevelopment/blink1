@@ -22,11 +22,11 @@ namespace Sleddog.Blink1.ExplicitTests
             blink1.Save(new Blink1Preset(Color.DodgerBlue, TimeSpan.FromSeconds(5)), 4);
             blink1.Save(new Blink1Preset(Color.MediumBlue, TimeSpan.FromSeconds(5)), 5);
             blink1.Save(new Blink1Preset(Color.DarkBlue, TimeSpan.FromSeconds(5)), 6);
-            blink1.Save(new Blink1Preset(Color.SeaGreen, TimeSpan.FromSeconds(5)), 7);
-            blink1.Save(new Blink1Preset(Color.MediumSeaGreen, TimeSpan.FromSeconds(5)), 8);
-            blink1.Save(new Blink1Preset(Color.SpringGreen, TimeSpan.FromSeconds(5)), 9);
-            blink1.Save(new Blink1Preset(Color.LightGreen, TimeSpan.FromSeconds(5)), 10);
-            blink1.Save(new Blink1Preset(Color.Green, TimeSpan.FromSeconds(5)), 11);
+            blink1.Save(new Blink1Preset(Color.Green, TimeSpan.FromSeconds(5)), 7);
+            blink1.Save(new Blink1Preset(Color.SeaGreen, TimeSpan.FromSeconds(5)), 8);
+            blink1.Save(new Blink1Preset(Color.MediumSeaGreen, TimeSpan.FromSeconds(5)), 9);
+            blink1.Save(new Blink1Preset(Color.SpringGreen, TimeSpan.FromSeconds(5)), 10);
+            blink1.Save(new Blink1Preset(Color.LightGreen, TimeSpan.FromSeconds(5)), 11);
         }
 
         [RequireBlink1Hardware]
