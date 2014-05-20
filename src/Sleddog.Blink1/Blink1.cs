@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Reactive.Linq;
+using Sleddog.Blink1.Colors;
 using Sleddog.Blink1.Commands;
 using Sleddog.Blink1.Internal;
 
@@ -11,6 +12,8 @@ namespace Sleddog.Blink1
         private const ushort NumberOfPresets = 12;
 
         internal readonly Blink1CommandBus commandBus;
+
+        public bool EnableGamma { get; set; }
 
         public Version Version
         {
@@ -24,14 +27,18 @@ namespace Sleddog.Blink1
 
         internal Blink1(Blink1CommandBus commandBus)
         {
+            EnableGamma = true;
+
             this.commandBus = commandBus;
         }
 
-        public bool Blink(Color color, TimeSpan interval, ushort times)
+        public bool Blink(Color inputColor, TimeSpan interval, ushort times)
         {
             var timeOnInMilliseconds = Math.Min(interval.TotalMilliseconds/4, 250);
 
             var onTime = TimeSpan.FromMilliseconds(timeOnInMilliseconds);
+
+            var color = ProcessColor(inputColor);
 
             var x = Observable.Timer(TimeSpan.Zero, interval).TakeWhile(count => count < times).Select(_ => color);
             var y = Observable.Timer(onTime, interval).TakeWhile(count => count < times).Select(_ => Color.Black);
@@ -41,19 +48,25 @@ namespace Sleddog.Blink1
             return true;
         }
 
-        public bool Set(Color color)
+        public bool Set(Color inputColor)
         {
+            var color = ProcessColor(inputColor);
+
             return commandBus.SendCommand(new SetColorCommand(color));
         }
 
-        public bool Fade(Color color, TimeSpan fadeDuration)
+        public bool Fade(Color inputColor, TimeSpan fadeDuration)
         {
+            var color = ProcessColor(inputColor);
+
             return commandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
         }
 
-        public bool Show(Color color, TimeSpan visibleTime)
+        public bool Show(Color inputColor, TimeSpan visibleTime)
         {
             var timer = ObservableExt.TimerMaxTick(1, TimeSpan.Zero, visibleTime);
+
+            var color = ProcessColor(inputColor);
 
             var colors = new[] {color, Color.Black}.ToObservable();
 
@@ -67,6 +80,15 @@ namespace Sleddog.Blink1
         {
             if (position < NumberOfPresets)
             {
+                if (EnableGamma)
+                {
+                    var color = ProcessColor(preset.Color);
+
+                    var correctedPreset = new Blink1Preset(color, preset.Duration);
+
+                    return commandBus.SendCommand(new SetPresetCommand(correctedPreset, position));
+                }
+
                 return commandBus.SendCommand(new SetPresetCommand(preset, position));
             }
 
@@ -122,6 +144,18 @@ namespace Sleddog.Blink1
         public void TurnOff()
         {
             Set(Color.Black);
+        }
+
+        private Color ProcessColor(Color inputColor)
+        {
+            if (EnableGamma)
+            {
+                var gammaCorrector = new GammaCorrector();
+
+                return gammaCorrector.Encode(inputColor);
+            }
+
+            return inputColor;
         }
 
         public void Dispose()
