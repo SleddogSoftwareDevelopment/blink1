@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using Sleddog.Blink1.Commands;
 using Sleddog.Blink1.Internal;
 
@@ -12,11 +11,6 @@ namespace Sleddog.Blink1
         internal Blink1Mk2(Blink1CommandBus commandBus)
             : base(commandBus)
         {
-        }
-
-        public bool SetColor(Color color, LEDPosition ledPosition)
-        {
-            throw new NotImplementedException();
         }
 
         public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
