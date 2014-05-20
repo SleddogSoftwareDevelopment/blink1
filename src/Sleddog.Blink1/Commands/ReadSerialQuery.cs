@@ -31,21 +31,14 @@ namespace Sleddog.Blink1.Commands
 
         public IEnumerable<byte[]> ToHidCommands()
         {
-            List<byte[]> data = this;
-
-            return data;
-        }
-
-        public static implicit operator List<byte[]>(ReadSerialQuery query)
-        {
             byte eepromSerialAddress = 2;
-            var baseSerialCommand = new[] {Convert.ToByte(1), (byte) Blink1Commands.EEPROMRead};
+            var baseSerialCommand = new[] { Convert.ToByte(1), (byte)Blink1Commands.EEPROMRead };
 
             var commands = new List<byte[]>();
 
             for (var i = 0; i < 4; i++)
             {
-                var command = baseSerialCommand.Concat(new[] {eepromSerialAddress++}).ToArray();
+                var command = baseSerialCommand.Concat(new[] { eepromSerialAddress++ }).ToArray();
 
                 commands.Add(command);
             }
