@@ -3,28 +3,28 @@ using Xunit;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-	public class Blink1ConnectorTests
-	{
-		[RequireBlink1Hardware]
-		public void CanIdentify()
-		{
-			Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
-		}
+    public class Blink1ConnectorTests
+    {
+        [RequireBlink1Hardware]
+        public void CanIdentify()
+        {
+            Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
+        }
 
-		[RequireBlink1Hardware]
-		public void ScanWithOneDeviceConnectedFindsOneDevice()
-		{
-			var devices = Blink1Connector.Scan();
+        [RequireBlink1Hardware]
+        public void ScanWithOneDeviceConnectedFindsOneDevice()
+        {
+            var devices = Blink1Connector.Scan();
 
-			Assert.Single(devices);
-		}
+            Assert.Single(devices);
+        }
 
-		[RequireNoBlink1Hardware]
-		public void ScanWithNoDevicesFindsNone()
-		{
-			var devices = Blink1Connector.Scan();
+        [RequireNoBlink1Hardware]
+        public void ScanWithNoDevicesFindsNone()
+        {
+            var devices = Blink1Connector.Scan();
 
-			Assert.Empty(devices);
-		}
-	}
+            Assert.Empty(devices);
+        }
+    }
 }
