@@ -10,7 +10,7 @@ namespace Sleddog.Blink1
     {
         private const ushort NumberOfPresets = 12;
 
-		internal readonly Blink1CommandBus commandBus;
+        internal readonly Blink1CommandBus commandBus;
 
         public Version Version
         {
@@ -41,17 +41,17 @@ namespace Sleddog.Blink1
             return true;
         }
 
-		public bool Set(Color color)
+        public bool Set(Color color)
         {
             return commandBus.SendCommand(new SetColorCommand(color));
         }
 
-		public bool Fade(Color color, TimeSpan fadeDuration)
+        public bool Fade(Color color, TimeSpan fadeDuration)
         {
             return commandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
         }
 
-		public bool Show(Color color, TimeSpan visibleTime)
+        public bool Show(Color color, TimeSpan visibleTime)
         {
             var timer = ObservableExt.TimerMaxTick(1, TimeSpan.Zero, visibleTime);
 
@@ -63,7 +63,7 @@ namespace Sleddog.Blink1
             return true;
         }
 
-		public bool Save(Blink1Preset preset, ushort position)
+        public bool Save(Blink1Preset preset, ushort position)
         {
             if (position < NumberOfPresets)
             {
@@ -90,7 +90,7 @@ namespace Sleddog.Blink1
             throw new ArgumentOutOfRangeException("position", message);
         }
 
-		public bool Play(ushort startPosition)
+        public bool Play(ushort startPosition)
         {
             if (startPosition < NumberOfPresets)
             {
@@ -104,7 +104,7 @@ namespace Sleddog.Blink1
             throw new ArgumentOutOfRangeException("startPosition", message);
         }
 
-		public bool Pause()
+        public bool Pause()
         {
             return commandBus.SendCommand(new StopPresetCommand());
         }
@@ -119,10 +119,10 @@ namespace Sleddog.Blink1
             return commandBus.SendCommand(new DisableInactivityModeCommand());
         }
 
-	    public void TurnOff()
-	    {
-	        Set(Color.Black);
-	    }
+        public void TurnOff()
+        {
+            Set(Color.Black);
+        }
 
         public void Dispose()
         {
@@ -130,6 +130,6 @@ namespace Sleddog.Blink1
             {
                 commandBus.Dispose();
             }
-    }
+        }
     }
 }

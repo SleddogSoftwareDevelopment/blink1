@@ -15,11 +15,11 @@ namespace Sleddog.Blink1.Internal
             Low = Convert.ToByte(blinkTime & 0xFF);
         }
 
-	    internal Blink1Duration(byte high, byte low)
-	    {
-	        High = high;
-	        Low = low;
-	    }
+        internal Blink1Duration(byte high, byte low)
+        {
+            High = high;
+            Low = low;
+        }
 
         protected bool Equals(Blink1Duration other)
         {
@@ -74,9 +74,9 @@ namespace Sleddog.Blink1.Internal
             return TimeSpan.FromMilliseconds(blinkTime*10);
         }
 
-	    public static implicit operator Blink1Duration(TimeSpan duration)
-	    {
-	        return new Blink1Duration(duration);
-	    }
+        public static implicit operator Blink1Duration(TimeSpan duration)
+        {
+            return new Blink1Duration(duration);
+        }
     }
 }
