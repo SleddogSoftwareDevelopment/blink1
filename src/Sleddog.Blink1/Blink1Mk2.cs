@@ -33,6 +33,13 @@ namespace Sleddog.Blink1
             return commandBus.SendCommand(command);
         }
 
+        public bool SavePresets()
+        {
+            var command = new SavePresetsCommand();
+
+            return commandBus.SendCommand(command);
+        }
+
         public PlaybackStatus ReadPlaybackStatus()
         {
             throw new NotImplementedException();

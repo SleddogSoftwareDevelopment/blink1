@@ -9,5 +9,6 @@ namespace Sleddog.Blink1
         bool PlaybackPresets(ushort startPosition, ushort endPosition, ushort count);
         PlaybackStatus ReadPlaybackStatus();
         bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition, ushort endPosition);
+        bool SavePresets();
     }
 }

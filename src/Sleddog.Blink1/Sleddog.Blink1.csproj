@@ -79,6 +79,7 @@
     <Compile Include="Commands\PlayPresetCommand.cs" />
     <Compile Include="Commands\ReadPresetQuery.cs" />
     <Compile Include="Commands\ReadSerialQuery.cs" />
+    <Compile Include="Commands\SavePresetsCommand.cs" />
     <Compile Include="Commands\SetColorCommand.cs" />
     <Compile Include="Commands\SetPresetCommand.cs" />
     <Compile Include="Commands\StopPresetCommand.cs" />
