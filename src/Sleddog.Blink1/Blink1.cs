@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Reactive.Linq;
 using Sleddog.Blink1.Commands;
+using Sleddog.Blink1.Internal;
 
 namespace Sleddog.Blink1
 {

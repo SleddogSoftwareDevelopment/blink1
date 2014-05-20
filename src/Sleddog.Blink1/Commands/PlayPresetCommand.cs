@@ -1,5 +1,6 @@
 ﻿using System;
 using Sleddog.Blink1.Interfaces;
+using Sleddog.Blink1.Internal;
 
 namespace Sleddog.Blink1.Commands
 {
