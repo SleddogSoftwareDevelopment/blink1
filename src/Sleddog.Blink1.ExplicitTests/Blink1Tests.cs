@@ -50,6 +50,8 @@ namespace Sleddog.Blink1.ExplicitTests
         {
             var expected = new Blink1Preset(Color.DarkSlateGray, TimeSpan.FromSeconds(1.5));
 
+            blink1.EnableGamma = false;
+
             blink1.Save(expected, 0);
 
             var actual = blink1.ReadPreset(0);
