@@ -12,11 +12,11 @@ namespace Sleddog.Blink1.ExplicitTests
         }
 
         [RequireBlink1Hardware]
-        public void ScanWithOneDeviceConnectedFindsOneDevice()
+        public void ScanFindsDevices()
         {
             var devices = Blink1Connector.Scan();
 
-            Assert.Single(devices);
+            Assert.NotEmpty(devices);
         }
 
         [RequireNoBlink1Hardware]
