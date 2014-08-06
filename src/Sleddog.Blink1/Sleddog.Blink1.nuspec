@@ -7,10 +7,15 @@
     <title>$title$</title>
     <authors>cyberzed</authors>
     <owners>cyberzed</owners>
+    <projectUrl>https://github.com/SleddogSoftwareDevelopment/blink1</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/BSD-3-Clause</licenseUrl>
     <description>
-      Blink1Duration rework to be correct instead of having the same flaw as the official implementation (thank to jrotello for the PR)
+      .NET implementation for thingM blink(1)
     </description>
+    <releaseNotes>
+      Blink1Duration rework to be correct instead of having the same flaw as the official implementation (thank to jrotello for the PR)
+    </releaseNotes>
     <tags>Blink1</tags>
     <dependencies>
       <dependency id="hidlibrary" />
