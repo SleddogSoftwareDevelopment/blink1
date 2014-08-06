@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stefan Daugaard Poulsen")]
 [assembly: AssemblyProduct("Sleddog.Blink1")]
-[assembly: AssemblyCopyright("Copyright © Stefan Daugaard Poulsen 2013")]
+[assembly: AssemblyCopyright("Copyright © Stefan Daugaard Poulsen 2013-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -36,6 +36,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.9.0.0")]
-[assembly: AssemblyFileVersion("0.9.0.0")]
+[assembly: AssemblyVersion("0.9.1.0")]
+[assembly: AssemblyFileVersion("0.9.1.0")]
 [assembly: InternalsVisibleTo("Sleddog.Blink1.Tests")]
