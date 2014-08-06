@@ -55,10 +55,13 @@
     <Compile Include="Blink1ConnectorTests.cs" />
     <Compile Include="Blink1Fixture.cs" />
     <Compile Include="Blink1Tests.cs" />
+    <Compile Include="BlinkHardwareScannerAttribute.cs" />
     <Compile Include="ExplicitFactAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequireBlink1HardwareAttribute.cs" />
-    <Compile Include="RequireNoBlink1HardwareAttribute.cs" />
+    <Compile Include="RequireBlink1mk2HardwareAttribute.cs" />
+    <Compile Include="RequireBlinkHardwareAttribute.cs" />
+    <Compile Include="RequireNoBlinkHardwareAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

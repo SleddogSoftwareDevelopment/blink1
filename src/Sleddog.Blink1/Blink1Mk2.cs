@@ -7,10 +7,14 @@ namespace Sleddog.Blink1
 {
     public class Blink1Mk2 : Blink1, IBlink1Mk2, IDisposable
     {
-        private const ushort NumberOfPresets = 32;
+        public new bool EnableGamma
+        {
+            get { return base.EnableGamma; }
+            set { }
+        }
 
         internal Blink1Mk2(Blink1CommandBus commandBus)
-            : base(commandBus)
+            : base(commandBus, 32)
         {
         }
 

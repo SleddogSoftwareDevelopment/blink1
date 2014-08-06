@@ -9,7 +9,7 @@ namespace Sleddog.Blink1
 {
     public class Blink1 : IBlink1, IDisposable
     {
-        private const ushort NumberOfPresets = 12;
+        protected readonly ushort numberOfPresets;
 
         internal readonly Blink1CommandBus commandBus;
 
@@ -25,11 +25,16 @@ namespace Sleddog.Blink1
             get { return commandBus.ReadSerial(); }
         }
 
-        internal Blink1(Blink1CommandBus commandBus)
+        internal Blink1(Blink1CommandBus commandBus) : this(commandBus, 12)
+        {
+        }
+
+        internal Blink1(Blink1CommandBus commandBus, ushort numberOfPresets)
         {
             EnableGamma = true;
 
             this.commandBus = commandBus;
+            this.numberOfPresets = numberOfPresets;
         }
 
         public bool Blink(Color inputColor, TimeSpan interval, ushort times)
@@ -78,7 +83,7 @@ namespace Sleddog.Blink1
 
         public bool Save(Blink1Preset preset, ushort position)
         {
-            if (position < NumberOfPresets)
+            if (position < numberOfPresets)
             {
                 if (EnableGamma)
                 {
@@ -93,35 +98,35 @@ namespace Sleddog.Blink1
             }
 
             var message = string.Format("Unable to save a preset outside the upper count ({0}) of preset slots",
-                NumberOfPresets);
+                numberOfPresets);
 
             throw new ArgumentOutOfRangeException("position", message);
         }
 
         public Blink1Preset ReadPreset(ushort position)
         {
-            if (position < NumberOfPresets)
+            if (position < numberOfPresets)
             {
                 return commandBus.SendQuery(new ReadPresetQuery(position));
             }
 
             var message = string.Format(
                 "Unable to read a preset from position {0} since there is only {1} preset slots", position,
-                NumberOfPresets);
+                numberOfPresets);
 
             throw new ArgumentOutOfRangeException("position", message);
         }
 
         public bool Play(ushort startPosition)
         {
-            if (startPosition < NumberOfPresets)
+            if (startPosition < numberOfPresets)
             {
                 return commandBus.SendCommand(new PlayPresetCommand(startPosition));
             }
 
             var message = string.Format("Unable to play from position {0} since there is only {1} preset slots",
                 startPosition,
-                NumberOfPresets);
+                numberOfPresets);
 
             throw new ArgumentOutOfRangeException("startPosition", message);
         }

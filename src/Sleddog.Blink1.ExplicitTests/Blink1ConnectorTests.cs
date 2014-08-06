@@ -5,13 +5,13 @@ namespace Sleddog.Blink1.ExplicitTests
 {
     public class Blink1ConnectorTests
     {
-        [RequireBlink1Hardware]
+        [RequireBlinkHardware]
         public void CanIdentify()
         {
             Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
         }
 
-        [RequireBlink1Hardware]
+        [RequireBlinkHardware]
         public void ScanFindsDevices()
         {
             var devices = Blink1Connector.Scan();
@@ -19,7 +19,7 @@ namespace Sleddog.Blink1.ExplicitTests
             Assert.NotEmpty(devices);
         }
 
-        [RequireNoBlink1Hardware]
+        [RequireNoBlinkHardware]
         public void ScanWithNoDevicesFindsNone()
         {
             var devices = Blink1Connector.Scan();

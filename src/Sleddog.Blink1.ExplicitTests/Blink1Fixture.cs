@@ -9,7 +9,7 @@ namespace Sleddog.Blink1.ExplicitTests
 
         public Blink1Fixture()
         {
-            blink1 = Blink1Connector.Scan().FirstOrDefault();
+            blink1 = Blink1Connector.Scan().FirstOrDefault(b => !(b is IBlink1Mk2));
         }
 
         public IBlink1 Device

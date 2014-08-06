@@ -13,8 +13,6 @@ namespace Sleddog.Blink1
         private const int VendorId = 0x27B8;
         private const int ProductId = 0x01ED;
 
-        private const int mk2Cutoff = 0x20000000;
-
         public static IEnumerable<IBlink1> Scan()
         {
             var hidDevices = HidDevices.Enumerate(VendorId, ProductId);
@@ -23,10 +21,38 @@ namespace Sleddog.Blink1
 
             if (devices.Any())
             {
-                return devices.Select(device => new Blink1(new Blink1CommandBus(device)));
-            }
+                var deviceList = IdentifyDevices(devices).ToArray();
 
-            return Enumerable.Empty<IBlink1>();
+                foreach (var device in deviceList)
+                {
+                    if (device.Item1 == DeviceType.Blink1)
+                    {
+                        yield return new Blink1(new Blink1CommandBus(device.Item2));
+                    }
+                    else
+                    {
+                        yield return new Blink1Mk2(new Blink1CommandBus(device.Item2));
+                    }
+                }
+            }
+        }
+
+        private static IEnumerable<Tuple<DeviceType, HidDevice>> IdentifyDevices(IEnumerable<HidDevice> devices)
+        {
+            foreach (var device in devices)
+            {
+                byte[] serialBytes;
+
+                var didRead = device.ReadSerialNumber(out serialBytes);
+
+                if (didRead)
+                {
+                    // 0x31 == blink1, 0x32 == blink1mk2, 
+                    var deviceType = serialBytes[0] <= 0x31 ? DeviceType.Blink1 : DeviceType.Blink1mk2;
+
+                    yield return Tuple.Create(deviceType, device);
+                }
+            }
         }
 
         public static IEnumerable<Blink1Identifier> Identify(TimeSpan identifyTime)
@@ -49,6 +75,12 @@ namespace Sleddog.Blink1
             });
 
             return blink1Identifiers;
+        }
+
+        private enum DeviceType
+        {
+            Blink1,
+            Blink1mk2
         }
     }
 }
