@@ -20,6 +20,17 @@ namespace Sleddog.Blink1.Internal
             this.hidDevice = hidDevice;
         }
 
+        internal string ReadSerial()
+        {
+            byte[] output;
+         
+            hidDevice.ReadSerialNumber(out output);
+
+            var chars = (from o in output where o != 0 select (char) o).ToArray();
+
+            return string.Format("0x{0}", string.Join(string.Empty, chars));
+        }
+
         internal bool SendCommand(IBlink1MultiCommand multiCommand)
         {
             if (!IsConnected)

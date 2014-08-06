@@ -22,7 +22,7 @@ namespace Sleddog.Blink1
 
         public string SerialNumber
         {
-            get { return commandBus.SendQuery(new ReadSerialQuery()); }
+            get { return commandBus.ReadSerial(); }
         }
 
         internal Blink1(Blink1CommandBus commandBus)
