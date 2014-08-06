@@ -11,7 +11,7 @@ namespace Sleddog.Blink1.Tests
 		private static readonly Random rnd = new Random();
 
 		[Theory, PropertyData("HighTestData")]
-		public void HighIsSetCorrectlyFromTimeSpanCtorInput(double timeInMilliseconds, byte expected)
+		public void HighIsSetCorrectlyFromTimeSpanCtorInput(int timeInMilliseconds, byte expected)
 		{
 			var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
 
@@ -23,7 +23,7 @@ namespace Sleddog.Blink1.Tests
 		}
 
 		[Theory, PropertyData("LowTestData")]
-		public void LowIsSetCorrectlyFromTimeSpanCtorInput(double timeInMilliseconds, byte expected)
+		public void LowIsSetCorrectlyFromTimeSpanCtorInput(int timeInMilliseconds, byte expected)
 		{
 			var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
 
@@ -34,6 +34,18 @@ namespace Sleddog.Blink1.Tests
 			Assert.Equal(expected, actual);
 		}
 
+		[Theory, PropertyData("ImplicitTestData")]
+		public void ImplicitConversionToTimeSpan(int timeInMilliseconds, double expected)
+		{
+			var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
+
+			var sut = new Blink1Duration(ts);
+
+			TimeSpan actual = sut;
+
+			Assert.Equal(expected, actual.TotalMilliseconds);
+		}
+
 		public static IEnumerable<object[]> HighTestData
 		{
 			get
@@ -42,7 +54,7 @@ namespace Sleddog.Blink1.Tests
 
 				foreach (var val in GenerateSampleData())
 				{
-					var expected = Convert.ToByte((val/10) >> 8);
+					var expected = Convert.ToByte(Convert.ToInt32(val/Blink1Duration.Blink1UpdateFrequency) >> 8);
 
 					yield return new object[] {val, expected};
 				}
@@ -57,12 +69,32 @@ namespace Sleddog.Blink1.Tests
 
 				foreach (var val in GenerateSampleData())
 				{
-					var expected = Convert.ToByte((val/10) & 0xFF);
+					var expected = Convert.ToByte(Convert.ToInt32(val/Blink1Duration.Blink1UpdateFrequency) & 0xFF);
 
 					yield return new object[] {val, expected};
 				}
 			}
 		}
+
+		public static IEnumerable<object[]> ImplicitTestData
+		{
+			get
+			{
+				yield return new object[] { 0, 0d };
+				yield return new object[] { 250, 250d };
+				yield return new object[] { 254, 250d };
+				yield return new object[] { 255, 260d };
+				yield return new object[] { 256, 260d };
+
+				foreach (var val in GenerateSampleData())
+				{
+					double expected = Convert.ToInt32(val / Blink1Duration.Blink1UpdateFrequency) * Blink1Duration.Blink1UpdateFrequency;
+
+					yield return new object[] { val, expected };
+				}
+			}
+		}
+
 
 		private static IEnumerable<int> GenerateSampleData()
 		{

@@ -4,16 +4,14 @@ namespace Sleddog.Blink1
 {
 	internal class Blink1Duration
 	{
-		private const int Blink1UpdateFrequency = 10;
+		public const double Blink1UpdateFrequency = 10d;
 
 		public byte High { get; private set; }
 		public byte Low { get; private set; }
 
 		public Blink1Duration(TimeSpan duration)
 		{
-			var durationInMilliseconds = Convert.ToInt32(duration.TotalMilliseconds);
-
-			var blinkTime = (durationInMilliseconds/Blink1UpdateFrequency);
+			var blinkTime = Convert.ToInt32(duration.TotalMilliseconds/Blink1UpdateFrequency);
 
 			High = Convert.ToByte(blinkTime >> 8);
 			Low = Convert.ToByte(blinkTime & 0xFF);
@@ -58,7 +56,7 @@ namespace Sleddog.Blink1
 			var low = duration.Low;
 			var high = duration.High;
 
-			var blinkTime = Convert.ToInt32(high | low << 8);
+			var blinkTime = Convert.ToInt32((high << 8) | low);
 
 			return TimeSpan.FromMilliseconds(blinkTime*Blink1UpdateFrequency);
 		}
