@@ -119,9 +119,15 @@ namespace Sleddog.Blink1.Internal
 
         private bool WriteData(byte[] data)
         {
-            Array.Resize(ref data, 8);
+            var writeData = new byte[8];
 
-            return hidDevice.WriteFeatureData(data);
+            writeData[0] = Convert.ToByte(1);
+
+            var length = Math.Min(data.Length, writeData.Length - 1);
+
+            Array.Copy(data, 0, writeData, 1, length);
+
+            return hidDevice.WriteFeatureData(writeData);
         }
 
         public void Connect()

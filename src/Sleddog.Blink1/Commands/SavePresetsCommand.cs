@@ -10,7 +10,6 @@ namespace Sleddog.Blink1.Commands
         {
             return new[]
             {
-                Convert.ToByte(1),
                 (byte) Blink1Commands.SavePresetMk2,
                 Convert.ToByte(0xBE),
                 Convert.ToByte(0xEF),

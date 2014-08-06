@@ -29,7 +29,6 @@ namespace Sleddog.Blink1.Commands
         {
             return new[]
             {
-                Convert.ToByte(1),
                 (byte) Blink1Commands.InactivityMode,
                 Convert.ToByte(true),
                 waitDuration.High,
