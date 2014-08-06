@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>$id$</id>
-    <version>0.9.1</version>
+    <version>$version$</version>
     <title>$title$</title>
     <authors>cyberzed</authors>
     <owners>cyberzed</owners>
