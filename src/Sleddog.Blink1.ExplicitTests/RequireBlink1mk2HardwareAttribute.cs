@@ -3,9 +3,9 @@ using HidLibrary;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    public class RequireBlink1mk2HardwareAttribute : RequireBlinkHardwareAttribute
+    public class RequireBlink1Mk2HardwareAttribute : RequireBlinkHardwareAttribute
     {
-        public RequireBlink1mk2HardwareAttribute()
+        public RequireBlink1Mk2HardwareAttribute()
         {
             var blink1Devices = (from d in devices where IsDeviceWithinBlink1mk2Range(d) select d).ToArray();
 
@@ -26,7 +26,7 @@ namespace Sleddog.Blink1.ExplicitTests
                 return false;
             }
 
-            return serialBytes[0] <= 0x31;
+            return serialBytes[0] == 0x32;
         }
     }
 }
