@@ -14,7 +14,7 @@
       .NET implementation for thingM blink(1)
     </description>
     <releaseNotes>
-      Blink1Duration rework to be correct instead of having the same flaw as the official implementation (thank to jrotello for the PR)
+      Updated tests to verify mk2 functionality, verified blink(1) still working on with the mk2 changes
     </releaseNotes>
     <tags>Blink1</tags>
     <dependencies>
