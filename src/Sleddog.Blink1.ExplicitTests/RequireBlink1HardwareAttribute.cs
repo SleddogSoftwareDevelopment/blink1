@@ -26,7 +26,7 @@ namespace Sleddog.Blink1.ExplicitTests
                 return false;
             }
 
-            return serialBytes[0] <= 0x31;
+            return serialBytes[0] == 0x31;
         }
     }
 }
