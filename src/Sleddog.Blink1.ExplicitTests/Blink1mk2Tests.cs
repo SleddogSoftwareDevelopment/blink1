@@ -110,11 +110,7 @@ namespace Sleddog.Blink1.ExplicitTests
         [RequireBlink1Mk2Hardware]
         public void PlayPreset()
         {
-            blink1.Play(0);
-
-            Thread.Sleep(TimeSpan.FromSeconds(5));
-
-            blink1.Pause();
+            blink1.Play(0, 11, 0);
         }
 
         [RequireBlink1Mk2Hardware]
