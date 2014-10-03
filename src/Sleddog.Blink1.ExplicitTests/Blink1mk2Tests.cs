@@ -10,7 +10,7 @@ namespace Sleddog.Blink1.ExplicitTests
         private const string LowestSerialNumber = "0x20001000";
         private const string HighestSerialNumber = "0x20003710";
 
-        private IBlink1 blink1;
+        private IBlink1Mk2 blink1;
 
         [RequireBlink1Mk2Hardware]
         public void SetAllPatterns()
@@ -115,6 +115,20 @@ namespace Sleddog.Blink1.ExplicitTests
             Thread.Sleep(TimeSpan.FromSeconds(5));
 
             blink1.Pause();
+        }
+
+        [RequireBlink1Mk2Hardware]
+        public void PoliceBlinking()
+        {
+            for (var i = 0; i < 100; i++)
+            {
+                blink1.Fade(Color.Blue, TimeSpan.FromMilliseconds(25), (LEDPosition) (i%2));
+                blink1.Fade(Color.Red, TimeSpan.FromMilliseconds(25), (LEDPosition) (i%2 + 1));
+
+                Thread.Sleep(200);
+            }
+
+            blink1.Set(Color.Black);
         }
 
         [RequireBlink1Mk2Hardware]
