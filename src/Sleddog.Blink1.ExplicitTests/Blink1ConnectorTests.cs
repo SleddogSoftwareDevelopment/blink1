@@ -26,5 +26,15 @@ namespace Sleddog.Blink1.ExplicitTests
 
             Assert.Empty(devices);
         }
+
+        [RequireBlinkHardware]
+        public void ConnectToSpecificDevice()
+        {
+            var serialNumber = "0x20001DDB";
+
+            var device = Blink1Connector.Connect(serialNumber);
+
+            Assert.NotNull(device);
+        }
     }
 }

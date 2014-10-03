@@ -13,11 +13,36 @@ namespace Sleddog.Blink1
         private const int VendorId = 0x27B8;
         private const int ProductId = 0x01ED;
 
+        public static IBlink1 Connect(string serial)
+        {
+            var serialToFind = serial.StartsWith("0x") ? serial : string.Format("0x{0}", serial);
+
+            var devices = ListBlink1Devices();
+
+            if (devices.Any())
+            {
+                foreach (var device in devices)
+                {
+                    var deviceData = IdentityDevice(device);
+
+                    if (deviceData.Item1.Equals(serialToFind, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        if (deviceData.Item2 == DeviceType.Blink1)
+                        {
+                            return new Blink1(new Blink1CommandBus(device));
+                        }
+
+                        return new Blink1Mk2(new Blink1CommandBus(device));
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public static IEnumerable<IBlink1> Scan()
         {
-            var hidDevices = HidDevices.Enumerate(VendorId, ProductId);
-
-            var devices = hidDevices as HidDevice[] ?? hidDevices.ToArray();
+            var devices = ListBlink1Devices();
 
             if (devices.Any())
             {
@@ -33,24 +58,6 @@ namespace Sleddog.Blink1
                     {
                         yield return new Blink1Mk2(new Blink1CommandBus(device.Item2));
                     }
-                }
-            }
-        }
-
-        private static IEnumerable<Tuple<DeviceType, HidDevice>> IdentifyDevices(IEnumerable<HidDevice> devices)
-        {
-            foreach (var device in devices)
-            {
-                byte[] serialBytes;
-
-                var didRead = device.ReadSerialNumber(out serialBytes);
-
-                if (didRead)
-                {
-                    // 0x31 == blink1, 0x32 == blink1mk2, 
-                    var deviceType = serialBytes[0] <= 0x31 ? DeviceType.Blink1 : DeviceType.Blink1mk2;
-
-                    yield return Tuple.Create(deviceType, device);
                 }
             }
         }
@@ -75,6 +82,57 @@ namespace Sleddog.Blink1
             });
 
             return blink1Identifiers;
+        }
+
+        private static Tuple<string, DeviceType> IdentityDevice(HidDevice device)
+        {
+            byte[] output;
+
+            device.ReadSerialNumber(out output);
+
+            var chars = (from o in output where o != 0 select (char) o).ToArray();
+
+            var deviceType = DetermineDeviceType(output[0]);
+
+            var serialNumber = string.Format("0x{0}", string.Join(string.Empty, chars));
+
+            return Tuple.Create(serialNumber, deviceType);
+        }
+
+        private static HidDevice[] ListBlink1Devices()
+        {
+            var devices = HidDevices.Enumerate(VendorId, ProductId);
+
+            return devices as HidDevice[] ?? devices.ToArray();
+        }
+
+        private static IEnumerable<Tuple<DeviceType, HidDevice>> IdentifyDevices(IEnumerable<HidDevice> devices)
+        {
+            foreach (var device in devices)
+            {
+                byte[] serialBytes;
+
+                var didRead = device.ReadSerialNumber(out serialBytes);
+
+                if (didRead)
+                {
+                    var deviceType = DetermineDeviceType(serialBytes[0]);
+
+                    yield return Tuple.Create(deviceType, device);
+                }
+            }
+        }
+
+        private static DeviceType DetermineDeviceType(byte b)
+        {
+            // 0x31 == blink1, 0x32 == blink1mk2, 
+
+            if (b != 0x31 && b != 0x32)
+            {
+                throw new InvalidOperationException("Unhandled Blink1 device inserted");
+            }
+
+            return b <= 0x31 ? DeviceType.Blink1 : DeviceType.Blink1mk2;
         }
 
         private enum DeviceType
