@@ -2,7 +2,6 @@
 using Ploeh.AutoFixture.Xunit;
 using Sleddog.Blink1.Colors;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Sleddog.Blink1.Tests.Colors
 {

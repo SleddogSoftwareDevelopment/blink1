@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Sleddog.Blink1.Internal;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Sleddog.Blink1.Tests
 {
@@ -11,7 +10,7 @@ namespace Sleddog.Blink1.Tests
     {
         private static readonly Random rnd = new Random();
 
-        [Theory, PropertyData("HighTestData")]
+        [Theory, MemberData("HighTestData")]
         public void HighIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
         {
             var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
@@ -23,7 +22,7 @@ namespace Sleddog.Blink1.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Theory, PropertyData("LowTestData")]
+        [Theory, MemberData("LowTestData")]
         public void LowIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
         {
             var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
@@ -35,7 +34,7 @@ namespace Sleddog.Blink1.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Theory, PropertyData("ImplicitTestData")]
+        [Theory, MemberData("ImplicitTestData")]
         public void ImplicitConversionToTimeSpan(uint timeInMilliseconds, uint expected)
         {
             var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);

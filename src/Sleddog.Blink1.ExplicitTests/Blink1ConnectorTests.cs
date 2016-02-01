@@ -5,11 +5,11 @@ namespace Sleddog.Blink1.ExplicitTests
 {
     public class Blink1ConnectorTests
     {
-        [RequireBlinkHardware]
-        public void CanIdentify()
-        {
-            Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
-        }
+        //[RequireBlinkHardware]
+        //public void CanIdentify()
+        //{
+        //    Assert.DoesNotThrow(() => Blink1Connector.Identify(TimeSpan.FromSeconds(1)));
+        //}
 
         [RequireBlinkHardware]
         public void ScanFindsDevices()

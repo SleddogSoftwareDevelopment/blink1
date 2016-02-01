@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    public class Blink1Mk2Tests : IUseFixture<Blink1Mk2Fixture>
+    public class Blink1Mk2Tests : IClassFixture<Blink1Mk2Fixture>
     {
         private const string LowestSerialNumber = "0x20001000";
         private const string HighestSerialNumber = "0x20003710";

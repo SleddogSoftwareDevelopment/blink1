@@ -4,7 +4,6 @@ using System.Drawing;
 using Ploeh.AutoFixture.Xunit;
 using Sleddog.Blink1.Colors;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Sleddog.Blink1.Tests.Colors
 {
@@ -19,7 +18,7 @@ namespace Sleddog.Blink1.Tests.Colors
             Assert.Throws<ArgumentOutOfRangeException>(() => new HSL(hue, saturation, luminance));
         }
 
-        [Theory, PropertyData("HSL2RGB")]
+        [Theory, MemberData("HSL2RGB")]
         public void HSLToRGBIsConvertedCorrectly(ushort hue, float saturation, float luminance, Color expected)
         {
             var sut = new HSL(hue, saturation, luminance);
