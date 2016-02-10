@@ -10,7 +10,12 @@ namespace Sleddog.Blink1.ExplicitTests
         private const string LowestSerialNumber = "0x1A001000";
         private const string HighestSerialNumber = "0x1A002FFF";
 
-        private IBlink1 blink1;
+        private readonly IBlink1 blink1;
+
+        public Blink1Tests(Blink1Fixture data)
+        {
+            blink1 = data.Device;
+        }
 
         [RequireBlink1Hardware]
         public void SetAllPatterns()
@@ -131,11 +136,6 @@ namespace Sleddog.Blink1.ExplicitTests
             Thread.Sleep(TimeSpan.FromMilliseconds(150));
 
             blink1.DisableInactivityMode();
-        }
-
-        public void SetFixture(Blink1Fixture data)
-        {
-            blink1 = data.Device;
         }
     }
 }

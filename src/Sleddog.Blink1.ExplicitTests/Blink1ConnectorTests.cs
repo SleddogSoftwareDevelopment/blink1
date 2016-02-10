@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
@@ -30,7 +29,7 @@ namespace Sleddog.Blink1.ExplicitTests
         [RequireBlinkHardware]
         public void ConnectToSpecificDevice()
         {
-            var serialNumber = "0x20001DDB";
+            var serialNumber = "0x1A002944";
 
             var device = Blink1Connector.Connect(serialNumber);
 
