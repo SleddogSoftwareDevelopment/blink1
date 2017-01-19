@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Ploeh.AutoFixture.Xunit;
+using Ploeh.AutoFixture.Xunit2;
 using Sleddog.Blink1.Colors;
 using Xunit;
 
@@ -7,7 +7,8 @@ namespace Sleddog.Blink1.Tests.Colors
 {
     public class ColorGeneratorTests
     {
-        [Theory, AutoData]
+        [Theory]
+        [AutoData]
         public void GenerateColorsReturnsTheGivenCountOfColors(int numberOfColors)
         {
             var sut = new ColorGenerator();
@@ -20,7 +21,8 @@ namespace Sleddog.Blink1.Tests.Colors
             Assert.Equal(expected, actual);
         }
 
-        [Theory, AutoData]
+        [Theory]
+        [AutoData]
         public void GeneratedColorsAreDifferent(int numberOfColors)
         {
             var sut = new ColorGenerator();

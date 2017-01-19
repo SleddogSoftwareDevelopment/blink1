@@ -5,25 +5,25 @@ namespace Sleddog.Blink1.Colors
 {
     internal class HSL
     {
-        public ushort Hue { get; private set; }
-        public float Saturation { get; private set; }
-        public float Luminance { get; private set; }
+        public ushort Hue { get; }
+        public float Saturation { get; }
+        public float Luminance { get; }
 
         public HSL(ushort hue, float saturation, float luminance)
         {
             if (hue > 360)
             {
-                throw new ArgumentOutOfRangeException("hue");
+                throw new ArgumentOutOfRangeException(nameof(hue));
             }
 
             if (saturation < 0 || saturation > 1)
             {
-                throw new ArgumentOutOfRangeException("saturation");
+                throw new ArgumentOutOfRangeException(nameof(saturation));
             }
 
             if (luminance < 0 || luminance > 1)
             {
-                throw new ArgumentOutOfRangeException("luminance");
+                throw new ArgumentOutOfRangeException(nameof(luminance));
             }
 
             Hue = hue;
@@ -80,11 +80,11 @@ namespace Sleddog.Blink1.Colors
 
             var m = luminance - 0.5f*chroma;
 
-            var modRGBValues = Tuple.Create(rgbValues.Item1 + m, rgbValues.Item2 + m, rgbValues.Item3 + m);
+            var modRgbValues = Tuple.Create(rgbValues.Item1 + m, rgbValues.Item2 + m, rgbValues.Item3 + m);
 
-            var r = (int) Math.Floor(modRGBValues.Item1*255);
-            var g = (int) Math.Floor(modRGBValues.Item2*255);
-            var b = (int) Math.Floor(modRGBValues.Item3*255);
+            var r = (int) Math.Floor(modRgbValues.Item1*255);
+            var g = (int) Math.Floor(modRgbValues.Item2*255);
+            var b = (int) Math.Floor(modRgbValues.Item3*255);
 
             return Color.FromArgb(r, g, b);
         }

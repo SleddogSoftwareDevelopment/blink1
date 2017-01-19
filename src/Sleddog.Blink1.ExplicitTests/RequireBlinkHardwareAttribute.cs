@@ -6,7 +6,7 @@ namespace Sleddog.Blink1.ExplicitTests
     {
         public RequireBlinkHardwareAttribute()
         {
-            if (!devices.Any())
+            if (!Devices.Any())
             {
                 Skip = "No Blink devices connected";
             }

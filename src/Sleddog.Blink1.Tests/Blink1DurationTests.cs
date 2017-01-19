@@ -8,7 +8,7 @@ namespace Sleddog.Blink1.Tests
 {
     public class Blink1DurationTests
     {
-        private static readonly Random rnd = new Random();
+        private static readonly Random Random = new Random();
 
         [Theory, MemberData("HighTestData")]
         public void HighIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
@@ -105,7 +105,7 @@ namespace Sleddog.Blink1.Tests
 
         private static IEnumerable<uint> GenerateSampleData()
         {
-            return Enumerable.Range(0, 15).Select(_ => (uint) rnd.Next(0, 365000));
+            return Enumerable.Range(0, 15).Select(_ => (uint) Random.Next(0, 365000));
         }
     }
 }

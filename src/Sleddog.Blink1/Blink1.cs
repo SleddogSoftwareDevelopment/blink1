@@ -9,21 +9,8 @@ namespace Sleddog.Blink1
 {
     public class Blink1 : IBlink1, IDisposable
     {
-        protected readonly ushort numberOfPresets;
-
         internal readonly Blink1CommandBus commandBus;
-
-        public bool EnableGamma { get; set; }
-
-        public Version Version
-        {
-            get { return commandBus.SendQuery(new VersionQuery()); }
-        }
-
-        public string SerialNumber
-        {
-            get { return commandBus.ReadSerial(); }
-        }
+        protected readonly ushort numberOfPresets;
 
         internal Blink1(Blink1CommandBus commandBus) : this(commandBus, 12)
         {
@@ -37,9 +24,15 @@ namespace Sleddog.Blink1
             this.numberOfPresets = numberOfPresets;
         }
 
+        public bool EnableGamma { get; set; }
+
+        public Version Version => commandBus.SendQuery(new VersionQuery());
+
+        public string SerialNumber => commandBus.ReadSerial();
+
         public bool Blink(Color inputColor, TimeSpan interval, ushort times)
         {
-            var timeOnInMilliseconds = Math.Min(interval.TotalMilliseconds/4, 250);
+            var timeOnInMilliseconds = Math.Min(interval.TotalMilliseconds / 4, 250);
 
             var onTime = TimeSpan.FromMilliseconds(timeOnInMilliseconds);
 
@@ -76,7 +69,7 @@ namespace Sleddog.Blink1
             var colors = new[] {color, Color.Black}.ToObservable();
 
             colors.Zip(timer, (c, t) => new {Color = c, Count = t})
-                .Subscribe(item => commandBus.SendCommand(new SetColorCommand(item.Color)));
+                  .Subscribe(item => commandBus.SendCommand(new SetColorCommand(item.Color)));
 
             return true;
         }
@@ -97,38 +90,29 @@ namespace Sleddog.Blink1
                 return commandBus.SendCommand(new SetPresetCommand(preset, position));
             }
 
-            var message = string.Format("Unable to save a preset outside the upper count ({0}) of preset slots",
-                numberOfPresets);
+            var message = $"Unable to save a preset outside the upper count ({numberOfPresets}) of preset slots";
 
-            throw new ArgumentOutOfRangeException("position", message);
+            throw new ArgumentOutOfRangeException(nameof(position), message);
         }
 
         public Blink1Preset ReadPreset(ushort position)
         {
             if (position < numberOfPresets)
-            {
                 return commandBus.SendQuery(new ReadPresetQuery(position));
-            }
 
-            var message = string.Format(
-                "Unable to read a preset from position {0} since there is only {1} preset slots", position,
-                numberOfPresets);
+            var message = $"Unable to read a preset from position {position} since there is only {numberOfPresets} preset slots";
 
-            throw new ArgumentOutOfRangeException("position", message);
+            throw new ArgumentOutOfRangeException(nameof(position), message);
         }
 
         public bool Play(ushort startPosition)
         {
             if (startPosition < numberOfPresets)
-            {
                 return commandBus.SendCommand(new PlayPresetCommand(startPosition));
-            }
 
-            var message = string.Format("Unable to play from position {0} since there is only {1} preset slots",
-                startPosition,
-                numberOfPresets);
+            var message = $"Unable to play from position {startPosition} since there is only {numberOfPresets} preset slots";
 
-            throw new ArgumentOutOfRangeException("startPosition", message);
+            throw new ArgumentOutOfRangeException(nameof(startPosition), message);
         }
 
         public bool Pause()
@@ -151,6 +135,11 @@ namespace Sleddog.Blink1
             Set(Color.Black);
         }
 
+        public void Dispose()
+        {
+            commandBus?.Dispose();
+        }
+
         private Color ProcessColor(Color inputColor)
         {
             if (EnableGamma)
@@ -161,14 +150,6 @@ namespace Sleddog.Blink1
             }
 
             return inputColor;
-        }
-
-        public void Dispose()
-        {
-            if (commandBus != null)
-            {
-                commandBus.Dispose();
-            }
         }
     }
 }

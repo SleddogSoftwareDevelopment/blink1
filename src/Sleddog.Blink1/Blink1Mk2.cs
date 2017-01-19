@@ -5,17 +5,17 @@ using Sleddog.Blink1.Internal;
 
 namespace Sleddog.Blink1
 {
-    public class Blink1Mk2 : Blink1, IBlink1Mk2, IDisposable
+    public class Blink1Mk2 : Blink1, IBlink1Mk2
     {
+        internal Blink1Mk2(Blink1CommandBus commandBus)
+            : base(commandBus, 32)
+        {
+        }
+
         public new bool EnableGamma
         {
             get { return base.EnableGamma; }
             set { }
-        }
-
-        internal Blink1Mk2(Blink1CommandBus commandBus)
-            : base(commandBus, 32)
-        {
         }
 
         public bool Fade(Color color, TimeSpan fadeDuration, LEDPosition ledPosition)
@@ -40,7 +40,7 @@ namespace Sleddog.Blink1
         }
 
         public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
-            ushort endPosition)
+                                          ushort endPosition)
         {
             var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
 

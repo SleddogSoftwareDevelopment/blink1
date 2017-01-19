@@ -15,7 +15,7 @@ namespace Sleddog.Blink1
 
         public static IBlink1 Connect(string serial)
         {
-            var serialToFind = serial.StartsWith("0x") ? serial : string.Format("0x{0}", serial);
+            var serialToFind = serial.StartsWith("0x") ? serial : $"0x{serial}";
 
             var devices = ListBlink1Devices();
 
@@ -68,7 +68,7 @@ namespace Sleddog.Blink1
 
             var blinks = Scan().ToList();
 
-            var colors = colorGenerator.GenerateColors(blinks.Count());
+            var colors = colorGenerator.GenerateColors(blinks.Count);
 
             var blink1Identifiers = (from b in blinks
                                      from c in colors
@@ -94,7 +94,7 @@ namespace Sleddog.Blink1
 
             var deviceType = DetermineDeviceType(output[0]);
 
-            var serialNumber = string.Format("0x{0}", string.Join(string.Empty, chars));
+            var serialNumber = $"0x{string.Join(string.Empty, chars)}";
 
             return Tuple.Create(serialNumber, deviceType);
         }
@@ -132,13 +132,13 @@ namespace Sleddog.Blink1
                 throw new InvalidOperationException("Unhandled Blink1 device inserted");
             }
 
-            return b <= 0x31 ? DeviceType.Blink1 : DeviceType.Blink1mk2;
+            return b <= 0x31 ? DeviceType.Blink1 : DeviceType.Blink1Mk2;
         }
 
         private enum DeviceType
         {
             Blink1,
-            Blink1mk2
+            Blink1Mk2
         }
     }
 }

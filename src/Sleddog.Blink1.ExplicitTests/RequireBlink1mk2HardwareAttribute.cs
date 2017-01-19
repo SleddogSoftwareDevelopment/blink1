@@ -7,7 +7,7 @@ namespace Sleddog.Blink1.ExplicitTests
     {
         public RequireBlink1Mk2HardwareAttribute()
         {
-            var blink1Devices = (from d in devices where IsDeviceWithinBlink1mk2Range(d) select d).ToArray();
+            var blink1Devices = (from d in Devices where IsDeviceWithinBlink1mk2Range(d) select d).ToArray();
 
             if (!blink1Devices.Any())
             {

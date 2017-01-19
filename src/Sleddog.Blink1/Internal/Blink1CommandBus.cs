@@ -10,10 +10,7 @@ namespace Sleddog.Blink1.Internal
     {
         private readonly HidDevice hidDevice;
 
-        public bool IsConnected
-        {
-            get { return hidDevice.IsOpen; }
-        }
+        public bool IsConnected => hidDevice.IsOpen;
 
         public Blink1CommandBus(HidDevice hidDevice)
         {
@@ -28,7 +25,7 @@ namespace Sleddog.Blink1.Internal
 
             var chars = (from o in output where o != 0 select (char) o).ToArray();
 
-            return string.Format("0x{0}", string.Join(string.Empty, chars));
+            return $"0x{string.Join(string.Empty, chars)}";
         }
 
         internal bool SendCommand(IBlink1MultiCommand multiCommand)
