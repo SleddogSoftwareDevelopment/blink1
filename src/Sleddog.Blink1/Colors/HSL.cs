@@ -3,13 +3,13 @@ using System.Drawing;
 
 namespace Sleddog.Blink1.Colors
 {
-    internal class HSL
+    internal class Hsl
     {
         public ushort Hue { get; }
         public float Saturation { get; }
         public float Luminance { get; }
 
-        public HSL(ushort hue, float saturation, float luminance)
+        public Hsl(ushort hue, float saturation, float luminance)
         {
             if (hue > 360)
             {
@@ -31,7 +31,7 @@ namespace Sleddog.Blink1.Colors
             Luminance = luminance;
         }
 
-        public static implicit operator Color(HSL hsl)
+        public static implicit operator Color(Hsl hsl)
         {
             var hue = hsl.Hue;
             var saturation = hsl.Saturation;

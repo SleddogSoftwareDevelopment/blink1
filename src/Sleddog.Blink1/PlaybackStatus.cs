@@ -2,11 +2,11 @@
 {
     public class PlaybackStatus
     {
-        public bool IsPlaying { get; private set; }
-        public ushort StartPosition { get; private set; }
-        public ushort EndPosition { get; private set; }
-        public ushort Count { get; private set; }
-        public ushort Position { get; private set; }
+        public bool IsPlaying { get; }
+        public ushort StartPosition { get; }
+        public ushort EndPosition { get; }
+        public ushort Count { get; }
+        public ushort Position { get; }
 
         internal PlaybackStatus(bool isPlaying, ushort startPosition, ushort endPosition, ushort count, ushort position)
         {

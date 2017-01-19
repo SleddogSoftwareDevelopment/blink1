@@ -14,17 +14,11 @@ namespace Sleddog.Blink1
             this.duration = duration;
         }
 
-        public Color Color { get; private set; }
+        public Color Color { get; }
 
-        public TimeSpan Duration
-        {
-            get { return duration; }
-        }
+        public TimeSpan Duration => duration;
 
-        internal Blink1Duration PresetDuration
-        {
-            get { return duration; }
-        }
+        internal Blink1Duration PresetDuration => duration;
 
         protected bool Equals(Blink1Preset other)
         {

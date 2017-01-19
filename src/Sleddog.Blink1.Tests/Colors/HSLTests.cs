@@ -33,14 +33,14 @@ namespace Sleddog.Blink1.Tests.Colors
         [InlineData((ushort) 0, 0, 1.1f)]
         public void HslCtorBoundaryCheck(ushort hue, float saturation, float luminance)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new HSL(hue, saturation, luminance));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Hsl(hue, saturation, luminance));
         }
 
         [Theory]
-        [MemberData("Hsl2Rgb")]
+        [MemberData(nameof(Hsl2Rgb))]
         public void HsltoRgbIsConvertedCorrectly(ushort hue, float saturation, float luminance, Color expected)
         {
-            var sut = new HSL(hue, saturation, luminance);
+            var sut = new Hsl(hue, saturation, luminance);
 
             Color actual = sut;
 
@@ -54,7 +54,7 @@ namespace Sleddog.Blink1.Tests.Colors
             var hueValue = (ushort) (hue % 360);
             var luminanceValue = luminance % 1;
 
-            var hsl = new HSL(hueValue, 0, luminanceValue);
+            var hsl = new Hsl(hueValue, 0, luminanceValue);
 
             Color actual = hsl;
 

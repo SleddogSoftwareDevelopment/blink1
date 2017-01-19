@@ -4,8 +4,8 @@ namespace Sleddog.Blink1.Internal
 {
     internal class Blink1Duration
     {
-        public byte High { get; private set; }
-        public byte Low { get; private set; }
+        public byte High { get; }
+        public byte Low { get; }
 
         public Blink1Duration(TimeSpan duration)
         {

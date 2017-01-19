@@ -28,7 +28,7 @@ namespace Sleddog.Blink1.Colors
 
                 var hue = Convert.ToUInt16(newHue);
 
-                var hslColor = new HSL(hue, 0.3f, 0.4f);
+                var hslColor = new Hsl(hue, 0.3f, 0.4f);
 
                 colors.Add(hslColor);
             }

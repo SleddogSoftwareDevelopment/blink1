@@ -10,7 +10,7 @@ namespace Sleddog.Blink1.Tests
     {
         private static readonly Random Random = new Random();
 
-        [Theory, MemberData("HighTestData")]
+        [Theory, MemberData(nameof(HighTestData))]
         public void HighIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
         {
             var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
@@ -22,7 +22,7 @@ namespace Sleddog.Blink1.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Theory, MemberData("LowTestData")]
+        [Theory, MemberData(nameof(LowTestData))]
         public void LowIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
         {
             var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
@@ -34,7 +34,7 @@ namespace Sleddog.Blink1.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Theory, MemberData("ImplicitTestData")]
+        [Theory, MemberData(nameof(ImplicitTestData))]
         public void ImplicitConversionToTimeSpan(uint timeInMilliseconds, uint expected)
         {
             var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);

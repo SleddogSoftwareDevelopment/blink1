@@ -12,17 +12,11 @@ namespace Sleddog.Blink1.ExplicitTests
             blink1 = Blink1Connector.Scan().FirstOrDefault(b => !(b is IBlink1Mk2));
         }
 
-        public IBlink1 Device
-        {
-            get { return blink1; }
-        }
+        public IBlink1 Device => blink1;
 
         public void Dispose()
         {
-            if (blink1 != null)
-            {
-                blink1.Dispose();
-            }
+            blink1?.Dispose();
         }
     }
 }

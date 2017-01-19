@@ -70,7 +70,7 @@ namespace Sleddog.Blink1.Internal
                 }
             }
 
-            if (responseSegments.Count == hidCommands.Count())
+            if (responseSegments.Count == hidCommands.Count)
             {
                 return query.ToResponseType(responseSegments);
             }
