@@ -19,7 +19,7 @@
     <tags>Blink1</tags>
     <dependencies>
       <dependency id="hidlibrary" />
-      <dependency id="Rx-Main" />
+      <dependency id="System.Reactive" />
     </dependencies>
   </metadata>
 </package>
