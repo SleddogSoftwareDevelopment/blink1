@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Ploeh.AutoFixture.Xunit2;
+using AutoFixture.Xunit2;
 using Sleddog.Blink1.Colors;
 using Xunit;
 
