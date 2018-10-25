@@ -18,7 +18,7 @@
     </releaseNotes>
     <tags>Blink1</tags>
     <dependencies>
-      <dependency id="hidlibrary" />
+      <dependency id="hidlibrary" version="3.2.46" />
       <dependency id="System.Reactive" />
     </dependencies>
   </metadata>
