@@ -75,7 +75,7 @@ namespace Sleddog.Blink1.Internal
                 return query.ToResponseType(responseSegments);
             }
 
-            return default(T);
+            return default;
         }
 
         internal bool SendCommand(IBlink1Command command)
@@ -111,7 +111,7 @@ namespace Sleddog.Blink1.Internal
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         private bool WriteData(byte[] data)

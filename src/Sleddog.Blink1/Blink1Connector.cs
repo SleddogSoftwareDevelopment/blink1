@@ -84,7 +84,7 @@ namespace Sleddog.Blink1
             return blink1Identifiers;
         }
 
-        private static Tuple<string, DeviceType> IdentityDevice(HidDevice device)
+        private static Tuple<string, DeviceType> IdentityDevice(IHidDevice device)
         {
             byte[] output;
 

@@ -5,7 +5,7 @@ namespace Sleddog.Blink1.ExplicitTests
 {
     public class ExplicitFactAttribute : FactAttribute
     {
-        public ExplicitFactAttribute()
+        protected ExplicitFactAttribute()
         {
             if (!Debugger.IsAttached)
             {

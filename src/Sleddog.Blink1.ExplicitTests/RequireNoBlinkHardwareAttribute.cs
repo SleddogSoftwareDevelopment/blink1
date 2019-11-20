@@ -2,7 +2,7 @@
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    public sealed class RequireNoBlinkHardwareAttribute : BlinkHardwareScannerAttribute
+    public class RequireNoBlinkHardwareAttribute : BlinkHardwareScannerAttribute
     {
         public RequireNoBlinkHardwareAttribute()
         {
