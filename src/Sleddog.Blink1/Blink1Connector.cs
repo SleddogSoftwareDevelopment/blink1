@@ -132,7 +132,7 @@ namespace Sleddog.Blink1
                 throw new InvalidOperationException("Unhandled Blink1 device inserted");
             }
 
-            return b <= 0x31 ? DeviceType.Blink1 : DeviceType.Blink1Mk2;
+            return b == 0x31 ? DeviceType.Blink1 : DeviceType.Blink1Mk2;
         }
 
         private enum DeviceType
