@@ -1,4 +1,7 @@
-﻿namespace Sleddog.Blink1.Colors
+﻿using System;
+using System.Drawing;
+
+namespace Sleddog.Blink1.Colors
 {
     internal class GammaCorrector
     {

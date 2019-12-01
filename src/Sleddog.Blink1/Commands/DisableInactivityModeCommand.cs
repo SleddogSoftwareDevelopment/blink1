@@ -1,4 +1,5 @@
-﻿using Sleddog.Blink1.Internal;
+﻿using System;
+using Sleddog.Blink1.Internal;
 using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
