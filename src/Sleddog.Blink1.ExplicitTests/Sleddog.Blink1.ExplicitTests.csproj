@@ -81,12 +81,6 @@
     <Compile Include="RequireNoBlinkHardwareAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sleddog.Blink1\Sleddog.Blink1.csproj">
-      <Project>{87076250-788F-4E71-8910-DD6125A85761}</Project>
-      <Name>Sleddog.Blink1</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

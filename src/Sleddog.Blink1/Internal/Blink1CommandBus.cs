@@ -1,143 +1,134 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using HidLibrary;
+using HidSharp;
 using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Internal
 {
-    internal class Blink1CommandBus : IDisposable
-    {
-        private readonly HidDevice hidDevice;
+	internal class Blink1CommandBus : IDisposable
+	{
+		private readonly HidDevice hidDevice;
+		private HidStream hidStream;
 
-        public bool IsConnected => hidDevice.IsOpen;
+		public bool IsConnected { get; private set; }
 
-        public Blink1CommandBus(HidDevice hidDevice)
-        {
-            this.hidDevice = hidDevice;
-        }
+		public Blink1CommandBus(HidDevice hidDevice)
+		{
+			this.hidDevice = hidDevice;
+		}
 
-        internal string ReadSerial()
-        {
-            byte[] output;
-         
-            hidDevice.ReadSerialNumber(out output);
+		public void Dispose()
+		{
+			hidStream?.Close();
+		}
 
-            var chars = (from o in output where o != 0 select (char) o).ToArray();
+		internal string ReadSerial()
+		{
+			return hidDevice.GetSerialNumber();
+		}
 
-            return $"0x{string.Join(string.Empty, chars)}";
-        }
+		internal bool SendCommand(IBlink1MultiCommand multiCommand)
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-        internal bool SendCommand(IBlink1MultiCommand multiCommand)
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+			var commandResults = (from hc in multiCommand.ToHidCommands()
+			                      select WriteData(hc)
+			                     ).ToList();
 
-            var commandResults = (from hc in multiCommand.ToHidCommands()
-                                  select WriteData(hc))
-                .ToList();
+			return commandResults.Any(cr => cr == false);
+		}
 
-            return commandResults.Any(cr => cr == false);
-        }
+		internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-        internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+			var responseSegments = new List<byte[]>();
 
-            var responseSegments = new List<byte[]>();
+			var hidCommands = query.ToHidCommands().ToList();
 
-            var hidCommands = query.ToHidCommands().ToList();
+			foreach (var hidCommand in hidCommands)
+			{
+				var commandSend = WriteData(hidCommand);
 
-            foreach (var hidCommand in hidCommands)
-            {
-                var commandSend = WriteData(hidCommand);
+				if (commandSend)
+				{
+					var responseData = new byte[8];
 
-                if (commandSend)
-                {
-                    byte[] responseData;
+					responseData[0] = Convert.ToByte(1);
 
-                    var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
+					hidStream.GetFeature(responseData);
 
-                    if (readData)
-                    {
-                        responseSegments.Add(responseData);
-                    }
-                }
-            }
+					responseSegments.Add(responseData);
+				}
+			}
 
-            if (responseSegments.Count == hidCommands.Count)
-            {
-                return query.ToResponseType(responseSegments);
-            }
+			if (responseSegments.Count == hidCommands.Count)
+			{
+				return query.ToResponseType(responseSegments);
+			}
 
-            return default;
-        }
+			return default;
+		}
 
-        internal bool SendCommand(IBlink1Command command)
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+		internal bool SendCommand(IBlink1Command command)
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-            var commandSend = WriteData(command.ToHidCommand());
+			var commandSend = WriteData(command.ToHidCommand());
 
-            return commandSend;
-        }
+			return commandSend;
+		}
 
-        internal T SendQuery<T>(IBlink1Query<T> query) where T : class
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+		internal T SendQuery<T>(IBlink1Query<T> query) where T : class
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-            var commandSend = WriteData(query.ToHidCommand());
+			var commandSend = WriteData(query.ToHidCommand());
 
-            if (commandSend)
-            {
-                byte[] responseData;
+			if (commandSend)
+			{
+				var responseData = new byte[8];
 
-                var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
+				responseData[0] = Convert.ToByte(1);
 
-                if (readData)
-                {
-                    return query.ToResponseType(responseData);
-                }
-            }
+				hidStream.GetFeature(responseData);
 
-            return default;
-        }
+				return query.ToResponseType(responseData);
+			}
 
-        private bool WriteData(byte[] data)
-        {
-            var writeData = new byte[8];
+			return default;
+		}
 
-            writeData[0] = Convert.ToByte(1);
+		private bool WriteData(byte[] data)
+		{
+			var writeData = new byte[8];
 
-            var length = Math.Min(data.Length, writeData.Length - 1);
+			writeData[0] = Convert.ToByte(1);
 
-            Array.Copy(data, 0, writeData, 1, length);
+			var length = Math.Min(data.Length, writeData.Length - 1);
 
-            return hidDevice.WriteFeatureData(writeData);
-        }
+			Array.Copy(data, 0, writeData, 1, length);
 
-        public void Connect()
-        {
-            hidDevice.OpenDevice();
-        }
+			hidStream.SetFeature(writeData);
 
-        public void Dispose()
-        {
-            if (hidDevice != null && hidDevice.IsOpen)
-            {
-                hidDevice.CloseDevice();
-            }
-        }
-    }
+			return true;
+		}
+
+		public void Connect()
+		{
+			hidStream = hidDevice.Open();
+			IsConnected = true;
+		}
+	}
 }

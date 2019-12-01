@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HidLibrary;
+using HidSharp;
 using Sleddog.Blink1.Colors;
 using Sleddog.Blink1.Internal;
 
@@ -87,35 +85,32 @@ namespace Sleddog.Blink1
 			return blink1Identifiers;
 		}
 
-		private static Tuple<string, DeviceType> IdentityDevice(IHidDevice device)
+		private static Tuple<string, DeviceType> IdentityDevice(HidDevice device)
 		{
-			device.ReadSerialNumber(out var output);
-
-			var chars = (from o in output where o != 0 select (char) o).ToArray();
-
-			var deviceType = DetermineDeviceType(output[0]);
-
-			var serialNumber = $"0x{string.Join(string.Empty, chars)}";
+			var serialNumber = device.GetSerialNumber();
+			//TODO: Fix device determination from string
+			var deviceType = DetermineDeviceType(0);
 
 			return Tuple.Create(serialNumber, deviceType);
 		}
 
-		private static HidDevice[] ListBlink1Devices()
+		private static IEnumerable<HidDevice> ListBlink1Devices()
 		{
-			var devices = HidDevices.Enumerate(Constants.VendorId, Constants.ProductId);
+			var deviceList = new FilteredDeviceList();
 
-			return devices as HidDevice[] ?? devices.ToArray();
+			return deviceList.GetHidDevices(Constants.VendorId, Constants.ProductId);
 		}
 
 		private static IEnumerable<Tuple<DeviceType, HidDevice>> IdentifyDevices(IEnumerable<HidDevice> devices)
 		{
 			foreach (var device in devices)
 			{
-				var didRead = device.ReadSerialNumber(out var serialBytes);
+				var didRead = device.GetSerialNumber();
 
-				if (didRead)
+				if (!string.IsNullOrWhiteSpace(didRead))
 				{
-					var deviceType = DetermineDeviceType(serialBytes[0]);
+					//TODO: Fix device determination from string
+					var deviceType = DetermineDeviceType(0);
 
 					yield return Tuple.Create(deviceType, device);
 				}

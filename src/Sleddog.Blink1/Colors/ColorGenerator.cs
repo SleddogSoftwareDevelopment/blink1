@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-
-namespace Sleddog.Blink1.Colors
+﻿namespace Sleddog.Blink1.Colors
 {
     internal class ColorGenerator
     {

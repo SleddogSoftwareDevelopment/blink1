@@ -1,5 +1,3 @@
-using System;
-using System.Drawing;
 using Sleddog.Blink1.Internal;
 using Sleddog.Blink1.Internal.Interfaces;
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Reactive.Linq;
 using Sleddog.Blink1.Colors;
 using Sleddog.Blink1.Commands;
