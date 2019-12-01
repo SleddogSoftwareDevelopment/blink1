@@ -53,7 +53,7 @@ namespace Sleddog.Blink1.ExplicitTests
         [RequireBlink1Mk2Hardware(Skip = "Current issue with color comparison, but it is right")]
         public void SavePresetWritesToDevice()
         {
-            var expected = new Blink1Preset(Color.DarkSlateGray, TimeSpan.FromSeconds(1.5));
+            var expected = new Blink1Preset(Color.FromArgb(255, 50, 100, 200), TimeSpan.FromSeconds(1.5));
 
             blink1.EnableGamma = false;
 
