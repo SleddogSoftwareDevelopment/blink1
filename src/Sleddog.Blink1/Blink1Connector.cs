@@ -10,9 +10,6 @@ namespace Sleddog.Blink1
 {
 	public static class Blink1Connector
 	{
-		private const int VendorId = 0x27B8;
-		private const int ProductId = 0x01ED;
-
 		private static readonly Dictionary<byte, DeviceType> deviceTypeMap = new Dictionary<byte, DeviceType>
 		{
 			{0x31, DeviceType.Blink1},
@@ -105,7 +102,7 @@ namespace Sleddog.Blink1
 
 		private static HidDevice[] ListBlink1Devices()
 		{
-			var devices = HidDevices.Enumerate(VendorId, ProductId);
+			var devices = HidDevices.Enumerate(Constants.VendorId, Constants.ProductId);
 
 			return devices as HidDevice[] ?? devices.ToArray();
 		}
