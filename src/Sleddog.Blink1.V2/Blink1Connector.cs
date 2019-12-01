@@ -8,8 +8,14 @@ using Sleddog.Blink1.V2.Internal;
 
 namespace Sleddog.Blink1.V2
 {
-	public class Blink1Connector
+	public static class Blink1Connector
 	{
+		private static readonly Dictionary<byte, DeviceType> deviceTypeMap = new Dictionary<byte, DeviceType>
+		{
+			{0x31, DeviceType.Blink1},
+			{0x32, DeviceType.Blink1Mk2}
+		};
+
 		public static IBlink1 Connect(string serial)
 		{
 			var serialToFind = serial.StartsWith("0x") ? serial : $"0x{serial}";
@@ -115,14 +121,16 @@ namespace Sleddog.Blink1.V2
 
 		private static DeviceType DetermineDeviceType(byte b)
 		{
-			// 0x31 == blink1, 0x32 == blink1mk2, 
-
-			if (b != 0x31 && b != 0x32)
+			if (deviceTypeMap.ContainsKey(b))
 			{
-				throw new InvalidOperationException("Unhandled Blink1 device inserted");
+				return deviceTypeMap[b];
 			}
 
-			return b == 0x31 ? DeviceType.Blink1 : DeviceType.Blink1Mk2;
+			/*
+			 * Default to mk2 in the case the specific device haven't been found
+			 * This ensures future versions should work as they'll be 1 model backwards compatible
+			 */
+			return DeviceType.Blink1Mk2;
 		}
 
 		private enum DeviceType
