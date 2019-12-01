@@ -1,32 +1,30 @@
 ﻿using System.Linq;
-using HidLibrary;
+using HidSharp;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    public class RequireBlink1HardwareAttribute : RequireBlinkHardwareAttribute
-    {
-        public RequireBlink1HardwareAttribute()
-        {
-            var blink1Devices = (from d in Devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
+	public class RequireBlink1HardwareAttribute : RequireBlinkHardwareAttribute
+	{
+		public RequireBlink1HardwareAttribute()
+		{
+			var blink1Devices = (from d in Devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
 
-            if (!blink1Devices.Any())
-            {
-                Skip = "No Blink1 units connected";
-            }
-        }
+			if (!blink1Devices.Any())
+			{
+				Skip = "No Blink1 units connected";
+			}
+		}
 
-        private bool IsDeviceWithinBlink1Range(HidDevice device)
-        {
-            byte[] serialBytes;
+		private bool IsDeviceWithinBlink1Range(HidDevice device)
+		{
+			var serial = device.GetSerialNumber();
 
-            var readSerial = device.ReadSerialNumber(out serialBytes);
+			if (string.IsNullOrWhiteSpace(serial))
+			{
+				return false;
+			}
 
-            if (!readSerial)
-            {
-                return false;
-            }
-
-            return serialBytes[0] == 0x31;
-        }
-    }
+			return serial[0] == 0x31;
+		}
+	}
 }

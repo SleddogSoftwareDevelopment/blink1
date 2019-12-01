@@ -29,7 +29,7 @@ namespace Sleddog.Blink1.ExplicitTests
         [RequireBlinkHardware]
         public void ConnectToSpecificDevice()
         {
-            var serialNumber = "0x1A002944";
+            var serialNumber = "1A002944";
 
             var device = Blink1Connector.Connect(serialNumber);
 

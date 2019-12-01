@@ -10,16 +10,14 @@ namespace Sleddog.Blink1
 {
 	public static class Blink1Connector
 	{
-		private static readonly Dictionary<byte, DeviceType> deviceTypeMap = new Dictionary<byte, DeviceType>
+		private static readonly Dictionary<char, DeviceType> deviceTypeMap = new Dictionary<char, DeviceType>
 		{
-			{0x31, DeviceType.Blink1},
-			{0x32, DeviceType.Blink1Mk2}
+			{(char) 0x31, DeviceType.Blink1},
+			{(char) 0x32, DeviceType.Blink1Mk2}
 		};
 
 		public static IBlink1 Connect(string serial)
 		{
-			var serialToFind = serial.StartsWith("0x") ? serial : $"0x{serial}";
-
 			var devices = ListBlink1Devices();
 
 			if (devices.Any())
@@ -28,7 +26,7 @@ namespace Sleddog.Blink1
 				{
 					var deviceData = IdentityDevice(device);
 
-					if (deviceData.Item1.Equals(serialToFind, StringComparison.InvariantCultureIgnoreCase))
+					if (deviceData.Item1.Equals(serial, StringComparison.InvariantCultureIgnoreCase))
 					{
 						if (deviceData.Item2 == DeviceType.Blink1)
 						{
@@ -90,36 +88,32 @@ namespace Sleddog.Blink1
 		private static Tuple<string, DeviceType> IdentityDevice(HidDevice device)
 		{
 			var serialNumber = device.GetSerialNumber();
-			//TODO: Fix device determination from string
-			var deviceType = DetermineDeviceType(0);
+			var deviceType = DetermineDeviceType(serialNumber[0]);
 
 			return Tuple.Create(serialNumber, deviceType);
 		}
 
 		private static IEnumerable<HidDevice> ListBlink1Devices()
 		{
-			var deviceList = new FilteredDeviceList();
-
-			return deviceList.GetHidDevices(Constants.VendorId, Constants.ProductId);
+			return DeviceList.Local.GetHidDevices(Constants.VendorId, Constants.ProductId);
 		}
 
 		private static IEnumerable<Tuple<DeviceType, HidDevice>> IdentifyDevices(IEnumerable<HidDevice> devices)
 		{
 			foreach (var device in devices)
 			{
-				var didRead = device.GetSerialNumber();
+				var serialNumber = device.GetSerialNumber();
 
-				if (!string.IsNullOrWhiteSpace(didRead))
+				if (!string.IsNullOrWhiteSpace(serialNumber))
 				{
-					//TODO: Fix device determination from string
-					var deviceType = DetermineDeviceType(0);
+					var deviceType = DetermineDeviceType(serialNumber[0]);
 
 					yield return Tuple.Create(deviceType, device);
 				}
 			}
 		}
 
-		private static DeviceType DetermineDeviceType(byte b)
+		private static DeviceType DetermineDeviceType(char b)
 		{
 			if (deviceTypeMap.ContainsKey(b))
 			{
