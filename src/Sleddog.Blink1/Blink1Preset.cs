@@ -6,19 +6,17 @@ namespace Sleddog.Blink1
 {
     public class Blink1Preset
     {
-        private readonly Blink1Duration duration;
-
         public Blink1Preset(Color color, TimeSpan duration)
         {
             Color = color;
-            this.duration = duration;
+            PresetDuration = duration;
         }
 
         public Color Color { get; }
 
-        public TimeSpan Duration => duration;
+        public TimeSpan Duration => PresetDuration;
 
-        internal Blink1Duration PresetDuration => duration;
+        internal Blink1Duration PresetDuration { get; }
 
         protected bool Equals(Blink1Preset other)
         {

@@ -14,7 +14,7 @@ namespace Sleddog.Blink1
 
         public new bool EnableGamma
         {
-            get { return base.EnableGamma; }
+            get => base.EnableGamma;
             set { }
         }
 
@@ -22,21 +22,21 @@ namespace Sleddog.Blink1
         {
             var command = new FadeToColorCommand(color, fadeDuration, ledPosition);
 
-            return commandBus.SendCommand(command);
+            return CommandBus.SendCommand(command);
         }
 
         public bool Play(ushort startPosition, ushort endPosition, ushort count)
         {
             var command = new PlayPresetCommand(startPosition, endPosition, count);
 
-            return commandBus.SendCommand(command);
+            return CommandBus.SendCommand(command);
         }
 
         public bool SavePresets()
         {
             var command = new SavePresetsCommand();
 
-            return commandBus.SendCommand(command);
+            return CommandBus.SendCommand(command);
         }
 
         public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
@@ -44,14 +44,14 @@ namespace Sleddog.Blink1
         {
             var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
 
-            return commandBus.SendCommand(command);
+            return CommandBus.SendCommand(command);
         }
 
         public PlaybackStatus ReadPlaybackStatus()
         {
             var query = new ReadPlaybackStateQuery();
 
-            return commandBus.SendQuery(query);
+            return CommandBus.SendQuery(query);
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Sleddog.Blink1
 {
     public class Blink1 : IBlink1, IDisposable
     {
-        internal readonly Blink1CommandBus commandBus;
-        protected readonly ushort numberOfPresets;
+        internal readonly Blink1CommandBus CommandBus;
+        protected readonly ushort NumberOfPresets;
 
         internal Blink1(Blink1CommandBus commandBus) : this(commandBus, 12)
         {
@@ -20,15 +20,15 @@ namespace Sleddog.Blink1
         {
             EnableGamma = true;
 
-            this.commandBus = commandBus;
-            this.numberOfPresets = numberOfPresets;
+            CommandBus = commandBus;
+            NumberOfPresets = numberOfPresets;
         }
 
         public bool EnableGamma { get; set; }
 
-        public Version Version => commandBus.SendQuery(new VersionQuery());
+        public Version Version => CommandBus.SendQuery(new VersionQuery());
 
-        public string SerialNumber => commandBus.ReadSerial();
+        public string SerialNumber => CommandBus.ReadSerial();
 
         public bool Blink(Color inputColor, TimeSpan interval, ushort times)
         {
@@ -41,7 +41,7 @@ namespace Sleddog.Blink1
             var x = Observable.Timer(TimeSpan.Zero, interval).TakeWhile(count => count < times).Select(_ => color);
             var y = Observable.Timer(onTime, interval).TakeWhile(count => count < times).Select(_ => Color.Black);
 
-            x.Merge(y).Subscribe(c => commandBus.SendCommand(new SetColorCommand(c)));
+            x.Merge(y).Subscribe(c => CommandBus.SendCommand(new SetColorCommand(c)));
 
             return true;
         }
@@ -50,14 +50,14 @@ namespace Sleddog.Blink1
         {
             var color = ProcessColor(inputColor);
 
-            return commandBus.SendCommand(new SetColorCommand(color));
+            return CommandBus.SendCommand(new SetColorCommand(color));
         }
 
         public bool Fade(Color inputColor, TimeSpan fadeDuration)
         {
             var color = ProcessColor(inputColor);
 
-            return commandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
+            return CommandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
         }
 
         public bool Show(Color inputColor, TimeSpan visibleTime)
@@ -69,14 +69,14 @@ namespace Sleddog.Blink1
             var colors = new[] {color, Color.Black}.ToObservable();
 
             colors.Zip(timer, (c, t) => new {Color = c, Count = t})
-                  .Subscribe(item => commandBus.SendCommand(new SetColorCommand(item.Color)));
+                  .Subscribe(item => CommandBus.SendCommand(new SetColorCommand(item.Color)));
 
             return true;
         }
 
         public bool Save(Blink1Preset preset, ushort position)
         {
-            if (position < numberOfPresets)
+            if (position < NumberOfPresets)
             {
                 if (EnableGamma)
                 {
@@ -84,50 +84,50 @@ namespace Sleddog.Blink1
 
                     var correctedPreset = new Blink1Preset(color, preset.Duration);
 
-                    return commandBus.SendCommand(new SetPresetCommand(correctedPreset, position));
+                    return CommandBus.SendCommand(new SetPresetCommand(correctedPreset, position));
                 }
 
-                return commandBus.SendCommand(new SetPresetCommand(preset, position));
+                return CommandBus.SendCommand(new SetPresetCommand(preset, position));
             }
 
-            var message = $"Unable to save a preset outside the upper count ({numberOfPresets}) of preset slots";
+            var message = $"Unable to save a preset outside the upper count ({NumberOfPresets}) of preset slots";
 
             throw new ArgumentOutOfRangeException(nameof(position), message);
         }
 
         public Blink1Preset ReadPreset(ushort position)
         {
-            if (position < numberOfPresets)
-                return commandBus.SendQuery(new ReadPresetQuery(position));
+            if (position < NumberOfPresets)
+                return CommandBus.SendQuery(new ReadPresetQuery(position));
 
-            var message = $"Unable to read a preset from position {position} since there is only {numberOfPresets} preset slots";
+            var message = $"Unable to read a preset from position {position} since there is only {NumberOfPresets} preset slots";
 
             throw new ArgumentOutOfRangeException(nameof(position), message);
         }
 
         public bool Play(ushort startPosition)
         {
-            if (startPosition < numberOfPresets)
-                return commandBus.SendCommand(new PlayPresetCommand(startPosition));
+            if (startPosition < NumberOfPresets)
+                return CommandBus.SendCommand(new PlayPresetCommand(startPosition));
 
-            var message = $"Unable to play from position {startPosition} since there is only {numberOfPresets} preset slots";
+            var message = $"Unable to play from position {startPosition} since there is only {NumberOfPresets} preset slots";
 
             throw new ArgumentOutOfRangeException(nameof(startPosition), message);
         }
 
         public bool Pause()
         {
-            return commandBus.SendCommand(new StopPresetCommand());
+            return CommandBus.SendCommand(new StopPresetCommand());
         }
 
         public bool EnableInactivityMode(TimeSpan waitDuration)
         {
-            return commandBus.SendCommand(new EnableInactivityModeCommand(waitDuration));
+            return CommandBus.SendCommand(new EnableInactivityModeCommand(waitDuration));
         }
 
         public bool DisableInactivityMode()
         {
-            return commandBus.SendCommand(new DisableInactivityModeCommand());
+            return CommandBus.SendCommand(new DisableInactivityModeCommand());
         }
 
         public void TurnOff()
@@ -137,7 +137,7 @@ namespace Sleddog.Blink1
 
         public void Dispose()
         {
-            commandBus?.Dispose();
+            CommandBus?.Dispose();
         }
 
         private Color ProcessColor(Color inputColor)
