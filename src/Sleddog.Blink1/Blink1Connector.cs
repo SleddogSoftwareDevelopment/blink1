@@ -16,7 +16,8 @@ namespace Sleddog.Blink1
 		private static readonly Dictionary<byte, DeviceType> deviceTypeMap = new Dictionary<byte, DeviceType>
 		{
 			{0x31, DeviceType.Blink1},
-			{0x32, DeviceType.Blink1Mk2}
+			{0x32, DeviceType.Blink1Mk2},
+			{0x33, DeviceType.Blink1Mk3}
 		};
 
 		public static IBlink1 Connect(string serial)
@@ -56,14 +57,7 @@ namespace Sleddog.Blink1
 
 				foreach (var device in deviceList)
 				{
-					if (device.Item1 == DeviceType.Blink1)
-					{
-						yield return new Blink1(new Blink1CommandBus(device.Item2));
-					}
-					else
-					{
-						yield return new Blink1Mk2(new Blink1CommandBus(device.Item2));
-					}
+					yield return InstanceFactory(device.Item1, device.Item2);
 				}
 			}
 		}
@@ -88,6 +82,17 @@ namespace Sleddog.Blink1
 			});
 
 			return blink1Identifiers;
+		}
+
+		private static IBlink1 InstanceFactory(DeviceType deviceType, HidDevice device)
+		{
+			if (deviceType == DeviceType.Blink1)
+				return new Blink1(new Blink1CommandBus(device));
+
+			if (deviceType == DeviceType.Blink1Mk2)
+				return new Blink1Mk2(new Blink1CommandBus(device));
+
+			return new Blink1Mk3(new Blink1CommandBus(device));
 		}
 
 		private static Tuple<string, DeviceType> IdentityDevice(IHidDevice device)
@@ -142,7 +147,8 @@ namespace Sleddog.Blink1
 		private enum DeviceType
 		{
 			Blink1,
-			Blink1Mk2
+			Blink1Mk2,
+			Blink1Mk3
 		}
 	}
 }
