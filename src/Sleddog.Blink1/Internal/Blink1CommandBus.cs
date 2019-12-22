@@ -6,138 +6,138 @@ using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Internal
 {
-    internal class Blink1CommandBus : IDisposable
-    {
-        private readonly HidDevice hidDevice;
+	internal class Blink1CommandBus : IDisposable
+	{
+		private readonly HidDevice hidDevice;
 
-        public bool IsConnected => hidDevice.IsOpen;
+		public bool IsConnected => hidDevice.IsOpen;
 
-        public Blink1CommandBus(HidDevice hidDevice)
-        {
-            this.hidDevice = hidDevice;
-        }
+		public Blink1CommandBus(HidDevice hidDevice)
+		{
+			this.hidDevice = hidDevice;
+		}
 
-        internal string ReadSerial()
-        {
-            byte[] output;
-         
-            hidDevice.ReadSerialNumber(out output);
+		public void Dispose()
+		{
+			if (hidDevice != null && hidDevice.IsOpen)
+			{
+				hidDevice.CloseDevice();
+			}
+		}
 
-            var chars = (from o in output where o != 0 select (char) o).ToArray();
+		internal string ReadSerial()
+		{
+			byte[] output;
 
-            return $"0x{string.Join(string.Empty, chars)}";
-        }
+			hidDevice.ReadSerialNumber(out output);
 
-        internal bool SendCommand(IBlink1MultiCommand multiCommand)
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+			var chars = (from o in output where o != 0 select (char) o).ToArray();
 
-            var commandResults = (from hc in multiCommand.ToHidCommands()
-                                  select WriteData(hc))
-                .ToList();
+			return $"0x{string.Join(string.Empty, chars)}";
+		}
 
-            return commandResults.Any(cr => cr == false);
-        }
+		internal bool SendCommand(IBlink1MultiCommand multiCommand)
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-        internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+			var commandResults = (from hc in multiCommand.ToHidCommands()
+			                      select WriteData(hc))
+				.ToList();
 
-            var responseSegments = new List<byte[]>();
+			return commandResults.Any(cr => cr == false);
+		}
 
-            var hidCommands = query.ToHidCommands().ToList();
+		internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-            foreach (var hidCommand in hidCommands)
-            {
-                var commandSend = WriteData(hidCommand);
+			var responseSegments = new List<byte[]>();
 
-                if (commandSend)
-                {
-                    byte[] responseData;
+			var hidCommands = query.ToHidCommands().ToList();
 
-                    var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
+			foreach (var hidCommand in hidCommands)
+			{
+				var commandSend = WriteData(hidCommand);
 
-                    if (readData)
-                    {
-                        responseSegments.Add(responseData);
-                    }
-                }
-            }
+				if (commandSend)
+				{
+					byte[] responseData;
 
-            if (responseSegments.Count == hidCommands.Count)
-            {
-                return query.ToResponseType(responseSegments);
-            }
+					var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
 
-            return default;
-        }
+					if (readData)
+					{
+						responseSegments.Add(responseData);
+					}
+				}
+			}
 
-        internal bool SendCommand(IBlink1Command command)
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+			if (responseSegments.Count == hidCommands.Count)
+			{
+				return query.ToResponseType(responseSegments);
+			}
 
-            var commandSend = WriteData(command.ToHidCommand());
+			return default;
+		}
 
-            return commandSend;
-        }
+		internal bool SendCommand(IBlink1Command command)
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-        internal T SendQuery<T>(IBlink1Query<T> query) where T : class
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
+			var commandSend = WriteData(command.ToHidCommand());
 
-            var commandSend = WriteData(query.ToHidCommand());
+			return commandSend;
+		}
 
-            if (commandSend)
-            {
-                byte[] responseData;
+		internal T SendQuery<T>(IBlink1Query<T> query) where T : class
+		{
+			if (!IsConnected)
+			{
+				Connect();
+			}
 
-                var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
+			var commandSend = WriteData(query.ToHidCommand());
 
-                if (readData)
-                {
-                    return query.ToResponseType(responseData);
-                }
-            }
+			if (commandSend)
+			{
+				byte[] responseData;
 
-            return default;
-        }
+				var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
 
-        private bool WriteData(byte[] data)
-        {
-            var writeData = new byte[8];
+				if (readData)
+				{
+					return query.ToResponseType(responseData);
+				}
+			}
 
-            writeData[0] = Convert.ToByte(1);
+			return default;
+		}
 
-            var length = Math.Min(data.Length, writeData.Length - 1);
+		private bool WriteData(byte[] data)
+		{
+			var writeData = new byte[8];
 
-            Array.Copy(data, 0, writeData, 1, length);
+			writeData[0] = Convert.ToByte(1);
 
-            return hidDevice.WriteFeatureData(writeData);
-        }
+			var length = Math.Min(data.Length, writeData.Length - 1);
 
-        public void Connect()
-        {
-            hidDevice.OpenDevice();
-        }
+			Array.Copy(data, 0, writeData, 1, length);
 
-        public void Dispose()
-        {
-            if (hidDevice != null && hidDevice.IsOpen)
-            {
-                hidDevice.CloseDevice();
-            }
-        }
-    }
+			return hidDevice.WriteFeatureData(writeData);
+		}
+
+		public void Connect()
+		{
+			hidDevice.OpenDevice();
+		}
+	}
 }

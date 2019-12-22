@@ -8,9 +8,8 @@ namespace Sleddog.Blink1
 	public class Blink1Mk2 : Blink1, IBlink1Mk2
 	{
 		internal Blink1Mk2(Blink1CommandBus commandBus)
-				: base(commandBus, 32)
-		{
-		}
+			: base(commandBus, 32)
+		{ }
 
 		public new bool EnableGamma
 		{
@@ -40,7 +39,7 @@ namespace Sleddog.Blink1
 		}
 
 		public bool EnabledInactivityMode(TimeSpan waitDuration, bool maintainState, ushort startPosition,
-																			ushort endPosition)
+			ushort endPosition)
 		{
 			var command = new EnableInactivityModeCommand(waitDuration, maintainState, startPosition, endPosition);
 
