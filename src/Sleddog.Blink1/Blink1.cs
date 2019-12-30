@@ -35,7 +35,7 @@ namespace Sleddog.Blink1
 
 			var onTime = TimeSpan.FromMilliseconds(timeOnInMilliseconds);
 
-			var color = ProcessColor(inputColor);
+			var color = EncodeColor(inputColor);
 
 			var x = Observable.Timer(TimeSpan.Zero, interval).TakeWhile(count => count < times).Select(_ => color);
 			var y = Observable.Timer(onTime, interval).TakeWhile(count => count < times).Select(_ => Color.Black);
@@ -47,14 +47,14 @@ namespace Sleddog.Blink1
 
 		public bool Set(Color inputColor)
 		{
-			var color = ProcessColor(inputColor);
+			var color = EncodeColor(inputColor);
 
 			return CommandBus.SendCommand(new SetColorCommand(color));
 		}
 
 		public bool Fade(Color inputColor, TimeSpan fadeDuration)
 		{
-			var color = ProcessColor(inputColor);
+			var color = EncodeColor(inputColor);
 
 			return CommandBus.SendCommand(new FadeToColorCommand(color, fadeDuration));
 		}
@@ -63,7 +63,7 @@ namespace Sleddog.Blink1
 		{
 			var timer = ObservableExt.TimerMaxTick(1, TimeSpan.Zero, visibleTime);
 
-			var color = ProcessColor(inputColor);
+			var color = EncodeColor(inputColor);
 
 			var colors = new[] {color, Color.Black}.ToObservable();
 
@@ -79,7 +79,7 @@ namespace Sleddog.Blink1
 			{
 				if (EnableGamma)
 				{
-					var color = ProcessColor(preset.Color);
+					var color = EncodeColor(preset.Color);
 
 					var correctedPreset = new Blink1Preset(color, preset.Duration);
 
@@ -97,7 +97,18 @@ namespace Sleddog.Blink1
 		public Blink1Preset ReadPreset(ushort position)
 		{
 			if (position < NumberOfPresets)
-				return CommandBus.SendQuery(new ReadPresetQuery(position));
+			{
+				var preset = CommandBus.SendQuery(new ReadPresetQuery(position));
+
+				if (EnableGamma)
+				{
+					var color = DecodeColor(preset.Color);
+
+					return new Blink1Preset(color, preset.Duration);
+				}
+
+				return preset;
+			}
 
 			var message =
 				$"Unable to read a preset from position {position} since there is only {NumberOfPresets} preset slots";
@@ -140,13 +151,25 @@ namespace Sleddog.Blink1
 			CommandBus?.Dispose();
 		}
 
-		private Color ProcessColor(Color inputColor)
+		private Color EncodeColor(Color inputColor)
 		{
 			if (EnableGamma)
 			{
 				var gammaCorrector = new GammaCorrector();
 
 				return gammaCorrector.Encode(inputColor);
+			}
+
+			return inputColor;
+		}
+
+		private Color DecodeColor(Color inputColor)
+		{
+			if (EnableGamma)
+			{
+				var gammaCorrector = new GammaCorrector();
+
+				return gammaCorrector.Decode(inputColor);
 			}
 
 			return inputColor;
