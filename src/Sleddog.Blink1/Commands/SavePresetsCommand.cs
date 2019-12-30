@@ -13,9 +13,7 @@ namespace Sleddog.Blink1.Commands
 				Convert.ToByte(0xBE),
 				Convert.ToByte(0xEF),
 				Convert.ToByte(0xCA),
-				Convert.ToByte(0xFE),
-				Convert.ToByte(0x00),
-				Convert.ToByte(0x00)
+				Convert.ToByte(0xFE)
 			};
 		}
 	}
