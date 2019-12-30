@@ -14,6 +14,17 @@ namespace Sleddog.Blink1.Internal
 		ReadPreset = (byte) 'R',
 		SavePreset = (byte) 'P',
 		SavePresetMk2 = (byte) 'W',
-		ReadPlaybackState = (byte) 'S'
+		ReadPlaybackState = (byte) 'S',
+		ReadCurrentColor = (byte) 'r',
+		SetLed = (byte) 'l',
+		ReadEepromLocation = (byte) 'e',
+		WriteEepromLocation = (byte) 'E',
+		Write50ByteNote = (byte) 'F',
+		Read50ByteNote = (byte) 'f',
+		GoToBootloader = (byte) 'G',
+		LockGoToBootloader = (byte) 'L',
+		SetStartupParams = (byte) 'B',
+		GetStartupParams = (byte) 'b',
+		GetChipUniqueId = (byte) 'U'
 	}
 }
