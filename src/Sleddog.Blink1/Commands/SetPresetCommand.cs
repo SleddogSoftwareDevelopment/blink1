@@ -1,10 +1,9 @@
 ﻿using System;
 using Sleddog.Blink1.Internal;
-using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class SetPresetCommand : IBlink1Command
+	internal class SetPresetCommand : Blink1Command
 	{
 		private readonly byte position;
 		private readonly Blink1Preset preset;
@@ -15,7 +14,7 @@ namespace Sleddog.Blink1.Commands
 			this.position = Convert.ToByte(position);
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			var presetDuration = preset.PresetDuration;
 			var presetColor = preset.Color;

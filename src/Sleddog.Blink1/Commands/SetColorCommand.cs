@@ -1,10 +1,9 @@
 using System.Drawing;
 using Sleddog.Blink1.Internal;
-using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class SetColorCommand : IBlink1Command
+	internal class SetColorCommand : Blink1Command
 	{
 		private readonly Color color;
 
@@ -13,7 +12,7 @@ namespace Sleddog.Blink1.Commands
 			this.color = color;
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

@@ -1,10 +1,9 @@
 ﻿using System;
 using Sleddog.Blink1.Internal;
-using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class PlayPresetCommand : IBlink1Command
+	internal class PlayPresetCommand : Blink1Command
 	{
 		private readonly byte count;
 		private readonly byte endPosition;
@@ -20,7 +19,7 @@ namespace Sleddog.Blink1.Commands
 			this.count = Convert.ToByte(count);
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

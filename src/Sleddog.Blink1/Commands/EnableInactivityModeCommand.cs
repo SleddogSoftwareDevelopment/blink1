@@ -1,10 +1,9 @@
 ﻿using System;
 using Sleddog.Blink1.Internal;
-using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class EnableInactivityModeCommand : IBlink1Command
+	internal class EnableInactivityModeCommand : Blink1Command
 	{
 		private readonly ushort endPosition;
 		private readonly bool maintainState;
@@ -25,7 +24,7 @@ namespace Sleddog.Blink1.Commands
 			this.endPosition = endPosition;
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

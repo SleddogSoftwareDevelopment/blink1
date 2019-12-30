@@ -1,12 +1,11 @@
 ﻿using System;
 using Sleddog.Blink1.Internal;
-using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class SavePresetsCommand : IBlink1Command
+	internal class SavePresetsCommand : Blink1Command
 	{
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

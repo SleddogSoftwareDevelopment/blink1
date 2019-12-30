@@ -1,11 +1,10 @@
 using System;
 using System.Drawing;
 using Sleddog.Blink1.Internal;
-using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class FadeToColorCommand : IBlink1Command
+	internal class FadeToColorCommand : Blink1Command
 	{
 		private readonly Color color;
 		private readonly Blink1Duration duration;
@@ -21,7 +20,7 @@ namespace Sleddog.Blink1.Commands
 			this.ledPosition = ledPosition;
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{
