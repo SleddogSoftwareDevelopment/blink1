@@ -19,18 +19,18 @@ namespace Sleddog.Blink1.ExplicitTests
 		[RequireBlink1Mk2Hardware]
 		public void SetAllPatterns()
 		{
-			blink1.Save(new Blink1Preset(Color.Cyan, TimeSpan.FromSeconds(5)), 0);
-			blink1.Save(new Blink1Preset(Color.DarkCyan, TimeSpan.FromSeconds(5)), 1);
-			blink1.Save(new Blink1Preset(Color.CadetBlue, TimeSpan.FromSeconds(5)), 2);
-			blink1.Save(new Blink1Preset(Color.SteelBlue, TimeSpan.FromSeconds(5)), 3);
-			blink1.Save(new Blink1Preset(Color.DodgerBlue, TimeSpan.FromSeconds(5)), 4);
-			blink1.Save(new Blink1Preset(Color.MediumBlue, TimeSpan.FromSeconds(5)), 5);
-			blink1.Save(new Blink1Preset(Color.DarkBlue, TimeSpan.FromSeconds(5)), 6);
-			blink1.Save(new Blink1Preset(Color.Green, TimeSpan.FromSeconds(5)), 7);
-			blink1.Save(new Blink1Preset(Color.SeaGreen, TimeSpan.FromSeconds(5)), 8);
-			blink1.Save(new Blink1Preset(Color.MediumSeaGreen, TimeSpan.FromSeconds(5)), 9);
-			blink1.Save(new Blink1Preset(Color.SpringGreen, TimeSpan.FromSeconds(5)), 10);
-			blink1.Save(new Blink1Preset(Color.LightGreen, TimeSpan.FromSeconds(5)), 11);
+			blink1.Save(new Blink1Preset(Color.Cyan, TimeSpan.FromSeconds(1)), 0);
+			blink1.Save(new Blink1Preset(Color.DarkCyan, TimeSpan.FromSeconds(1)), 1);
+			blink1.Save(new Blink1Preset(Color.CadetBlue, TimeSpan.FromSeconds(1)), 2);
+			blink1.Save(new Blink1Preset(Color.SteelBlue, TimeSpan.FromSeconds(1)), 3);
+			blink1.Save(new Blink1Preset(Color.DodgerBlue, TimeSpan.FromSeconds(1)), 4);
+			blink1.Save(new Blink1Preset(Color.MediumBlue, TimeSpan.FromSeconds(1)), 5);
+			blink1.Save(new Blink1Preset(Color.DarkBlue, TimeSpan.FromSeconds(1)), 6);
+			blink1.Save(new Blink1Preset(Color.Green, TimeSpan.FromSeconds(1)), 7);
+			blink1.Save(new Blink1Preset(Color.SeaGreen, TimeSpan.FromSeconds(1)), 8);
+			blink1.Save(new Blink1Preset(Color.MediumSeaGreen, TimeSpan.FromSeconds(1)), 9);
+			blink1.Save(new Blink1Preset(Color.SpringGreen, TimeSpan.FromSeconds(1)), 10);
+			blink1.Save(new Blink1Preset(Color.LightGreen, TimeSpan.FromSeconds(1)), 11);
 		}
 
 		[RequireBlink1Mk2Hardware]
@@ -49,10 +49,10 @@ namespace Sleddog.Blink1.ExplicitTests
 			Assert.NotNull(actual);
 		}
 
-		[RequireBlink1Mk2Hardware(Skip = "Current issue with color comparison, but it is right")]
+		[RequireBlink1Mk2Hardware(/*Skip = "Current issue with color comparison, but it is right"*/)]
 		public void SavePresetWritesToDevice()
 		{
-			var expected = new Blink1Preset(Color.FromArgb(255, 50, 100, 200), TimeSpan.FromSeconds(1.5));
+			var expected = new Blink1Preset(Color.FromArgb(255, 50, 100, 200), TimeSpan.FromSeconds(2.5));
 
 			blink1.EnableGamma = false;
 

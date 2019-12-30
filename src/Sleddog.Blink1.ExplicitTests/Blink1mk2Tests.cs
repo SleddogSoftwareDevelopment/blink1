@@ -53,7 +53,7 @@ namespace Sleddog.Blink1.ExplicitTests
 		[RequireBlink1Mk2Hardware]
 		public void PlayPreset()
 		{
-			blink1.Play(0, 11, 0);
+			blink1.Play(0, 0, 2);
 		}
 	}
 }
