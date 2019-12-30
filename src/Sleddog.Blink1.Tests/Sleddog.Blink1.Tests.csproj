@@ -77,7 +77,7 @@
     <Compile Include="Blink1DurationTests.cs" />
     <Compile Include="Colors\ColorGeneratorTests.cs" />
     <Compile Include="Colors\GammaCorrectorTests.cs" />
-    <Compile Include="Colors\GoodEnoughColorComparer.cs" />
+    <Compile Include="GoodEnoughColorComparer.cs" />
     <Compile Include="Colors\HSLTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace Sleddog.Blink1.Tests.Colors
+namespace Sleddog.Blink1.Tests
 {
 	public class GoodEnoughColorComparer : IEqualityComparer<Color>
 	{

@@ -20,9 +20,12 @@ namespace Sleddog.Blink1
 
 		protected bool Equals(Blink1Preset other)
 		{
-			var equal = Color.R.Equals(other.Color.R) &&
-			            Color.G.Equals(other.Color.G) &&
-			            Color.B.Equals(other.Color.B) &&
+			var tollerance = 1;
+
+			var equal = (Color.A - tollerance <= other.Color.A && other.Color.A <= Color.A + tollerance) &&
+			            (Color.R - tollerance <= other.Color.R && other.Color.R <= Color.R + tollerance) &&
+			            (Color.G - tollerance <= other.Color.G && other.Color.G <= Color.G + tollerance) &&
+			            (Color.B - tollerance <= other.Color.B && other.Color.B <= Color.B + tollerance) &&
 			            PresetDuration.Equals(other.PresetDuration);
 
 			return equal;
@@ -45,7 +48,7 @@ namespace Sleddog.Blink1
 				return false;
 			}
 
-			return Equals((Blink1Preset) obj);
+			return Equals((Blink1Preset)obj);
 		}
 
 		public override int GetHashCode()
