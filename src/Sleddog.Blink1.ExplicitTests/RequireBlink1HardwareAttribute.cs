@@ -5,13 +5,20 @@ namespace Sleddog.Blink1.ExplicitTests
 {
 	public class RequireBlink1HardwareAttribute : RequireBlinkHardwareAttribute
 	{
-		public RequireBlink1HardwareAttribute()
+		private readonly byte versionByte;
+
+		public RequireBlink1HardwareAttribute() : this(0x31)
+		{ }
+
+		protected RequireBlink1HardwareAttribute(byte versionByte)
 		{
+			this.versionByte = versionByte;
+
 			var blink1Devices = (from d in Devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
 
 			if (!blink1Devices.Any())
 			{
-				Skip = "No Blink1 units connected";
+				Skip = "No matching blink1 units connected";
 			}
 		}
 
@@ -26,7 +33,7 @@ namespace Sleddog.Blink1.ExplicitTests
 				return false;
 			}
 
-			return serialBytes[0] == 0x31;
+			return serialBytes[0] == versionByte;
 		}
 	}
 }

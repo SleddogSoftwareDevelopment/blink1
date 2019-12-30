@@ -1,0 +1,142 @@
+﻿using System;
+using System.Drawing;
+using System.Threading;
+using Xunit;
+
+namespace Sleddog.Blink1.ExplicitTests
+{
+	public class Blink1Mk3WorkbenchTests : IClassFixture<Blink1Fixture<IBlink1Mk3>>
+	{
+		private readonly IBlink1Mk3 blink1;
+
+		public Blink1Mk3WorkbenchTests(Blink1Fixture<IBlink1Mk3> fixture)
+		{
+			blink1 = fixture.Device;
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void SetAllPatterns()
+		{
+			blink1.Save(new Blink1Preset(Color.Cyan, TimeSpan.FromSeconds(1)), 0);
+			blink1.Save(new Blink1Preset(Color.DarkCyan, TimeSpan.FromSeconds(1)), 1);
+			blink1.Save(new Blink1Preset(Color.CadetBlue, TimeSpan.FromSeconds(1)), 2);
+			blink1.Save(new Blink1Preset(Color.SteelBlue, TimeSpan.FromSeconds(1)), 3);
+			blink1.Save(new Blink1Preset(Color.DodgerBlue, TimeSpan.FromSeconds(1)), 4);
+			blink1.Save(new Blink1Preset(Color.MediumBlue, TimeSpan.FromSeconds(1)), 5);
+			blink1.Save(new Blink1Preset(Color.DarkBlue, TimeSpan.FromSeconds(1)), 6);
+			blink1.Save(new Blink1Preset(Color.Green, TimeSpan.FromSeconds(1)), 7);
+			blink1.Save(new Blink1Preset(Color.SeaGreen, TimeSpan.FromSeconds(1)), 8);
+			blink1.Save(new Blink1Preset(Color.MediumSeaGreen, TimeSpan.FromSeconds(1)), 9);
+			blink1.Save(new Blink1Preset(Color.SpringGreen, TimeSpan.FromSeconds(1)), 10);
+			blink1.Save(new Blink1Preset(Color.LightGreen, TimeSpan.FromSeconds(1)), 11);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void ReadSerialReadsValidSerialNumber()
+		{
+			var actual = blink1.SerialNumber;
+
+			Assert.StartsWith("0x3", actual);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void ReadPresetReturnsValidPreset()
+		{
+			var actual = blink1.ReadPreset(0);
+
+			Assert.NotNull(actual);
+		}
+
+		[RequireBlink1Mk3Hardware()]
+		public void SavePresetWritesToDevice()
+		{
+			var expected = new Blink1Preset(Color.FromArgb(255, 50, 100, 200), TimeSpan.FromSeconds(2.5));
+
+			blink1.EnableGamma = false;
+
+			blink1.Save(expected, 0);
+
+			var actual = blink1.ReadPreset(0);
+
+			Assert.Equal(expected, actual);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void SetColor()
+		{
+			var actual = blink1.Set(Color.Blue);
+
+			Assert.True(actual);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void ShowColor()
+		{
+			var showColorTime = TimeSpan.FromSeconds(2);
+
+			var actual = blink1.Show(Color.Chartreuse, showColorTime);
+
+			Thread.Sleep(showColorTime);
+
+			Assert.True(actual);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void FadeToColor()
+		{
+			var fadeDuration = TimeSpan.FromSeconds(2);
+
+			var actual = blink1.Fade(Color.Red, fadeDuration);
+
+			Thread.Sleep(fadeDuration);
+
+			Assert.True(actual);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void SetPreset0AndPlayIt()
+		{
+			var presetDuration = TimeSpan.FromSeconds(2);
+
+			var preset = new Blink1Preset(Color.DarkGoldenrod, presetDuration);
+
+			blink1.Save(preset, 0);
+
+			blink1.Play(0);
+
+			Thread.Sleep(presetDuration);
+
+			blink1.Pause();
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void PoliceBlinking()
+		{
+			for (var i = 0; i < 100; i++)
+			{
+				blink1.Fade(Color.Blue, TimeSpan.FromMilliseconds(25), (LEDPosition) (i % 2));
+				blink1.Fade(Color.Red, TimeSpan.FromMilliseconds(25), (LEDPosition) (i % 2 + 1));
+
+				Thread.Sleep(200);
+			}
+
+			blink1.Set(Color.Black);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void TurnOff()
+		{
+			blink1.Set(Color.Black);
+		}
+
+		[RequireBlink1Mk3Hardware]
+		public void EnableInactivityMode()
+		{
+			blink1.EnableInactivityMode(TimeSpan.FromMilliseconds(50));
+
+			Thread.Sleep(TimeSpan.FromMilliseconds(150));
+
+			blink1.DisableInactivityMode();
+		}
+	}
+}
