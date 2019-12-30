@@ -69,7 +69,8 @@
   <ItemGroup>
     <Compile Include="Blink1ConnectorTests.cs" />
     <Compile Include="Blink1Fixture.cs" />
-    <Compile Include="Blink1mk2Tests.cs" />
+    <Compile Include="Blink1Mk2Tests.cs" />
+    <Compile Include="Blink1Mk2WorkbenchTests.cs" />
     <Compile Include="Blink1Tests.cs" />
     <Compile Include="BlinkHardwareScannerAttribute.cs" />
     <Compile Include="ExplicitFactAttribute.cs" />
