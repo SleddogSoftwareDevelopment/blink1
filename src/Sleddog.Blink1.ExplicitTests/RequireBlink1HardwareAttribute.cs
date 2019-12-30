@@ -3,30 +3,37 @@ using HidLibrary;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    public class RequireBlink1HardwareAttribute : RequireBlinkHardwareAttribute
-    {
-        public RequireBlink1HardwareAttribute()
-        {
-            var blink1Devices = (from d in Devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
+	public class RequireBlink1HardwareAttribute : RequireBlinkHardwareAttribute
+	{
+		private readonly byte versionByte;
 
-            if (!blink1Devices.Any())
-            {
-                Skip = "No Blink1 units connected";
-            }
-        }
+		public RequireBlink1HardwareAttribute() : this(0x31)
+		{ }
 
-        private bool IsDeviceWithinBlink1Range(HidDevice device)
-        {
-            byte[] serialBytes;
+		protected RequireBlink1HardwareAttribute(byte versionByte)
+		{
+			this.versionByte = versionByte;
 
-            var readSerial = device.ReadSerialNumber(out serialBytes);
+			var blink1Devices = (from d in Devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
 
-            if (!readSerial)
-            {
-                return false;
-            }
+			if (!blink1Devices.Any())
+			{
+				Skip = "No matching blink1 units connected";
+			}
+		}
 
-            return serialBytes[0] == 0x31;
-        }
-    }
+		private bool IsDeviceWithinBlink1Range(HidDevice device)
+		{
+			byte[] serialBytes;
+
+			var readSerial = device.ReadSerialNumber(out serialBytes);
+
+			if (!readSerial)
+			{
+				return false;
+			}
+
+			return serialBytes[0] == versionByte;
+		}
+	}
 }

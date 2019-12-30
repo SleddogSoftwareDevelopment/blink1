@@ -73,6 +73,7 @@
     <Compile Include="Blink1Connector.cs" />
     <Compile Include="Blink1Identifier.cs" />
     <Compile Include="Blink1Mk2.cs" />
+    <Compile Include="Blink1Mk3.cs" />
     <Compile Include="Blink1Preset.cs" />
     <Compile Include="Colors\ColorGenerator.cs" />
     <Compile Include="Colors\GammaCorrector.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Commands\VersionQuery.cs" />
     <Compile Include="IBlink1.cs" />
     <Compile Include="IBlink1Mk2.cs" />
+    <Compile Include="IBlink1Mk3.cs" />
+    <Compile Include="Internal\Blink1Command.cs" />
     <Compile Include="Internal\Blink1CommandBus.cs" />
     <Compile Include="Internal\Blink1Commands.cs" />
     <Compile Include="Internal\Blink1Duration.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Internal\Interfaces\IBlink1MultiQuery.cs" />
     <Compile Include="Internal\Interfaces\IBlink1Query.cs" />
     <Compile Include="Internal\ObservableExt.cs" />
+    <Compile Include="Internal\ReportId.cs" />
     <Compile Include="LEDPosition.cs" />
     <Compile Include="PlaybackStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

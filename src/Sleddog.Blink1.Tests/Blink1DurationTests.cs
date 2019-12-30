@@ -6,106 +6,109 @@ using Xunit;
 
 namespace Sleddog.Blink1.Tests
 {
-    public class Blink1DurationTests
-    {
-        private static readonly Random Random = new Random();
+	public class Blink1DurationTests
+	{
+		private static readonly Random Random = new Random();
 
-        [Theory, MemberData(nameof(HighTestData))]
-        public void HighIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
-        {
-            var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
+		public static IEnumerable<object[]> HighTestData
+		{
+			get
+			{
+				yield return new object[] {0u, new byte()};
 
-            var sut = new Blink1Duration(ts);
+				foreach (var val in GenerateSampleData())
+				{
+					var expected = Convert.ToByte(CalculateOutcomeValue(val) >> 8);
 
-            var actual = sut.High;
+					yield return new object[] {val, expected};
+				}
+			}
+		}
 
-            Assert.Equal(expected, actual);
-        }
+		public static IEnumerable<object[]> LowTestData
+		{
+			get
+			{
+				yield return new object[] {0u, new byte()};
 
-        [Theory, MemberData(nameof(LowTestData))]
-        public void LowIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
-        {
-            var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
+				foreach (var val in GenerateSampleData())
+				{
+					var expected = Convert.ToByte(CalculateOutcomeValue(val) & 0xFF);
 
-            var sut = new Blink1Duration(ts);
+					yield return new object[] {val, expected};
+				}
+			}
+		}
 
-            var actual = sut.Low;
+		public static IEnumerable<object[]> ImplicitTestData
+		{
+			get
+			{
+				yield return new object[] {0u, 0u};
+				yield return new object[] {250u, 250u};
+				yield return new object[] {254u, 250u};
+				yield return new object[] {255u, 260u};
+				yield return new object[] {256u, 260u};
 
-            Assert.Equal(expected, actual);
-        }
+				foreach (var val in GenerateSampleData())
+				{
+					var expected = CalculateOutcomeValue(val) * 10;
 
-        [Theory, MemberData(nameof(ImplicitTestData))]
-        public void ImplicitConversionToTimeSpan(uint timeInMilliseconds, uint expected)
-        {
-            var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
+					yield return new object[] {val, expected};
+				}
+			}
+		}
 
-            var sut = new Blink1Duration(ts);
+		[Theory]
+		[MemberData(nameof(HighTestData))]
+		public void HighIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
+		{
+			var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
 
-            TimeSpan actual = sut;
+			var sut = new Blink1Duration(ts);
 
-            Assert.Equal(expected, actual.TotalMilliseconds);
-        }
+			var actual = sut.High;
 
-        public static IEnumerable<object[]> HighTestData
-        {
-            get
-            {
-                yield return new object[] {0u, new byte()};
+			Assert.Equal(expected, actual);
+		}
 
-                foreach (var val in GenerateSampleData())
-                {
-                    var expected = Convert.ToByte(CalculateOutcomeValue(val) >> 8);
+		[Theory]
+		[MemberData(nameof(LowTestData))]
+		public void LowIsSetCorrectlyFromTimeSpanCtorInput(uint timeInMilliseconds, byte expected)
+		{
+			var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
 
-                    yield return new object[] {val, expected};
-                }
-            }
-        }
+			var sut = new Blink1Duration(ts);
 
-        public static IEnumerable<object[]> LowTestData
-        {
-            get
-            {
-                yield return new object[] {0u, new byte()};
+			var actual = sut.Low;
 
-                foreach (var val in GenerateSampleData())
-                {
-                    var expected = Convert.ToByte(CalculateOutcomeValue(val) & 0xFF);
+			Assert.Equal(expected, actual);
+		}
 
-                    yield return new object[] {val, expected};
-                }
-            }
-        }
+		[Theory]
+		[MemberData(nameof(ImplicitTestData))]
+		public void ImplicitConversionToTimeSpan(uint timeInMilliseconds, uint expected)
+		{
+			var ts = TimeSpan.FromMilliseconds(timeInMilliseconds);
 
-        public static IEnumerable<object[]> ImplicitTestData
-        {
-            get
-            {
-                yield return new object[] {0u, 0u};
-                yield return new object[] {250u, 250u};
-                yield return new object[] {254u, 250u};
-                yield return new object[] {255u, 260u};
-                yield return new object[] {256u, 260u};
+			var sut = new Blink1Duration(ts);
 
-                foreach (var val in GenerateSampleData())
-                {
-                    var expected = CalculateOutcomeValue(val)*10;
+			TimeSpan actual = sut;
 
-                    yield return new object[] {val, expected};
-                }
-            }
-        }
+			Assert.Equal(expected, actual.TotalMilliseconds);
+		}
 
-        private static uint CalculateOutcomeValue(uint val)
-        {
-            var blink1Duration = (double) val/10;
-            var roundedDuration = Math.Round(blink1Duration, 0, MidpointRounding.ToEven);
+		private static uint CalculateOutcomeValue(uint val)
+		{
+			var blink1Duration = (double) val / 10;
+			var roundedDuration = Math.Round(blink1Duration, 0, MidpointRounding.ToEven);
 
-            return Convert.ToUInt32(roundedDuration);
-        }
+			return Convert.ToUInt32(roundedDuration);
+		}
 
-        private static IEnumerable<uint> GenerateSampleData()
-        {
-            return Enumerable.Range(0, 15).Select(_ => (uint) Random.Next(0, 365000));
-        }
-    }
+		private static IEnumerable<uint> GenerateSampleData()
+		{
+			return Enumerable.Range(0, 15).Select(_ => (uint) Random.Next(0, 365000));
+		}
+	}
 }
