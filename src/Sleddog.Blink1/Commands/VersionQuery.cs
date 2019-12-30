@@ -4,7 +4,7 @@ using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class VersionQuery : IBlink1Query<Version>
+	internal class VersionQuery : Blink1Command, IBlink1Query<Version>
 	{
 		public Version ToResponseType(byte[] responseData)
 		{
@@ -14,7 +14,7 @@ namespace Sleddog.Blink1.Commands
 			return new Version(major, minor);
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

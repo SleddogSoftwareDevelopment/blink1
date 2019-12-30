@@ -4,7 +4,7 @@ using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	public class ReadPlaybackStateQuery : IBlink1Query<PlaybackStatus>
+	internal class ReadPlaybackStateQuery : Blink1Command, IBlink1Query<PlaybackStatus>
 	{
 		public PlaybackStatus ToResponseType(byte[] responseData)
 		{
@@ -19,7 +19,7 @@ namespace Sleddog.Blink1.Commands
 			return new PlaybackStatus(isPlaying, start, end, count, position);
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

@@ -5,7 +5,7 @@ using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Commands
 {
-	internal class ReadPresetQuery : IBlink1Query<Blink1Preset>
+	internal class ReadPresetQuery : Blink1Command, IBlink1Query<Blink1Preset>
 	{
 		private readonly byte position;
 
@@ -22,7 +22,7 @@ namespace Sleddog.Blink1.Commands
 			return new Blink1Preset(color, duration);
 		}
 
-		public byte[] ToHidCommand()
+		protected override byte[] HidCommandData()
 		{
 			return new[]
 			{

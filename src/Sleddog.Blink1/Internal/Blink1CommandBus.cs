@@ -93,7 +93,7 @@ namespace Sleddog.Blink1.Internal
 				Connect();
 			}
 
-			var commandSend = WriteData(command.ToHidCommand());
+			var commandSend = hidDevice.WriteFeatureData(command.ToHidCommand());
 
 			return commandSend;
 		}
@@ -105,7 +105,7 @@ namespace Sleddog.Blink1.Internal
 				Connect();
 			}
 
-			var commandSend = WriteData(query.ToHidCommand());
+			var commandSend = hidDevice.WriteFeatureData(query.ToHidCommand());
 
 			if (commandSend)
 			{
@@ -120,19 +120,6 @@ namespace Sleddog.Blink1.Internal
 			}
 
 			return default;
-		}
-
-		private bool WriteData(byte[] data)
-		{
-			var writeData = new byte[8];
-
-			writeData[0] = Convert.ToByte(1);
-
-			var length = Math.Min(data.Length, writeData.Length - 1);
-
-			Array.Copy(data, 0, writeData, 1, length);
-
-			return hidDevice.WriteFeatureData(writeData);
 		}
 
 		public void Connect()
