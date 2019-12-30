@@ -3,13 +3,14 @@ using System.Linq;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-	public class Blink1Fixture : IDisposable
+	// ReSharper disable once ClassNeverInstantiated.Global
+	public class Blink1Fixture<TBlinkType> : IDisposable where TBlinkType : IBlink1
 	{
-		public IBlink1 Device { get; }
+		public TBlinkType Device { get; }
 
 		public Blink1Fixture()
 		{
-			Device = Blink1Connector.Scan().FirstOrDefault(b => !(b is IBlink1Mk2));
+			Device = (TBlinkType) Blink1Connector.Scan().FirstOrDefault(b => b is TBlinkType);
 		}
 
 		public void Dispose()

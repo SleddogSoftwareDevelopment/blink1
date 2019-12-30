@@ -5,13 +5,13 @@ using Xunit;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-	public class Blink1Mk2Tests : IClassFixture<Blink1Mk2Fixture>
+	public class Blink1Mk2Tests : IClassFixture<Blink1Fixture<IBlink1Mk2>>
 	{
 		private readonly IBlink1Mk2 blink1;
 		private const string LowestSerialNumber = "0x20001000";
 		private const string HighestSerialNumber = "0x20003710";
 
-		public Blink1Mk2Tests(Blink1Mk2Fixture fixture)
+		public Blink1Mk2Tests(Blink1Fixture<IBlink1Mk2> fixture)
 		{
 			blink1 = fixture.Device;
 		}
