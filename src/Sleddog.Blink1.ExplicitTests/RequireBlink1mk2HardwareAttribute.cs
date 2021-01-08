@@ -24,7 +24,8 @@ namespace Sleddog.Blink1.ExplicitTests
 				return false;
 			}
 
-			return serial[0] == 0x32;
+			// HACK: Allow mk3 devices to act as mk2
+			return serial[0] == 0x32 || serial[0] == 0x33;
 		}
 	}
 }
