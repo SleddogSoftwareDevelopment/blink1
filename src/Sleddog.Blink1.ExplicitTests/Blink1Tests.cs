@@ -7,8 +7,8 @@ namespace Sleddog.Blink1.ExplicitTests
 {
     public class Blink1Tests : IClassFixture<Blink1Fixture>
     {
-        private const string LowestSerialNumber = "0x1A001000";
-        private const string HighestSerialNumber = "0x1A002FFF";
+        private const string LowestSerialNumber = "1A001000";
+        private const string HighestSerialNumber = "1A002FFF";
 
         private readonly IBlink1 blink1;
 

@@ -1,18 +1,17 @@
 using System.Linq;
-using HidLibrary;
+using HidSharp;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    public abstract class BlinkHardwareScannerAttribute : ExplicitFactAttribute
-    {
-        private const int VendorId = 0x27B8;
-        private const int ProductId = 0x01ED;
+	public abstract class BlinkHardwareScannerAttribute : ExplicitFactAttribute
+	{
+		protected readonly HidDevice[] Devices;
+		private const int VendorId = 0x27B8;
+		private const int ProductId = 0x01ED;
 
-        protected readonly HidDevice[] Devices;
-
-        protected BlinkHardwareScannerAttribute()
-        {
-            Devices = HidDevices.Enumerate(VendorId, ProductId).ToArray();
-        }
-    }
+		protected BlinkHardwareScannerAttribute()
+		{
+			Devices =  DeviceList.Local.GetHidDevices(VendorId, ProductId).ToArray();
+		}
+	}
 }
