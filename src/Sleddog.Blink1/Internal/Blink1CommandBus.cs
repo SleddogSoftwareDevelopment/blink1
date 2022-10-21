@@ -114,7 +114,7 @@ namespace Sleddog.Blink1.Internal
 
             Array.Copy(data, 0, writeData, 1, length);
 
-            device.SendFeatureReport(data);
+            device.SendFeatureReport(writeData);
 
             return true;
         }
