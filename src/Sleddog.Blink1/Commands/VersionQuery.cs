@@ -6,7 +6,7 @@ namespace Sleddog.Blink1.Commands
 {
     internal class VersionQuery : IBlink1Query<Version>
     {
-        public Version ToResponseType(byte[] responseData)
+        public Version ToResponseType(ReadOnlySpan<byte> responseData)
         {
             var major = responseData[3] - '0';
             var minor = responseData[4] - '0';

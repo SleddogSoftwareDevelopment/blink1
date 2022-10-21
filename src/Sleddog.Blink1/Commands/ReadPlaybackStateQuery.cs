@@ -6,7 +6,7 @@ namespace Sleddog.Blink1.Commands
 {
     public class ReadPlaybackStateQuery : IBlink1Query<PlaybackStatus>
     {
-        public PlaybackStatus ToResponseType(byte[] responseData)
+        public PlaybackStatus ToResponseType(ReadOnlySpan<byte> responseData)
         {
             var isPlaying = Convert.ToBoolean(responseData[2]);
 
