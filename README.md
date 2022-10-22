@@ -7,4 +7,4 @@ Ideas from the originial implementation of [ManagedBlink1](https://github.com/to
 
 Supports more features than the official library, with a focus on abstracting hardware knowledge away.
 
-![Build badge...](https://github.com/SleddogSoftwareDevelopment/blink1/actions/workflows/dotnet.yml/badge.svg)
+![Build badge...](https://github.com/SleddogSoftwareDevelopment/blink1/actions/workflows/ci.yml/badge.svg)
