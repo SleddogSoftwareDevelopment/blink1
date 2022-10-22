@@ -1,4 +1,4 @@
-﻿using HidApi;
+using System.Linq;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
@@ -6,9 +6,10 @@ namespace Sleddog.Blink1.ExplicitTests
     {
         public RequireBlinkHardwareAttribute()
         {
-            if (!devices.Any())
-                Skip = "No Blink1 devices connected";
+            if (!Devices.Any())
+            {
+                Skip = "No Blink devices connected";
+            }
         }
     }
-
 }

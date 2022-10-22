@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Sleddog.Blink1.Tests")]
 
 namespace Sleddog.Blink1.Internal
 {

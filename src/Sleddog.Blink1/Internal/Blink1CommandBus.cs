@@ -1,29 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using HidLibrary;
+using HidApi;
 using Sleddog.Blink1.Internal.Interfaces;
 
 namespace Sleddog.Blink1.Internal
 {
     internal class Blink1CommandBus : IDisposable
     {
-        private readonly HidDevice hidDevice;
+        private readonly DeviceInfo deviceInfo;
+        private Device device;
+        private readonly byte reportId = 0x01;
+        private readonly int reportLength = 9;
 
-        public bool IsConnected => hidDevice.IsOpen;
+        public bool IsConnected => device != null;
 
-        public Blink1CommandBus(HidDevice hidDevice)
+        public Blink1CommandBus(DeviceInfo deviceInfo)
         {
-            this.hidDevice = hidDevice;
+            this.deviceInfo = deviceInfo;
         }
 
         internal string ReadSerial()
         {
-            byte[] output;
-         
-            hidDevice.ReadSerialNumber(out output);
-
-            var chars = (from o in output where o != 0 select (char) o).ToArray();
+            var chars = (from o in deviceInfo.SerialNumber where o != 0 select (char)o).ToArray();
 
             return $"0x{string.Join(string.Empty, chars)}";
         }
@@ -40,42 +38,6 @@ namespace Sleddog.Blink1.Internal
                 .ToList();
 
             return commandResults.Any(cr => cr == false);
-        }
-
-        internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
-        {
-            if (!IsConnected)
-            {
-                Connect();
-            }
-
-            var responseSegments = new List<byte[]>();
-
-            var hidCommands = query.ToHidCommands().ToList();
-
-            foreach (var hidCommand in hidCommands)
-            {
-                var commandSend = WriteData(hidCommand);
-
-                if (commandSend)
-                {
-                    byte[] responseData;
-
-                    var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
-
-                    if (readData)
-                    {
-                        responseSegments.Add(responseData);
-                    }
-                }
-            }
-
-            if (responseSegments.Count == hidCommands.Count)
-            {
-                return query.ToResponseType(responseSegments);
-            }
-
-            return default;
         }
 
         internal bool SendCommand(IBlink1Command command)
@@ -101,14 +63,9 @@ namespace Sleddog.Blink1.Internal
 
             if (commandSend)
             {
-                byte[] responseData;
+                var output = device.GetFeatureReport(reportId, reportLength);
 
-                var readData = hidDevice.ReadFeatureData(out responseData, Convert.ToByte(1));
-
-                if (readData)
-                {
-                    return query.ToResponseType(responseData);
-                }
+                return query.ToResponseType(output);
             }
 
             return default;
@@ -116,28 +73,27 @@ namespace Sleddog.Blink1.Internal
 
         private bool WriteData(byte[] data)
         {
-            var writeData = new byte[8];
+            var writeData = new byte[reportLength];
 
-            writeData[0] = Convert.ToByte(1);
+            writeData[0] = reportId;
 
             var length = Math.Min(data.Length, writeData.Length - 1);
 
             Array.Copy(data, 0, writeData, 1, length);
 
-            return hidDevice.WriteFeatureData(writeData);
+            device.SendFeatureReport(writeData);
+
+            return true;
         }
 
         public void Connect()
         {
-            hidDevice.OpenDevice();
+            device = deviceInfo.ConnectToDevice();
         }
 
         public void Dispose()
         {
-            if (hidDevice != null && hidDevice.IsOpen)
-            {
-                hidDevice.CloseDevice();
-            }
+            device?.Dispose();
         }
     }
 }

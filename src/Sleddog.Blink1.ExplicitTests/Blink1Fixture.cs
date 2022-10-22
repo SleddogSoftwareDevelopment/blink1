@@ -1,22 +1,20 @@
-﻿using System;
-using System.Linq;
-
-namespace Sleddog.Blink1.ExplicitTests
+﻿namespace Sleddog.Blink1.ExplicitTests
 {
     public class Blink1Fixture : IDisposable
     {
-        private readonly IBlink1 blink1;
-
         public Blink1Fixture()
         {
-            blink1 = Blink1Connector.Scan().FirstOrDefault(b => !(b is IBlink1Mk2));
+            var firstDevice = Blink1Connector.Scan().FirstOrDefault(b => !(b is IBlink1Mk2));
+
+            if(firstDevice != null)
+                Device = firstDevice;
         }
 
-        public IBlink1 Device => blink1;
+        public IBlink1? Device { get; }
 
         public void Dispose()
         {
-            blink1?.Dispose();
+            Device?.Dispose();
         }
     }
 }

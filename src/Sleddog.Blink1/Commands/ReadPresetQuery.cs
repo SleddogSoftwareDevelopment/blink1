@@ -14,7 +14,7 @@ namespace Sleddog.Blink1.Commands
             this.position = Convert.ToByte(position);
         }
 
-        public Blink1Preset ToResponseType(byte[] responseData)
+        public Blink1Preset ToResponseType(ReadOnlySpan<byte> responseData)
         {
             var color = Color.FromArgb(responseData[2], responseData[3], responseData[4]);
             var duration = new Blink1Duration(responseData[5], responseData[6]);

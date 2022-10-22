@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using HidLibrary;
+﻿using HidApi;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
@@ -7,26 +6,17 @@ namespace Sleddog.Blink1.ExplicitTests
     {
         public RequireBlink1HardwareAttribute()
         {
-            var blink1Devices = (from d in Devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
+            var blink1Devices = (from d in devices where IsDeviceWithinBlink1Range(d) select d).ToArray();
 
-            if (!blink1Devices.Any())
+            if(!blink1Devices.Any())
             {
                 Skip = "No Blink1 units connected";
             }
         }
 
-        private bool IsDeviceWithinBlink1Range(HidDevice device)
+        private bool IsDeviceWithinBlink1Range(DeviceInfo deviceInfo)
         {
-            byte[] serialBytes;
-
-            var readSerial = device.ReadSerialNumber(out serialBytes);
-
-            if (!readSerial)
-            {
-                return false;
-            }
-
-            return serialBytes[0] == 0x31;
+            return deviceInfo.SerialNumber[0] >= 0x31;
         }
     }
 }
