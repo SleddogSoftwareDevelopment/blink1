@@ -41,3 +41,4 @@ jobs:
       with:
         name: test-results
         path: '**/*.trx'
+        retention-days: 1
