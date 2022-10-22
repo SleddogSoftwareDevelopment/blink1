@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using HidApi;
 using Sleddog.Blink1.Internal.Interfaces;
@@ -10,6 +9,7 @@ namespace Sleddog.Blink1.Internal
     {
         private readonly DeviceInfo deviceInfo;
         private Device device;
+        private readonly byte reportId = 0x01;
 
         public bool IsConnected => device != null;
 
@@ -96,7 +96,7 @@ namespace Sleddog.Blink1.Internal
 
             if (commandSend)
             {
-                var output = device.GetFeatureReport(Convert.ToByte(1), 8);
+                var output = device.GetFeatureReport(reportId, 9);
 
                 return query.ToResponseType(output);
             }
@@ -106,9 +106,9 @@ namespace Sleddog.Blink1.Internal
 
         private bool WriteData(byte[] data)
         {
-            var writeData = new byte[8];
+            var writeData = new byte[9];
 
-            writeData[0] = Convert.ToByte(1);
+            writeData[0] = reportId;
 
             var length = Math.Min(data.Length, writeData.Length - 1);
 
