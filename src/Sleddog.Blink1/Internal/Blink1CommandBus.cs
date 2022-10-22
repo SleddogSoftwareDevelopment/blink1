@@ -10,6 +10,7 @@ namespace Sleddog.Blink1.Internal
         private readonly DeviceInfo deviceInfo;
         private Device device;
         private readonly byte reportId = 0x01;
+        private readonly int reportLength = 9;
 
         public bool IsConnected => device != null;
 
@@ -38,40 +39,6 @@ namespace Sleddog.Blink1.Internal
 
             return commandResults.Any(cr => cr == false);
         }
-
-        //internal T SendQuery<T>(IBlink1MultiQuery<T> query) where T : class
-        //{
-        //    if (!IsConnected)
-        //    {
-        //        Connect();
-        //    }
-
-        //    var responseSegments = new List<byte[]>();
-
-        //    var hidCommands = query.ToHidCommands().ToList();
-
-        //    foreach (var hidCommand in hidCommands)
-        //    {
-        //        var commandSend = WriteData(hidCommand);
-
-        //        if (commandSend)
-        //        {
-        //            byte[] responseData;
-
-        //            //if (readData)
-        //            //{
-        //            //    responseSegments.Add(responseData);
-        //            //}
-        //        }
-        //    }
-
-        //    if (responseSegments.Count == hidCommands.Count)
-        //    {
-        //        return query.ToResponseType(responseSegments);
-        //    }
-
-        //    return default;
-        //}
 
         internal bool SendCommand(IBlink1Command command)
         {
