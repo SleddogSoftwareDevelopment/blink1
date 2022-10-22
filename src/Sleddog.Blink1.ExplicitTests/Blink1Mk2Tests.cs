@@ -119,7 +119,7 @@ namespace Sleddog.Blink1.ExplicitTests
         [RequireBlink1Mk2Hardware]
         public void PoliceBlinking()
         {
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 20; i++)
             {
                 blink1.Fade(Color.Blue, TimeSpan.FromMilliseconds(25), (LEDPosition)(i % 2));
                 blink1.Fade(Color.Red, TimeSpan.FromMilliseconds(25), (LEDPosition)(i % 2 + 1));
