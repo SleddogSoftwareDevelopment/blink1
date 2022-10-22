@@ -40,4 +40,4 @@ jobs:
       if: success() || failure()
       with:
         name: test-results
-        path: test-results.trx
+        path: ./src/test-results.trx
