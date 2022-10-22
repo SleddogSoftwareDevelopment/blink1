@@ -63,7 +63,7 @@ namespace Sleddog.Blink1.Internal
 
             if (commandSend)
             {
-                var output = device.GetFeatureReport(reportId, 9);
+                var output = device.GetFeatureReport(reportId, reportLength);
 
                 return query.ToResponseType(output);
             }
@@ -73,7 +73,7 @@ namespace Sleddog.Blink1.Internal
 
         private bool WriteData(byte[] data)
         {
-            var writeData = new byte[9];
+            var writeData = new byte[reportLength];
 
             writeData[0] = reportId;
 
