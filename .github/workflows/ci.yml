@@ -19,6 +19,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - uses: actions/cache@v3
+      with:
+        path: ~/src/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
     # - uses: actions/cache@v3
     #   with:
     #     path: ~/.nuget/packages
