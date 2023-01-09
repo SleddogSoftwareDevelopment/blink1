@@ -1,13 +1,25 @@
 ﻿using Xunit;
+using Xunit.Abstractions;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
     public class Blink1ConnectorTests
     {
+        private readonly ITestOutputHelper output;
+        public Blink1ConnectorTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [RequireBlinkHardware]
         public void ScanFindsDevices()
         {
             var devices = Blink1Connector.Scan();
+
+            foreach(var device in devices)
+            {
+                output.WriteLine(device.SerialNumber);
+            }
 
             Assert.NotEmpty(devices);
         }
