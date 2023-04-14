@@ -53,7 +53,7 @@ namespace Sleddog.Blink1.Internal
         {
             unchecked
             {
-                return (High.GetHashCode()*397) ^ Low.GetHashCode();
+                return (High*397) ^ Low;
             }
         }
 
