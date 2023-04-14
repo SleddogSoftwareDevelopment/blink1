@@ -37,7 +37,7 @@ namespace Sleddog.Blink1.Internal
                                   select WriteData(hc))
                 .ToList();
 
-            return commandResults.Any(cr => cr == false);
+            return commandResults.Any(success => !success);
         }
 
         internal bool SendCommand(IBlink1Command command)
