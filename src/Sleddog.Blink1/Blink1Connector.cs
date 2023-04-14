@@ -25,15 +25,15 @@ namespace Sleddog.Blink1
 
             var deviceInfos = ListBlink1Devices();
 
-            if (deviceInfos.Any())
+            if(deviceInfos.Any())
             {
-                foreach (var deviceInfo in deviceInfos)
+                foreach(var deviceInfo in deviceInfos)
                 {
                     var deviceData = IdentityDevice(deviceInfo);
 
-                    if (deviceData.Item1.Equals(serialToFind, StringComparison.InvariantCultureIgnoreCase))
+                    if(deviceData.Item1.Equals(serialToFind, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (deviceData.Item2 == DeviceType.Blink1)
+                        if(deviceData.Item2 == DeviceType.Blink1)
                         {
                             return new Blink1(new Blink1CommandBus(deviceInfo));
                         }
@@ -50,13 +50,13 @@ namespace Sleddog.Blink1
         {
             var devices = ListBlink1Devices();
 
-            if (devices.Any())
+            if(devices.Any())
             {
                 var deviceList = IdentifyDevices(devices).ToArray();
 
-                foreach (var device in deviceList)
+                foreach(var device in deviceList)
                 {
-                    if (device.Item1 == DeviceType.Blink1)
+                    if(device.Item1 == DeviceType.Blink1)
                     {
                         yield return new Blink1(new Blink1CommandBus(device.Item2));
                     }
@@ -94,7 +94,7 @@ namespace Sleddog.Blink1
         {
             var chars = (from o in deviceInfo.SerialNumber where o != 0 select o).ToArray();
 
-            var deviceType = DetermineDeviceType((byte)deviceInfo.SerialNumber[0]);
+            var deviceType = DetermineDeviceType((byte) deviceInfo.SerialNumber[0]);
 
             var serialNumber = $"0x{string.Join(string.Empty, chars)}";
 
@@ -110,9 +110,9 @@ namespace Sleddog.Blink1
 
         private static IEnumerable<Tuple<DeviceType, DeviceInfo>> IdentifyDevices(IEnumerable<DeviceInfo> deviceInfos)
         {
-            foreach (var deviceInfo in deviceInfos)
+            foreach(var deviceInfo in deviceInfos)
             {
-                var significantByte = (byte)deviceInfo.SerialNumber[0];
+                var significantByte = (byte) deviceInfo.SerialNumber[0];
 
                 var deviceType = DetermineDeviceType(significantByte);
 
@@ -122,9 +122,9 @@ namespace Sleddog.Blink1
 
         private static DeviceType DetermineDeviceType(byte b)
         {
-            if (deviceTypeMap.ContainsKey(b))
+            if(deviceTypeMap.TryGetValue(b, out var deviceType))
             {
-                return deviceTypeMap[b];
+                return deviceType;
             }
 
             /*
