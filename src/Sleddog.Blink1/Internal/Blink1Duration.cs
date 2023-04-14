@@ -74,7 +74,7 @@ namespace Sleddog.Blink1.Internal
 
             var blinkTime = Convert.ToUInt32((high << 8) | low);
 
-            return TimeSpan.FromMilliseconds(blinkTime*10);
+            return TimeSpan.FromMilliseconds(blinkTime*10d);
         }
 
         public static implicit operator Blink1Duration(TimeSpan duration)
