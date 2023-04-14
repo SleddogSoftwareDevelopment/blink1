@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
@@ -9,10 +10,12 @@ namespace Sleddog.Blink1.ExplicitTests
         private const string HighestSerialNumber = "0x20003710";
 
         private readonly IBlink1Mk2 blink1;
+        private readonly ITestOutputHelper output;
 
-        public Blink1Mk2Tests(Blink1Mk2Fixture fixture)
+        public Blink1Mk2Tests(Blink1Mk2Fixture fixture, ITestOutputHelper output)
         {
             blink1 = fixture.Device;
+            this.output = output;
         }
 
         [RequireBlink1Mk2Hardware]
@@ -36,6 +39,8 @@ namespace Sleddog.Blink1.ExplicitTests
         public void ReadSerialReadsValidSerialNumber()
         {
             var actual = blink1.SerialNumber;
+
+            output.WriteLine($"Found serial: {actual}");
 
             Assert.InRange(actual, LowestSerialNumber, HighestSerialNumber);
         }
