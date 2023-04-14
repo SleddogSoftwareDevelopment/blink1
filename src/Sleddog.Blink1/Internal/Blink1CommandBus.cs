@@ -21,7 +21,7 @@ namespace Sleddog.Blink1.Internal
 
         internal string ReadSerial()
         {
-            var chars = (from o in deviceInfo.SerialNumber where o != 0 select (char)o).ToArray();
+            var chars = (from o in deviceInfo.SerialNumber where o != 0 select o).ToArray();
 
             return $"0x{string.Join(string.Empty, chars)}";
         }

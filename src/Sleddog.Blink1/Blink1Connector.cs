@@ -92,7 +92,7 @@ namespace Sleddog.Blink1
 
         private static Tuple<string, DeviceType> IdentityDevice(DeviceInfo deviceInfo)
         {
-            var chars = (from o in deviceInfo.SerialNumber where o != 0 select (char)o).ToArray();
+            var chars = (from o in deviceInfo.SerialNumber where o != 0 select o).ToArray();
 
             var deviceType = DetermineDeviceType((byte)deviceInfo.SerialNumber[0]);
 
