@@ -25,14 +25,16 @@ jobs:
         dotnet-version: 6.0.x
     - name: Set VERSION variable from tag
       run: |
-        version=$(echo ${{ github.event.release.tag_name }} | cut -d- -f1 | cut -dv -f2)
-        echo "VERSION=${version}" >> $GITHUB_ENV
+        assemblyversion=$(echo ${{ github.event.release.tag_name }} | cut -d- -f1 | cut -dv -f2)
+        echo "ASSEMBLYVERSION=${assemblyversion}" >> $GITHUB_ENV
+        version=$(echo ${{ github.event.release.tag_name }} | cut -dv -f2)
+        echo "VERSION=${version}" >> $GITHUB_ENV        
     - name: Build
       working-directory: ./src
-      run: dotnet build /p:Version=${VERSION}
+      run: dotnet build /p:AssemblyVersion=${ASSEMBLYVERSION} /p:Version=${VERSION}
     - name: Test
       working-directory: ./src
-      run: dotnet test /p:Version=${VERSION} --no-build
+      run: dotnet test --no-build
     - name: Pack
       working-directory: ./src
       run: dotnet pack /p:Version=${VERSION} --no-build --output .
