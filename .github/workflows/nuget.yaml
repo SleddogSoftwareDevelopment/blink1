@@ -31,13 +31,13 @@ jobs:
         echo "VERSION=${version}" >> $GITHUB_ENV        
     - name: Build
       working-directory: ./src
-      run: dotnet build /p:AssemblyVersion=$env:ASSEMBLYVERSION /p:Version=$env:VERSION
+      run: dotnet build /p:AssemblyVersion=${ASSEMBLYVERSION} /p:Version=${VERSION}
     - name: Test
       working-directory: ./src
       run: dotnet test --no-build
     - name: Pack
       working-directory: ./src
-      run: dotnet pack /p:Version=$env:VERSION --no-build --output .
+      run: dotnet pack /p:Version=${VERSION} --no-build --output .
     - uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
