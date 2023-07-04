@@ -25,7 +25,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Set VERSION variable from tag
       run: |
-        version=$(echo ${{ github.event.release.tag_name }} | cut -d- -f1)
+        version=$(echo ${{ github.event.release.tag_name }} | cut -d- -f1 | cut -dv -f2)
         echo "VERSION=${version}" >> $GITHUB_ENV
     - name: Dump env
       run: env | sort
