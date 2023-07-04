@@ -27,20 +27,18 @@ jobs:
       run: |
         version=$(echo ${{ github.event.release.tag_name }} | cut -d- -f1 | cut -dv -f2)
         echo "VERSION=${version}" >> $GITHUB_ENV
-    - name: Dump env
-      run: env | sort
-    # - name: Build
-    #   working-directory: ./src
-    #   run: dotnet build /p:Version=${VERSION}
-    # - name: Test
-    #   working-directory: ./src
-    #   run: dotnet test /p:Version=${VERSION} --no-build
-    # - name: Pack
-    #   working-directory: ./src
-    #   run: dotnet pack /p:Version=${VERSION} --no-build --output .
-    # - uses: actions/upload-artifact@v3
-    #   if: success() || failure()
-    #   with:
-    #     name: nuget-artifact
-    #     path: '**/*.nupkg'
-    #     retention-days: 1
+    - name: Build
+      working-directory: ./src
+      run: dotnet build /p:Version=${VERSION}
+    - name: Test
+      working-directory: ./src
+      run: dotnet test /p:Version=${VERSION} --no-build
+    - name: Pack
+      working-directory: ./src
+      run: dotnet pack /p:Version=${VERSION} --no-build --output .
+    - uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: nuget-artifact
+        path: '**/*.nupkg'
+        retention-days: 1
