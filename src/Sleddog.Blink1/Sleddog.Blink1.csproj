@@ -4,7 +4,9 @@
     <OutputType>Library</OutputType>
     <RestorePackages>true</RestorePackages>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RepositoryUrl>https://github.com/SleddogSoftwareDevelopment/blink1</RepositoryUrl>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="HidApi.Net" Version="0.4.0" />
     <PackageReference Include="System.Reactive" Version="6.0.0" />
