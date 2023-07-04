@@ -12,11 +12,13 @@ jobs:
       BUILD_CONFIG: 'Release'
 
     steps:
+    - name: Dump env
+      run: env | sort
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
     - uses: actions/checkout@v3
-    - name: Verify commit exists in origin/main
-      run: |
-        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-        git branch --remote --contains | grep origin/main
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -32,3 +34,9 @@ jobs:
     - name: Pack
       working-directory: ./src
       run: dotnet pack /p:Version=${VERSION} --no-build --output .
+    - uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: nuget-artifact
+        path: '**/*.nupkg'
+        retention-days: 1
