@@ -12,28 +12,26 @@ jobs:
       BUILD_CONFIG: 'Release'
 
     steps:
-    - name: Dump env
-      run: env | sort
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
+    # - name: Dump env
+    #   run: env | sort
+    # - name: Dump GitHub context
+    #   env:
+    #     GITHUB_CONTEXT: ${{ toJson(github) }}
+    #   run: echo "$GITHUB_CONTEXT"
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Build
       working-directory: ./src
-      run: dotnet build /p:Version=${VERSION}
+      run: dotnet build /p:Version=${{ github.event.release.tag_name }}
     - name: Test
       working-directory: ./src
-      run: dotnet test /p:Version=${VERSION} --no-build
+      run: dotnet test /p:Version=${{ github.event.release.tag_name }} --no-build
     - name: Pack
       working-directory: ./src
-      run: dotnet pack /p:Version=${VERSION} --no-build --output .
+      run: dotnet pack /p:Version=${{ github.event.release.tag_name }} --no-build --output .
     - uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
