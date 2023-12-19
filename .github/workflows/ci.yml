@@ -28,7 +28,7 @@ jobs:
     - name: Test
       working-directory: ./src
       run: dotnet test --no-restore --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
         name: test-results
