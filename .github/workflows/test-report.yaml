@@ -8,9 +8,16 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-    - uses: dorny/test-reporter@v1
+    - name: Download test report file
+      uses: actions/download-artifact@v4
       with:
-        artifact: test-results
+        github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        pattern: test-results*
+        run-id: ${{ github.event.workflow_run.id }}
+    - name: Generate test report
+      uses: dorny/test-reporter@v1
+      with:
+        #artifact: test-results
         name: dotNET Tests
         path: '**/*.trx'
         reporter: dotnet-trx
