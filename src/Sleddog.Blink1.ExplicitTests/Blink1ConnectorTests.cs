@@ -3,7 +3,6 @@ using Xunit.Abstractions;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    [Trait("Explicit", "True")]
     public class Blink1ConnectorTests
     {
         private readonly ITestOutputHelper output;

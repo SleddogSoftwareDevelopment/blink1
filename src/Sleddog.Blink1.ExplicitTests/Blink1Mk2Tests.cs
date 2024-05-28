@@ -4,7 +4,6 @@ using Xunit.Abstractions;
 
 namespace Sleddog.Blink1.ExplicitTests
 {
-    [Trait("Explicit", "True")]
    public class Blink1Mk2Tests : IClassFixture<Blink1Mk2Fixture>
     {
         private const string LowestSerialNumber = "0x20001000";

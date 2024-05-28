@@ -27,7 +27,7 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       working-directory: ./src
-      run: dotnet test  --no-build --filter Explicit\!=True --verbosity normal --logger "trx;LogFileName=test-results.trx"
+      run: dotnet test  --no-build --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx"
     - uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
