@@ -19,15 +19,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-#    - name: Restore dependencies
-#      working-directory: ./src
-#      run: dotnet restore
+    - name: Restore dependencies
+      working-directory: ./src
+      run: dotnet restore
     - name: Build
       working-directory: ./src
-      run: dotnet build
+      run: dotnet build --no-restore
     - name: Test
       working-directory: ./src
-      run: dotnet test --no-restore --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+      run: dotnet test --no-restore --no-build --filter Explicit\!=True --verbosity normal --logger "trx;LogFileName=test-results.trx"
     - uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
