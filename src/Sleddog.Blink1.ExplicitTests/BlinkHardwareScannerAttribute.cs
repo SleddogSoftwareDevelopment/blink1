@@ -12,14 +12,7 @@ namespace Sleddog.Blink1.ExplicitTests
 
         protected BlinkHardwareScannerAttribute()
         {
-            try
-            {
             devices = Hid.Enumerate(VendorId, ProductId);
-            }
-            catch
-            {
-                Skip = "Failed to load HidApi";
-            }
         }
     }
 }
