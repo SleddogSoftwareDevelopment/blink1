@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HidApi.Net" Version="1.0.3" />
+    <PackageReference Include="HidApi.Net" Version="1.0.4" />
     <PackageReference Include="System.Reactive" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
