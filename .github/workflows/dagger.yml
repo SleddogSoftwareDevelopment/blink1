@@ -13,7 +13,7 @@ jobs:
         uses: dagger/dagger-for-github@v6
         with:
           version: "latest"
-          verb: call
+          verb: run
           # modify to use different function(s) as needed
           #module: github.com/shykes/daggerverse/hello@v0.1.2
           args: build
