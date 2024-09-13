@@ -1,6 +1,0 @@
-{
-  "name": "blink1",
-  "sdk": "go",
-  "source": "src",
-  "engineVersion": "v0.12.7"
-}
