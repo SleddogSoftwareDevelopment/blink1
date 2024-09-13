@@ -3,18 +3,20 @@ on:
   push:
     branches: [daggerize]
 
+env:
+  NOTHANKS: 1
+
 jobs:
-  hello:
+  build:
     name: dagger-build
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Call Dagger Function
+      - name: Call Dagger Function
         uses: dagger/dagger-for-github@v6
         with:
           version: "latest"
           verb: call
           # modify to use different function(s) as needed
           #module: github.com/shykes/daggerverse/hello@v0.1.2
-          module: /
+          module: /src
           args: build
