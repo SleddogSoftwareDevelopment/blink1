@@ -9,8 +9,8 @@ on:
   pull_request:
     branches: [ "master" ]
 
-env:
-  NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+#env:
+#  NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
 jobs:
   build:
@@ -22,10 +22,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        cache: true
+        #cache: true
     - name: Restore dependencies
-      #working-directory: ./src
-      run: dotnet restore --locked-mode ./src
+      working-directory: ./src
+      run: dotnet restore
     - name: Build
       working-directory: ./src
       run: dotnet build --no-restore
