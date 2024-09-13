@@ -1,0 +1,6 @@
+{
+  "name": "blink1",
+  "sdk": "go",
+  "source": "dagger",
+  "engineVersion": "v0.13.0"
+}
