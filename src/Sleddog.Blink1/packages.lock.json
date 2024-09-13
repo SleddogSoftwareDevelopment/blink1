@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0": {
+      "HidApi.Net": {
+        "type": "Direct",
+        "requested": "[1.1.0, )",
+        "resolved": "1.1.0",
+        "contentHash": "PrIvZYB8zPWahCPNiapJ9r2e1GC8wPgjlX8W2H+39wSDuDzKG3t5cMzM0SrupT4Cws4x95C8PkAzRdEoglMo0Q==",
+        "dependencies": {
+          "WCharT.Net": "0.1.2"
+        }
+      },
+      "System.Reactive": {
+        "type": "Direct",
+        "requested": "[6.0.1, )",
+        "resolved": "6.0.1",
+        "contentHash": "rHaWtKDwCi9qJ3ObKo8LHPMuuwv33YbmQi7TcUK1C264V3MFnOr5Im7QgCTdLniztP3GJyeiSg5x8NqYJFqRmg=="
+      },
+      "WCharT.Net": {
+        "type": "Transitive",
+        "resolved": "0.1.2",
+        "contentHash": "WAGMmSxbejfwy2Po750WzyCgE5+o8B//2oUbLgfgOiWRU3U3uwd1f3OG//oyjfln4NLEuLVUp80vqiv+R5JD+w=="
+      }
+    }
+  }
+}
