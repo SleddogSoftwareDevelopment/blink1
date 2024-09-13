@@ -24,8 +24,8 @@ jobs:
         dotnet-version: 8.0.x
         cache: true
     - name: Restore dependencies
-      working-directory: ./src
-      run: dotnet restore --locked-mode
+      #working-directory: ./src
+      run: dotnet restore --locked-mode ./src
     - name: Build
       working-directory: ./src
       run: dotnet build --no-restore
