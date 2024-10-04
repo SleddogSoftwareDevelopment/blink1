@@ -23,6 +23,7 @@ type Blink1 struct{}
 
 func (m *Blink1) Build(ctx context.Context, source *dagger.Directory) (string, error) {
 	return m.BuildEnv(source).
+		WithWorkdir("/src").
 		WithExec([]string{"dotnet", "build", "--no-restore"}).
 		Stdout(ctx)
 }
