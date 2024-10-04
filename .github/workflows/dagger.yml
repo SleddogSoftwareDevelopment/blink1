@@ -18,5 +18,5 @@ jobs:
           verb: call
           # modify to use different function(s) as needed
           #module: github.com/shykes/daggerverse/hello@v0.1.2
-          #module: ./
+          module: github.com/SleddogSoftwareDevelopment/blink1/tree/daggerize/dagger
           args: build --source=./src
