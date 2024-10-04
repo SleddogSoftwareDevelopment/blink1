@@ -16,4 +16,4 @@ jobs:
         with:
           version: "latest"
           verb: call
-          args: build --source=./src
+          args: build --source=./src --debug
