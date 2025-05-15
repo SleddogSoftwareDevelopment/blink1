@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net8.0": {
+    "net9.0": {
       "AutoFixture.Xunit2": {
         "type": "Direct",
         "requested": "[4.18.1, )",
