@@ -25,16 +25,16 @@
       },
       "xunit.runner.visualstudio": {
         "type": "Direct",
-        "requested": "[3.1.2, )",
-        "resolved": "3.1.2",
-        "contentHash": "0W1J4AFaswO3ycVWiN8ApgJFMXLJ7OuR9XmDeoWmjPF1pwMz0I8UnyIiwXcytyBYKjXD3M2cXbLmCTLToUg3TA=="
+        "requested": "[3.1.3, )",
+        "resolved": "3.1.3",
+        "contentHash": "go7e81n/UI3LeNqoJIJ3thkS4JfJtiQnDbAxLh09JkJqoHthnfbLS5p68s4/Bm12B9umkoYSB5SaDr68hZNleg=="
       },
       "HidApi.Net": {
         "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "PrIvZYB8zPWahCPNiapJ9r2e1GC8wPgjlX8W2H+39wSDuDzKG3t5cMzM0SrupT4Cws4x95C8PkAzRdEoglMo0Q==",
+        "resolved": "1.2.0",
+        "contentHash": "BDrwi7fOMpCrxxmPxSjA0KUZCSjou8zI3joit1p7FbSqGvxUaGhg9fweIzl8zla4by8cNEGfYw8ZH6+4wohk9g==",
         "dependencies": {
-          "WCharT.Net": "0.1.2"
+          "WCharT.Net": "0.1.3"
         }
       },
       "Microsoft.CodeCoverage": {
@@ -84,8 +84,8 @@
       },
       "WCharT.Net": {
         "type": "Transitive",
-        "resolved": "0.1.2",
-        "contentHash": "WAGMmSxbejfwy2Po750WzyCgE5+o8B//2oUbLgfgOiWRU3U3uwd1f3OG//oyjfln4NLEuLVUp80vqiv+R5JD+w=="
+        "resolved": "0.1.3",
+        "contentHash": "9DGQoRSxZ6evYHOFYmy67Ph9dRXAIpUQS5iepOtovIR9qUGEDN6Kx48iruS3o0HF0wAHjMfDFjbBscoVcvK5Cw=="
       },
       "xunit.abstractions": {
         "type": "Transitive",
@@ -130,7 +130,7 @@
       "sleddog.blink1": {
         "type": "Project",
         "dependencies": {
-          "HidApi.Net": "[1.1.0, )",
+          "HidApi.Net": "[1.2.0, )",
           "System.Reactive": "[6.0.1, )"
         }
       }
