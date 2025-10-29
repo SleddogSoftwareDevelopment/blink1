@@ -71,8 +71,8 @@
       },
       "System.Reactive": {
         "type": "Transitive",
-        "resolved": "6.0.2",
-        "contentHash": "jEK6E66wojW/dPPnLyOHuAQwa7WKvXwPd5vXcMNNi1igvFyzHQVRNlpmnBb3I1URBsK5PGJcJYRykERZJr0l4g=="
+        "resolved": "6.1.0",
+        "contentHash": "M5cCC1ZMkZr9jbSQGTHnVkb5TDN67qWCV7AP8TAHdGkvDlu0puT5NzemESNn9+HkYIDpWpocP68/i+/ame2/2w=="
       },
       "System.Reflection.Metadata": {
         "type": "Transitive",
@@ -131,7 +131,7 @@
         "type": "Project",
         "dependencies": {
           "HidApi.Net": "[1.2.0, )",
-          "System.Reactive": "[6.0.2, )"
+          "System.Reactive": "[6.1.0, )"
         }
       }
     }
