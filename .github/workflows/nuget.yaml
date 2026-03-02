@@ -38,7 +38,7 @@ jobs:
     - name: Pack
       working-directory: ./src
       run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       if: success() || failure()
       with:
         name: nuget-artifact
