@@ -37,7 +37,7 @@ jobs:
       working-directory: ./src
       run: dotnet test  --no-build --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx" Sleddog.Blink1.Tests
     
-    - uses: actions/upload-artifact@v6
+    - uses: actions/upload-artifact@v7
       if: success() || failure()
       with:
         name: test-results
